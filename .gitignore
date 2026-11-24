@@ -1,0 +1,16 @@
+/build/
+/research/
+/.lwjgl/
+/.idea/
+/.vscode/
+__pycache__/
+*.pyc
+*.class
+*.log
+*.zip
+.env
+.env.*
+*.pem
+*.key
+Thumbs.db
+.DS_Store

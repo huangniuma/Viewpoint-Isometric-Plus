@@ -1,0 +1,947 @@
+{
+  "version": "0.2.32",
+  "workshopId": "3842962628",
+  "modId": "VPIsometricLighting",
+  "files": [
+    {
+      "path": "src/vpiso/ClientSession.java",
+      "sha256": "5b509124ba71694cb063cee5d109fa8c2a4fc84a6337499d826e6a6c94a53350"
+    },
+    {
+      "path": "src/vpiso/GameAccess.java",
+      "sha256": "f10495d7597864772aed5af3e313b53b4e5c1b28b1504787d74ab51a67865b6f"
+    },
+    {
+      "path": "src/vpiso/IsoCameraMath.java",
+      "sha256": "e7181e9ea6de4e2e729f23521332b3e3d8dd3bf61cdba70a305adb146109e220"
+    },
+    {
+      "path": "src/vpiso/IsoDrawer.java",
+      "sha256": "5c4a5dd814c78dd92a8b212eef025538626f92f253270b7e5ab117866291f8e5"
+    },
+    {
+      "path": "src/vpiso/IsometricBridge.java",
+      "sha256": "ecc852b8f3d63e675ac343b4ba75f6e93fd3ccc2f58242c3bb5a13a4f5849db8"
+    },
+    {
+      "path": "src/vpiso/IsometricControls.java",
+      "sha256": "9f6c3978cb9c8f236b72584a635483269f2eea0c04ea65e45ae68166f9252bbe"
+    },
+    {
+      "path": "src/vpiso/IsometricEffects.java",
+      "sha256": "146553c2fff1ee6ab95e385d0e64bf72241e5ac3d745c03310d8fe48a7059df8"
+    },
+    {
+      "path": "src/vpiso/IsometricFrameGeneration.java",
+      "sha256": "9accf632954dcf570694fd21a2dc6853a5f6fadf8189b8c9bcad454eb47007a2"
+    },
+    {
+      "path": "src/vpiso/IsometricSettingsPage.java",
+      "sha256": "cca3633744912a90f64c34639b2d88f3e6d26ab38e4b8f28ee754470bd25e184"
+    },
+    {
+      "path": "src/vpiso/IsometricShaders.java",
+      "sha256": "e4a4defe0fc50256cbe688674253e6e2da9ff3303e677ab31cd0e461c45f6635"
+    },
+    {
+      "path": "src/vpiso/IsometricText.java",
+      "sha256": "19218e52df37b8f0624830d786da37042c6b1cda97adc65a795f701aee3f747b"
+    },
+    {
+      "path": "src/vpiso/IsometricVisibility.java",
+      "sha256": "0828f782f5c0a8d3dc64df0360c4b3b5196d4b0a3ea77814b6aeacd57d629f77"
+    },
+    {
+      "path": "src/vpiso/LightweightShadows.java",
+      "sha256": "b7491a6c7b27656e7ad3246071eed942d0b3c52032bd2c020e0b54753a3dbbc3"
+    },
+    {
+      "path": "src/vpiso/Main.java",
+      "sha256": "0f156030aeac87e3c41b374abc7babd90c126294385ef3bf30b9102452806bc9"
+    },
+    {
+      "path": "src/vpiso/ManagedAddon.java",
+      "sha256": "f513d76ea75506c82fcd5029b6659b7e7e9ab57b7ed02bfaf49657f12165850e"
+    },
+    {
+      "path": "src/vpiso/ModelSolarGeometry.java",
+      "sha256": "a8544fcafdaf3b9302f37e5a80c0d309caa81320af14b1229f00f92adcc7f828"
+    },
+    {
+      "path": "src/vpiso/NativeContainerHighlight.java",
+      "sha256": "c710e9537e6fcfff30c52e1afc0086776987df5e3b21a422427724f6ed4fc5ec"
+    },
+    {
+      "path": "src/vpiso/NativeCursorInput.java",
+      "sha256": "6f57ad45556879e9ca5880269707a2de3ed1dbf3fbf1f5935512d6eb50d04378"
+    },
+    {
+      "path": "src/vpiso/NativeCursorPreview.java",
+      "sha256": "f0de6f682985334357dbd540729f9e0dafe49de469fe2064d9ca3425825d7b1b"
+    },
+    {
+      "path": "src/vpiso/NativeFrameMotion.java",
+      "sha256": "2adc4baab6f6a719e614fd66a1121db53b4d6d530a062dd4585ebf057db45102"
+    },
+    {
+      "path": "src/vpiso/NativeGrassOverlay.java",
+      "sha256": "3af1c9310982edae30aaf7fbf6affc9363e81ba4958d260c31875183c7ba7757"
+    },
+    {
+      "path": "src/vpiso/NativeGround.java",
+      "sha256": "8d049bd88508e1e17ce058e500d7c5e4f0dd22ae3ad1139830f5949da8649774"
+    },
+    {
+      "path": "src/vpiso/NativeGroundShaders.java",
+      "sha256": "bd06c8061e7965eebd0109116077b54c46ff150bd9e04132da97055dd591d25a"
+    },
+    {
+      "path": "src/vpiso/NativeHandView.java",
+      "sha256": "277f6695045cda2ec14a72a74e8642ceaf6f883f59d109c8eb43fa1d0ec19f4d"
+    },
+    {
+      "path": "src/vpiso/NativeIsoState.java",
+      "sha256": "64be756de14119a22b9212984b3367dde8ddc950944f3798f70ec966de540f0b"
+    },
+    {
+      "path": "src/vpiso/NativeLampShadows.java",
+      "sha256": "523bfb93782ad07de2b58490473494cc11a6a0ec7d9a1f617b802e61e709bc72"
+    },
+    {
+      "path": "src/vpiso/NativeLighting.java",
+      "sha256": "f5d6bbd27f601a882fef4f3ac252a03ff85c09de84cba69e2dcd8af557c82e0f"
+    },
+    {
+      "path": "src/vpiso/NativeObjectClick.java",
+      "sha256": "bc884d868df94456b8aaabd44995cc18b5c3738e94dd6e1c843ecb976d29a1b0"
+    },
+    {
+      "path": "src/vpiso/NativeObjectShaders.java",
+      "sha256": "2df356fbcc4d1cfb163a00778512896f843dc698048e6bb7dec3023595e9a7f6"
+    },
+    {
+      "path": "src/vpiso/NativeObjectState.java",
+      "sha256": "2e99479cb053ad9f7183bd0c6cbe8d900ed195683503a70f756152322f912468"
+    },
+    {
+      "path": "src/vpiso/NativeOverlay.java",
+      "sha256": "aa4c0d4b6dae33a7acc92ef41962cfa27a8ff5200ffe3e20f3f3b0a4850ea5e6"
+    },
+    {
+      "path": "src/vpiso/NativeOverlayDrawer.java",
+      "sha256": "f8d7ba2821a662b623bd23b13acbc8b0379ecf1c21191489783f147723a50815"
+    },
+    {
+      "path": "src/vpiso/NativeOwnerMetadata.java",
+      "sha256": "469b793f1ec9577fe38a6ffd0f6e6e3e61acd58dcdb69bbe8e70cba1323a6d03"
+    },
+    {
+      "path": "src/vpiso/NativePictureSource.java",
+      "sha256": "af16f68cb79c6cd656ad851ad2e5a98f3e1f1c0bab4c89b2367a709c70e21c4b"
+    },
+    {
+      "path": "src/vpiso/NativePlacement.java",
+      "sha256": "302202e711ce3794e0b7427294c20977e31942bc86505240d59c7517408d3c3f"
+    },
+    {
+      "path": "src/vpiso/NativeReceiver.java",
+      "sha256": "3ec45b4781a533c54ed64ba7bdc9cc0372838fecdb73fb0004c66cd7d4dee707"
+    },
+    {
+      "path": "src/vpiso/NativeReceiverCull.java",
+      "sha256": "5dfc76085e63afef155f9f2e252ad6d29961caf20183e0b8a8b17f68727e010f"
+    },
+    {
+      "path": "src/vpiso/NativeRelightMask.java",
+      "sha256": "2cad83631c6f3413b5177c23fe459259e86832703383c93c8ce1de410f0e7356"
+    },
+    {
+      "path": "src/vpiso/NativeShadowMaps.java",
+      "sha256": "6971330a95fad6d8af9a964d3399042230da89ee0eb7c624eb16db90c80314b3"
+    },
+    {
+      "path": "src/vpiso/NativeShadowMasks.java",
+      "sha256": "44b32e5e562d218d930f9599e17ef2504a95887b2c92b3e074c3c445736cfabe"
+    },
+    {
+      "path": "src/vpiso/NativeSnowMaterial.java",
+      "sha256": "216ceba0c1035a81de957cb980ddaa4a286d99f3ab33fa24554f4fb151f66b35"
+    },
+    {
+      "path": "src/vpiso/NativeSnowOverlay.java",
+      "sha256": "44fee0947cea9d26271b9ed219db38d0881e43000e0b6918b24915972d4423f6"
+    },
+    {
+      "path": "src/vpiso/NativeSource.java",
+      "sha256": "45420aabfe44ed9db860adc926faf4e723685b136fd7543e024efed6a3f06ada"
+    },
+    {
+      "path": "src/vpiso/NativeSourceSurface.java",
+      "sha256": "554d704ccd8f822b11d8cd50b47d3bb90b7a6938a02b4d00ed8da5ae30c1dc03"
+    },
+    {
+      "path": "src/vpiso/NativeSpotShadows.java",
+      "sha256": "0d5f83dfe46636d57aea30243c9f4a25a8ce75d50f3396fa14539dc2ba8aa00e"
+    },
+    {
+      "path": "src/vpiso/NativeSpriteShadows.java",
+      "sha256": "c24f92346ba73b4430f6029d57dd97f665eb5bfac01d29d4662c64ba9c2f7eb5"
+    },
+    {
+      "path": "src/vpiso/NativeStyle.java",
+      "sha256": "198420ff4cb1e5d6011417d0ae40af0ebef54bd60e73b307c56762f44a8496d1"
+    },
+    {
+      "path": "src/vpiso/NativeSurfaces.java",
+      "sha256": "2dc2a064677b23d4df5d024f91d8fedbaef1f8d02fc454af3768c6592aafac06"
+    },
+    {
+      "path": "src/vpiso/NativeTreeCutaway.java",
+      "sha256": "8c0a827914c109b6a03e7c4573706637b9be227cecd75ede1975bef8dbd8c59e"
+    },
+    {
+      "path": "src/vpiso/NativeTreeLighting.java",
+      "sha256": "71beb294b92dbb8ad1da2179be8280062f2db62f86304597399abcabf4475da6"
+    },
+    {
+      "path": "src/vpiso/NativeTrees.java",
+      "sha256": "bdfe40e59b2cabd3bc81272b11978aaf38af7f588efdac5906c40ce9092cb3c1"
+    },
+    {
+      "path": "src/vpiso/NativeTreeSort.java",
+      "sha256": "318f6ff55c481942dc4079b9e6319843c3df3f321ce8be9735074da7df1ee5f3"
+    },
+    {
+      "path": "src/vpiso/NativeTreeSources.java",
+      "sha256": "413f6993ad9aa515b67dc5e71f3b02f5255421c8b37e96e24517fa07aba3a568"
+    },
+    {
+      "path": "src/vpiso/NativeVehicleHints.java",
+      "sha256": "38496b0c9f71427198fb0e5ce8821ad5e724e8c39f3bf1e459e21aa2f0dce14f"
+    },
+    {
+      "path": "src/vpiso/NativeViewData.java",
+      "sha256": "10429bfac30dc43b9f0524d141a10102bf367c1a5645c6d61dbc1e833c5a342a"
+    },
+    {
+      "path": "src/vpiso/NativeVision.java",
+      "sha256": "47fd336f97b90bf460d20a61386ea9f96185c18d0e8dacc6ca7a1fcab0c0bf3e"
+    },
+    {
+      "path": "src/vpiso/NativeVPWaterOverlay.java",
+      "sha256": "c533428f51ccd2375e6a93afb48b94cf6b975fd4920cd6b8f1d35b65e0acca19"
+    },
+    {
+      "path": "src/vpiso/NativeWallCaps.java",
+      "sha256": "d8e2670cfeb434bd253efaea794aa8c2dc1bbf80dbcc11d2292f840c8bc9640d"
+    },
+    {
+      "path": "src/vpiso/NativeWallCutaway.java",
+      "sha256": "91e7f017c9de65e928e4c6c522af16bfb222f46281af61fdffd640a340f69eb2"
+    },
+    {
+      "path": "src/vpiso/NativeWater.java",
+      "sha256": "fbaaa4e57bd475966d3dd887474323568ce710a68fe08e84c92c1c5f22be8548"
+    },
+    {
+      "path": "src/vpiso/NativeWaterShader.java",
+      "sha256": "e99165a28ebb9bf0cfc88019fe82b9957c862186e102f65b1e3e5d248157e102"
+    },
+    {
+      "path": "src/vpiso/NativeWeather.java",
+      "sha256": "53c07e633104e7d9ac3f2a7a3a8839c77368add9f191168b75c8401a183d3fbd"
+    },
+    {
+      "path": "src/vpiso/Patch_AddonDescription.java",
+      "sha256": "a8567b9e54a86e5efdce07105c0ca4a07aa9afdf3b529e0735de721d4edaa26b"
+    },
+    {
+      "path": "src/vpiso/Patch_AddonName.java",
+      "sha256": "516ccedd7ed0dfb33524d637e60adabfe9dc359ba4c4c18446e1e81ab8a3550c"
+    },
+    {
+      "path": "src/vpiso/Patch_CameraUniform.java",
+      "sha256": "4d0197e00a1e3cbc270ae59a78ff3194ee95d25d83cf53375322f181f403c3a3"
+    },
+    {
+      "path": "src/vpiso/Patch_CharacterFade.java",
+      "sha256": "c8019ea8cd0b8a9d825bcf2017f7b09f492d0d1b6dd4b68710caacbcda686f15"
+    },
+    {
+      "path": "src/vpiso/Patch_CharactersBehind.java",
+      "sha256": "b96396225d9800c749f1f2483c35362242b2d30c2632b22d6fb3f87ae43883ae"
+    },
+    {
+      "path": "src/vpiso/Patch_CharacterVisibility.java",
+      "sha256": "660c7630acdced1b7738b5a087ba194d2d2cc7b2fa57deb0679302e7803c07ab"
+    },
+    {
+      "path": "src/vpiso/Patch_ChineseFonts.java",
+      "sha256": "8b64e89b06d4acf665aaa4ddb76d1d01770129765521f2312c634e10da8a07c8"
+    },
+    {
+      "path": "src/vpiso/Patch_ChunkCone.java",
+      "sha256": "93a8923c440cd4e49b077d8bcdcc524bffcb33859f39006ed95f98f6e7ce5512"
+    },
+    {
+      "path": "src/vpiso/Patch_ClientSessionLoaded.java",
+      "sha256": "282dfd4290c2eb5488518e7096beeda191aea1fe9317107290c4782b1559818d"
+    },
+    {
+      "path": "src/vpiso/Patch_FarWorld.java",
+      "sha256": "2a1fbef05deb46ab5c60c879137516b9d0d3fe13f1a936923c4737271679d3bb"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationCapture.java",
+      "sha256": "331c7ad951c26b1affb4ffc1a1b46aa2a7a2a3d1ed126a6b695330747095dea6"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationHudless.java",
+      "sha256": "1929e379682a9017397068188edc12ec8c1ef03f57b80231c609d26424bc43a3"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationNeeds.java",
+      "sha256": "9c7d9800bfad27a4f210118a07bb33b2d9dee4f70ed58a44159897fd5f90cd82"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationOption.java",
+      "sha256": "b0efaea816ef0e772f99dc54171ae578790b0d798a729736293c34ec7cd11427"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationRate.java",
+      "sha256": "1cfab3040c70d5da8a014a0953e61bce1663bf8ab62c7d630b5e63e543bb0db2"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameGenerationUncapped.java",
+      "sha256": "0ca2b63c14ca95b2c602e89c81f1bb9b1529a163affe645d86f24d8e677ae06a"
+    },
+    {
+      "path": "src/vpiso/Patch_GraphicsPackList.java",
+      "sha256": "6b0824237c6b55daba9e491373cd406859fec7473d0cacc29441b852fd3df09b"
+    },
+    {
+      "path": "src/vpiso/Patch_GrassEye.java",
+      "sha256": "3dc447e9184df242ee7558842d45f26279031df4f616850c773779b1284f5fa0"
+    },
+    {
+      "path": "src/vpiso/Patch_GrassView.java",
+      "sha256": "434314522c04ffcb378f0af199c8434f8943cbd10d8c04ca1d70cf60158357db"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricGrass.java",
+      "sha256": "af2c50d388052af4e41a51cd2c37f08cd7154c66501d018cda189571c5fe7ff5"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricOptions.java",
+      "sha256": "64cc50f6edfced53a4453bfcf234c3eb64a5c68ec0f8c634aa2f0c9d08573537"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricPageBody.java",
+      "sha256": "0d194e9e1274cfc7b666b399b588bf9bc9b7afb84e96f084aa4aa38abfb90619"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricPageHeader.java",
+      "sha256": "ba15d9818bec6a036e0584170fcaf75a48a6db0c1081fa675388c48a82c6cd17"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricPages.java",
+      "sha256": "55ddabe0d02a595e0f4f22347c0e04486ebb7a895a96be0569e57f814cb33762"
+    },
+    {
+      "path": "src/vpiso/Patch_IsometricSettings.java",
+      "sha256": "3f33a975f80fb3c548694860ce73c84573e7e5700db96e3a378fd4da239fbb97"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightCook.java",
+      "sha256": "d3a7ad0c562b6e76470b5fc9310c4b6e708402992fb77ccdd8efdc87a701fe47"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightMeshes.java",
+      "sha256": "8572847ab2295e94e39f2bf1ed8289b34780eeb1dfc0b62e9254e52d521c2e39"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightOperation.java",
+      "sha256": "e1608ca8f260c7f3af14669d8373e16b2c9d3b1b592fe5bdc194742d952a25aa"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightPackCache.java",
+      "sha256": "61da24c6cc5c0456da13102fb3609c62acfbe907f142cd29fd8b0060b3d6ceed"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightPacked.java",
+      "sha256": "da34f4e8bd2d668a21670486e9962c79d302c0752a3ed7976b1407f2937328a0"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightPage.java",
+      "sha256": "bf11d3335de2a412529f5b23a6a0e5a24e47c4dc2ada1f79a76641569dd2b605"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightPlants.java",
+      "sha256": "4b2fbe8130327df697c1375a0f53341b6f0f700cd5fb7f7fa50fa8c7b33dc2ae"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightRange.java",
+      "sha256": "00c83e346bc0091a2c3207b9774ed56f45e124f8bba8c5a022590fbdc8f3a90c"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightRigid.java",
+      "sha256": "c6e3a6914d501b32e4b7f658255e16a218307cf8fbfad8a7c25cc247e80e078f"
+    },
+    {
+      "path": "src/vpiso/Patch_LightweightSource.java",
+      "sha256": "7fccb8bbee3932fb977c9b52277d126d0b176d4faa50ac242f831699f3a60279"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelCutaways.java",
+      "sha256": "3c361ba2e8db810fca848ff0e05288e4b474da5f40f3497417037105c894297e"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelShadowPlans.java",
+      "sha256": "662a33e8687ae0ced1be81cb0dcc9899b66da99f2f72dfff93f1fef8887f9164"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelShadows.java",
+      "sha256": "bbb9223521182446a0f7e9ebbdd28ac7ad3f38666f744a5d3da57a1586bc4866"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelSolarBucket.java",
+      "sha256": "e43cd075b2b6e75d9b2513f4a3e06593d5e4a3d68b7387562f3a255be3757bb6"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelVisionMemory.java",
+      "sha256": "98e7d92fd0178b80fa82a962e1efac203bacc9faf4190163afb0caeeb791776f"
+    },
+    {
+      "path": "src/vpiso/Patch_ModelWater.java",
+      "sha256": "aa053ff3cbca78924283fba33945c7ce3dfa660a45e108ba9d985e96d882ce0e"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeContainerMask.java",
+      "sha256": "836ec996ddf60a4b6e1b65ee6c48b769bfda0aca6d9273a4b72536e071321fc6"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeContainerSelection.java",
+      "sha256": "f92e2f07cb7e0a91d5d1e8b4088cc622fe4a3ac45c8da20a61c16e672433c6fa"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeCursorCapture.java",
+      "sha256": "d32708a67901dfbbcfa3d9825923ded7a37a2b345fb48422224a557f561da6f3"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeCursorDriver.java",
+      "sha256": "90ab64628488496f3fef1a2bb0cf17580438e9fafb4988399b1e1e389c8d6868"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeCursorInput.java",
+      "sha256": "38067e728e74faf5ab4ccfdff73866158d033d4f94a7c13859ff1d8a4b62b5af"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeCursorOwner.java",
+      "sha256": "a9ecb3e8b1b53baa074f900cc853d7b5777aaafb2697ffdc8d96e2f56bc6fae6"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeCursorRelease.java",
+      "sha256": "79cae5b48e05cb5e282928f3df38fe7482b3606becad99a4969c7b8ae4636b15"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeFixedShadowBlobs.java",
+      "sha256": "c39018157f4ab42b9a7abdc0d0e92aba3b5e9482d9f27b4782985869a4e53944"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundChunk.java",
+      "sha256": "e361d58f50031d05a7bfcdf4f1540f29e6b0bf45bcf2b8e619d527a3cc3572d8"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundChunkEnd.java",
+      "sha256": "e018c85bd633735ead633678f0bf413965e2fc36ce97d1a7e26858ce77ad4328"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundComposite.java",
+      "sha256": "2396627bc14c3210e21143051fdebb601d40a19e8fd5a986c337ca4affa5bd61"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundDestroy.java",
+      "sha256": "e4ff5c67b376ab04495da1c9b9a8ed0a9825c2ce6434746cb4a75f4d4da4947c"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundDestroyKeep.java",
+      "sha256": "7147c4df51b5267fda8ac5862e4949618d27cdec638d5e8e2e391e131c81bf6c"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundDraw.java",
+      "sha256": "45f5751007b3011765b53c1a266026bdb00e2c178d855a40257a06e4138b7b9b"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundFloor.java",
+      "sha256": "8699516f8ffec0abeb084efed568bb6fa088db502a6ddb22682e753b18550c36"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundProgram.java",
+      "sha256": "0e0f58ab17127c77475ceeec94cd2a71b3132951f23bfd227d4caeb354a28880"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundPZO.java",
+      "sha256": "1c3e5f9705c80ebb4395b02bdf844b31a07a7bc5d18412ef08ac1eb10d513922"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundPZOProgram.java",
+      "sha256": "ed65c2c261c6f1d999a02a17e2cd9b6cb20d6ee3eb5c2d2dc3a42d463d25a639"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundPZOTrees.java",
+      "sha256": "d2e7593fb843c7528838a67ece5b1ed91d8314c7d4da423934d94ec2d06292f6"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundSnow.java",
+      "sha256": "4a16d0a29c2f5efae01dc175c270ebfd4e7d99da24c7ce70e81d50f02e16cb1d"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundSource.java",
+      "sha256": "63a8b1d2021a25c0b3a63ead800890abd4375de918571e56d377bacd2f61990c"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundVBODraw.java",
+      "sha256": "904167f372b8c28661780a03d5167e9e5844ebdbbce2a9a6feca0fcfb4d96203"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundWall.java",
+      "sha256": "77a3359dbf39ada823ad48879e467f2d71a4681978d023da32ae3d8ffef622a5"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeHeadlights.java",
+      "sha256": "036f3260d5fa81199a375e1379263ba49e3b4d835d33ae389a04edb63a576462"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeMouseX.java",
+      "sha256": "2ca4ca1d586428d9a90e9db73127ed3807bf13cbc183ee53caaa11cc46199ce7"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeMouseY.java",
+      "sha256": "74458e9977a9051fcf87d800e72f75e3215550b69206ac1e9ce154934f51fac9"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeObjectClick.java",
+      "sha256": "dadaa9ac3a345aeec055875c5e127f898f715b30aff99981179156c9413cf0e2"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeObjectPress.java",
+      "sha256": "abcbc3388d49cf5bba49c8d4caa0f5b5e31dca542aea165cd747ac7baab0723f"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeOverlay.java",
+      "sha256": "dc9d702aa35abe138f7ea874f0594065460150ba31b9f9c8bb71539fa89b9bd5"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeShadowRelief.java",
+      "sha256": "1ab1058df210615e317527776d7892d5be886325d3508157ef892fb36127fec1"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSourcePlant.java",
+      "sha256": "1fb4083295cc8da5fcd11b1917f6615a5fd6ec01002d9200782e71bc6a10b811"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSourceSprite.java",
+      "sha256": "728adc982a16de641197ef93e9e1a88a681116afa0c95750c40ccea63c5b192e"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSourceTree.java",
+      "sha256": "03e3d67018ced15285ba9e3d0fad2f73343b4adf9e6a882913da93bc43a2d8ac"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSourceTreeCapture.java",
+      "sha256": "f661279f22570190af063ca589836db38afbb7d943deeae1e28e01a5deacdce9"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSpriteShadowDraw.java",
+      "sha256": "73086435a857e3c65f7aff06593048b67b5e7e473892e8cdaef7f841278336fc"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSpriteShadowPZOBake.java",
+      "sha256": "a71120d4ccc2907da9173070dd0342b7f1a5f30e4ae3f402088d0871ae999c87"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSpriteShadowPZOTiles.java",
+      "sha256": "78a7d8b6d2ad2757fe6cd2a4fed9247500383faf7b85606a9c76aee0a5758c9f"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSpriteShadowScope.java",
+      "sha256": "93b59d7a317c58037828a51bc3d2cbc69abd3647dab91c422ca132868b5c20ef"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeSpriteShadowTexture.java",
+      "sha256": "2ef3976cdcf548f6e467327e58d741c4097ed4ef979bc3bea7e15ee92a9beec4"
+    },
+    {
+      "path": "src/vpiso/Patch_ObjectStatePick.java",
+      "sha256": "c5bad536c07b6988694fda1994cebfc14adbb968b30438f2f086bfa834457e6a"
+    },
+    {
+      "path": "src/vpiso/Patch_ObjectStatePrepare.java",
+      "sha256": "5d3b5a769877368186ba22ec789a533ff35868702efdcf4d1e4b592fae747cf8"
+    },
+    {
+      "path": "src/vpiso/Patch_PackedCutaways.java",
+      "sha256": "37c6a242108ca6da3a4965d576cb21efb47543aaa2c9d3572d01a205270fe21a"
+    },
+    {
+      "path": "src/vpiso/Patch_PackedCutawayScope.java",
+      "sha256": "529e7d00860034d74e1408a6e78761c0a8f02194405b88a582c51615e1e4e108"
+    },
+    {
+      "path": "src/vpiso/Patch_PlantModelBounds.java",
+      "sha256": "62158df7c14faccd3d41091218191bf7653caa498f5261784e4ab1503094ed1c"
+    },
+    {
+      "path": "src/vpiso/Patch_ProgramUse.java",
+      "sha256": "f077b950c187f100dae8faedb2b5692d034a22492cf420b4a43e299afdaafad0"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsComposite.java",
+      "sha256": "802301daf5be1d9200b8c7743aae2596dd8ba4b6fe506bba2bdb3130dc326f7a"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsPane.java",
+      "sha256": "1fef13c948d6ea71506dcdcb418fd6ef84a21e1814a597834fa2c88725cab3a2"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsScore.java",
+      "sha256": "8ee9d2dbee086fa688563cb2ec6ca80a3a9f96b997c6d1c31e9f86eb3c0fcb65"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsSource.java",
+      "sha256": "244edd83672d78cb40af32c1014485f4f6dfd79af75c76e2bb928704a7631f9c"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsV2Composite.java",
+      "sha256": "e7680fadfb22b58885114ceca89072f77df4368844e046fa502f31c0028898aa"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsV2Pane.java",
+      "sha256": "1010a5c64c38a7decdd529c6478285c5a35985c2a1a1a0f720d8b6f5b890684b"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsV2Score.java",
+      "sha256": "258e6c79a5f5f2b7d366bba621fc05afac483710b7f67dbaefe5ae1bb084fc84"
+    },
+    {
+      "path": "src/vpiso/Patch_ReflectionsV2Source.java",
+      "sha256": "3b147068b11c7d9eb999ed3a5f0b540ba4b292fd59b4bfd992110fe6df79cc70"
+    },
+    {
+      "path": "src/vpiso/Patch_RenderEffects.java",
+      "sha256": "cae9e82f8b05912d234cacbd65637140fdeee8dd2e4cd65ee81c80ee41c84729"
+    },
+    {
+      "path": "src/vpiso/Patch_RenderWorld.java",
+      "sha256": "9e086405dde2262b151e500de5cf4bac4a18acccb5865c35c3cb61e80e66df8d"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationAimScope.java",
+      "sha256": "afe369f2747bd5b26319465b1068f8e1a75347eeaf741f4ad59c1101335a8688"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationAimX.java",
+      "sha256": "31575e659d1402c7906b617ec6687be99a3f6efd5483af57493e1fe48224d648"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationAimY.java",
+      "sha256": "42f8ac4d9f2c9fa9c51ffb7a447097354155763db2578b7ee8ba2448a34022a5"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationChunkBounds.java",
+      "sha256": "6f2e8d41627c2278de3a5c54b7308549ed3e41a9bf883f45cd3cb6e43ddb655d"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationDeviceText.java",
+      "sha256": "a4bf54d97bf580609e6c6d3efc62b87497e3cbaaba17a85cab08cb2b3bf33dc7"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationFreshPick.java",
+      "sha256": "3915ecd43c9b79e54bf2edbfd1d48c5b0bf7547f884e7ea00a63d5d6ce537151"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationLevelBounds.java",
+      "sha256": "44e1263c39815b6824f1a60ed795c35480a82ec55ec4ef3ea5ca64e5d6efe064"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationMouseCapture.java",
+      "sha256": "1ccfef079a3f7ffd9aca94ee55a3e981501678cc38b71129adad1f2a958c528c"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationMoveVector.java",
+      "sha256": "b5c246487d21a4e955be0126293cd59b1aacbbe4806102a86629463e80c6610d"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationPickedTile.java",
+      "sha256": "4de58922dfebee304b9ac62885890f9705d1a7927119760c22de67dd44f16c0a"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationPickedTileLocal.java",
+      "sha256": "33e1bdcd397025708a688df46b2fe5e2e24b32e8ce2d57a2d56b0bc55e45c657"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationPlayerInput.java",
+      "sha256": "9b70658b1e7e9e6f05b2094b5472ffa777e9763b92355c5030e902247f7436ec"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationScreenToWorldX.java",
+      "sha256": "d3d6ca206e8cf62fc3ded307d2d295a73776652c4e324975ffc61ef3a3ff5cf7"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationScreenToWorldY.java",
+      "sha256": "a02d2eed5431237fa8ba18c04c39f16923955752e3681136bc03a284e3646e98"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationSquareBounds.java",
+      "sha256": "2cc8994e289288bcd41d407930e94006dbb6e95994cf3b4196427e44ea868718"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationTemporal.java",
+      "sha256": "9db3c64b533c1278501bf82ec3f3b7937db22635cbd6fa0b68ed54bf3c75d58a"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationTreeDepth.java",
+      "sha256": "941c4d06532986133a7bae55c6e4d62a23cd164ac25d2f0b8e0912f7360a3d39"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationTreeProjection.java",
+      "sha256": "d6bd1e22350643251acd6fc5fae3e79d721c13485669df752a5e4fac3ac4b4af"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationTreeView.java",
+      "sha256": "c663f0c127e6ba16ad57deafc79c14afda56783d1c5d6e73df039744975715c5"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationViewTransition.java",
+      "sha256": "64365a1606e4878e5a623ac86efbfd4bbc1de441273cd56d22b155024391da05"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationVisionDepth.java",
+      "sha256": "ae43f17a2babe7d46ede77d2fa73409de8e16c3b3124060e3d75e6f21652c3ed"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationVisionQueue.java",
+      "sha256": "a62daf368009d5ea07f5c37b7a3807bf50593dc139c0601e3d8e06777eba6ac8"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationVisionScope.java",
+      "sha256": "fc3cefeebd20cac78cc4d7c69e03d66fd35bc1492e9e076c522c2ff4e69e645a"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationVisionX.java",
+      "sha256": "2d72421da92fcfcdd418ecb0535e373734aa40cdea6d3ae23b40ca43c9fa3aed"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationVisionY.java",
+      "sha256": "8108fec202c9796590a195e3f09643566db4c758efa951f9bbe88c1b7df8fcc3"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWaterClear.java",
+      "sha256": "286f4da3198e885f9e1282e474280270fac8aec4d2050eb9c986dc78e7ed011b"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWaterProjection.java",
+      "sha256": "a5230df3ecc999938ce07b5ff9b6b73a695333bf5c05ca7a2b1a4a679d908eb0"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWaterScope.java",
+      "sha256": "6163c15afc6af05034d9676579c189a68b3879a0c5cad59a500e4ea28ac7c089"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWaterSource.java",
+      "sha256": "7914fd7ddc00a21f993eff1606a00848795f84de4bcd91a716fe787ebaaa7934"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWaterUniforms.java",
+      "sha256": "9c447ec789d9b57e00a642b3d506afb3fc7b8f5b2311dcf0c9afd8e120f0e245"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWorldToScreenX.java",
+      "sha256": "f9cddbcdebe2de84bcf3169d1e74507aaab842fe7712ff72747c75ae4d2436a3"
+    },
+    {
+      "path": "src/vpiso/Patch_RotationWorldToScreenY.java",
+      "sha256": "6767e062b5469939a95b3837f5a842badfbb6c9f20005879993ee40b48aa1b1c"
+    },
+    {
+      "path": "src/vpiso/Patch_SavePictureSource.java",
+      "sha256": "206fb92255c15ada0f31e1923b42078d9f7a5cea816e2a603618c14e3980994f"
+    },
+    {
+      "path": "src/vpiso/Patch_ShaderPreparation.java",
+      "sha256": "06a2a2bdaec9b321b21183dbaa690f4f0d4f5b0ad4d53bbf00ddd56fb070f4c3"
+    },
+    {
+      "path": "src/vpiso/Patch_ShaderRead.java",
+      "sha256": "02dcdbdbc93ff1aefc38eccb3b36308541c226835cb5ae1a767311d033911554"
+    },
+    {
+      "path": "src/vpiso/Patch_SkeletonAnimated.java",
+      "sha256": "6e182b54b4c8e1d0774be740dfd99f66bac4f102a9b94961b94b713f1e45962d"
+    },
+    {
+      "path": "src/vpiso/Patch_SkeletonUnmodelled.java",
+      "sha256": "c6460aa9a505fd34e5f4402442e50eaf40d46ed22d4e1a3502af7fd9c30a9583"
+    },
+    {
+      "path": "src/vpiso/Patch_SkeletonUpdating.java",
+      "sha256": "419e52d72338efbd1872fd5cf5afa662e43409de3960c92556a14595ce553c82"
+    },
+    {
+      "path": "src/vpiso/Patch_TreeObjectModel.java",
+      "sha256": "7d8ded07b1551ce59bc368d6671e665796085a3a4ad670bd70b5f57ed585b191"
+    },
+    {
+      "path": "src/vpiso/Patch_TreePartModel.java",
+      "sha256": "d4f0a48c509358dbdbb77ddff218873e0029414ed1752cc33c73c3488c5ece1d"
+    },
+    {
+      "path": "src/vpiso/Patch_TreeRecipeModel.java",
+      "sha256": "cb1b3493c9355e043fb297d272be6b9c86d618fa4ff8fb6ffbb28318ee6945bd"
+    },
+    {
+      "path": "src/vpiso/Patch_TrueWeatherDetails.java",
+      "sha256": "00c0bed41ae15ba765ee3dceef4107e3923c9e29df31a0af5ceaf67257ea4134"
+    },
+    {
+      "path": "src/vpiso/Patch_TrueWeatherProgram.java",
+      "sha256": "e2ea0dc9d46a37b578fb41c0652134a94536facba65b9fb7b1b40803c76c3925"
+    },
+    {
+      "path": "src/vpiso/Patch_TrueWeatherUniforms.java",
+      "sha256": "fb77ed208bb6a33e0068a37bd53b7efa2b38efd17ea25ada2569cbc4cd357085"
+    },
+    {
+      "path": "src/vpiso/Patch_UpscaleCamera.java",
+      "sha256": "4d0141e3e768e9f6d98cd000c140083fe0b6982906f60f8c7de493ea4b8aed27"
+    },
+    {
+      "path": "src/vpiso/Patch_ViewPictureSource.java",
+      "sha256": "f4cdf8254716253d5a507e4bbe35d03454dca48b14e0424ddeaffb4b4c80ea5f"
+    },
+    {
+      "path": "src/vpiso/Patch_Weather.java",
+      "sha256": "2bbc8a4925894d7b508fecde04ad4225478b4d2afac6781c81ee51699210e812"
+    },
+    {
+      "path": "src/vpiso/Patch_WorldText.java",
+      "sha256": "95d7e63f0fc153f55bb537bc967ecdfbfb31ea78d600bd615698cadf674d8fe7"
+    },
+    {
+      "path": "src/vpiso/PlantModelBounds.java",
+      "sha256": "27512e9bceb5dd823067372d4a47f43b2f5ffc9bc1b6b7a2db88f8641dff4fa1"
+    },
+    {
+      "path": "src/vpiso/ReflectionVisibility.java",
+      "sha256": "51ceb8cd415bb7fd9a2abf820b55bc1a87e63ef0124da3c4f69844f15634bc25"
+    },
+    {
+      "path": "src/vpiso/RotationBounds.java",
+      "sha256": "b70f934b955c4dc1422d71ea6b9f533094997a3fd18022e24fe25a0d460b86d1"
+    },
+    {
+      "path": "src/vpiso/RotationCamera.java",
+      "sha256": "553d361611d7beb1afc820f06a10586288f6a32f59dc6111d070426a6162110d"
+    },
+    {
+      "path": "src/vpiso/RotationDeviceText.java",
+      "sha256": "34fe3409fc6c041a2ba79096b5557d26af04c663774d9c7cc0511b0b9a5ea001"
+    },
+    {
+      "path": "src/vpiso/RotationDrag.java",
+      "sha256": "61816b5154a90d9eda5bcd0470ae2b2c894421dfb4790afdda4d76269139fbba"
+    },
+    {
+      "path": "src/vpiso/RotationInteraction.java",
+      "sha256": "b27aa26c5e4ba117b612e579fa34c62a16b16a71e9e6b149898ba660f168a7dc"
+    },
+    {
+      "path": "src/vpiso/RotationLayers.java",
+      "sha256": "8b3c2e48f1f5f2030012f57da2fb40f07e72e8f2d95e43b74888f3ae4cbc5c9e"
+    },
+    {
+      "path": "src/vpiso/RotationTrees.java",
+      "sha256": "3af21069979025fdfd35c7b99e6710c76b10335e0af28e5d066756d224b202ad"
+    },
+    {
+      "path": "src/vpiso/RotationWater.java",
+      "sha256": "dda5b35a88cb9f639d9638050bf8351bede65aaf6e35db1b58bb16f114a08008"
+    },
+    {
+      "path": "src/vpiso/ShaderPreparation.java",
+      "sha256": "d505590438d62468b63cd0004eb7cf44208ee431e22bf1936c8627b4f1814589"
+    },
+    {
+      "path": "src/vpiso/TreeModelScope.java",
+      "sha256": "3414fd6a2a558b77eba3529354f131057f01c16c00899454ed50f2cdfe66a9e5"
+    },
+    {
+      "path": "src/vpiso/TrueWeatherCompat.java",
+      "sha256": "5fd09fe69fa2ab2d681582102a237ea5a93843f2cef94c387dab61e861bcd5d0"
+    },
+    {
+      "path": "addon-src/vip/IsometricAddon.java",
+      "sha256": "ac3a5c54b1231f45824c78c50359c94b2686bbdca2801c1c8e9c7b9c74f13d85"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix3f.java",
+      "sha256": "6eed813d2a7caf0e2dc712e7f6b07a5126b3f0ed1e523e452ccf3ba1c454bbdb"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4d.java",
+      "sha256": "e75d6c18566dcb461ba94a6364579051e23044ed980678c9e2822b84da26cb66"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4f.java",
+      "sha256": "fe6f9500943d9d62d996de400e0317cc9bd07928c64ac92ec32a09637818d18a"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4fc.java",
+      "sha256": "1e5070e7cd0372c83b463778fd16ad8c54aae38eb08f1c647e6f588285009ca3"
+    },
+    {
+      "path": "compile-stubs/org/joml/Vector4f.java",
+      "sha256": "2767b6f1bf1c8e9f9864cdca994df5e3f06f1cdd1afb2cb9f38efe470f3c4890"
+    },
+    {
+      "path": "compile-stubs/zombie/core/textures/TextureDraw.java",
+      "sha256": "7ea886629941644268fb65a4cc1e134baa9800f9e8ed826106be38c32188b620"
+    },
+    {
+      "path": "compile-stubs/zombie/iso/IsoObject.java",
+      "sha256": "aa4ed5c7f5bdae5c6c5099612f5be646640caaef6e194697bbb58ad7dc1a4208"
+    },
+    {
+      "path": "compile-stubs/zombie/iso/Vector2.java",
+      "sha256": "fc371f4eb5edab3683285da5cbcddcc743e6eaf07e5adcea05ff370d60a8e920"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
+      "sha256": "d0d51e53d21877096b0acf39b2034a02adf2a1ff536696392f198e805b74ead8"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
+      "sha256": "a96551ed989706dbe6e6514f00f640d581218e8253fd87db0d52756f88b8a970"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
+      "sha256": "bb2b879bec061d949727a06ec72d3ee2917514e7bf69df104b6d73675e5bc7dc"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
+      "sha256": "e0a250d86fb3ead86919f35858ec71f747153d3d238d2fe6eb569869f317e91c"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
+      "sha256": "029bb06156969e358d0b7a4b3565beee8b213db51aabeafc3909f9a050d2530a"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/mod.info",
+      "sha256": "8c2048088e2a50f31d2afa0fc333f1e8bd805d0267f4e95488f681dfb69e8ba6"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/poster.png",
+      "sha256": "d4033620459e93387019aa46641f4676c8b45a7b8e2cd8023fd608942df1a9c2"
+    }
+  ]
+}

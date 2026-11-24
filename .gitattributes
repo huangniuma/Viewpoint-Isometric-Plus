@@ -1,0 +1,4 @@
+# Preserve source and payload bytes recorded in SOURCE-MANIFEST.json.
+* -text
+*.png binary
+*.jar binary

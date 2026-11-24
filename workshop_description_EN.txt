@@ -1,0 +1,46 @@
+[img]https://i.postimg.cc/yxxVY1MW/rate-favorite.gif[/img]
+
+Bring Viewpoint lighting and environmental effects to Project Zomboid’s original isometric view.
+
+Keep the familiar controls and screen layout while enjoying dynamic shadows, color grading, water, grass, accumulated snow and tracks. Optional 3D models and camera rotation provide additional ways to view the world.
+
+[h2]Features[/h2]
+[list]
+[*]Dynamic shadows: Sun, moon, indoor lights, flashlights and vehicle headlights, with shadows cast between objects.
+[*]Lightweight dynamic shadows: Limits casters to characters, zombies, animals, vehicles, trees, buildings and inventory items placed on the ground using “Place.” Other objects can still receive shadows.
+[*]Color grading: Use Viewpoint’s visual style in the original view, with adjustable strength, exposure, saturation and contrast.
+[*]Environmental effects: Independently enable Viewpoint water, grass, snow and tracks without enabling 3D models. Snow supports depth, footprints and partial burial of objects.
+[*]Optional 3D models: Integrates native roof hiding, wall cutaways, visibility shading and fading, with interaction support for doors, containers and wall switches.
+[*]Camera rotation: With 3D models enabled, hold the middle mouse button and move the mouse to rotate.
+[*]Independent settings: Toggle individual effects and retain your existing preferences.
+[/list]
+
+[h2]Requirements and Setup[/h2]
+Install and enable:
+[list]
+[*]Viewpoint
+[*]ZombieBuddy
+[*]Viewpoint Isometric Plus
+[/list]
+
+Restart the game completely after enabling the mod.
+
+Press Delete to open the Viewpoint menu:
+[list]
+[*]Advanced → Addons: Enable or disable Viewpoint Isometric Plus and view its information.
+[*]Options → Viewpoint Isometric Plus: Configure models, camera controls, shadows, color and environmental effects.
+[/list]
+
+Snow and tracks require existing snow in the world and a shader pack with its Snow setting above Off.
+
+[h2]Compatibility[/h2]
+Adapted for Project Zomboid 42.22.2 and Viewpoint 0.1.7.
+Includes compatibility work for Default / Modern, Vivid, Somber, Library, True Weathers, PZO and Project Reflections. Available effects depend on your selected shader and model resource packs.
+
+For better shadows in the original isometric view, install additional compatible Viewpoint model packs. More complete and accurate object models help shadows follow object shapes more closely, even with this mod’s 3D model display turned off.
+
+Rendering runs on the client. For multiplayer, follow the installation requirements provided by Viewpoint and ZombieBuddy.
+
+
+Workshop ID: 3842962628
+Mod ID: VPIsometricLighting

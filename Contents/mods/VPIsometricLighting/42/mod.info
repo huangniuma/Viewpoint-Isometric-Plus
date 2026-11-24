@@ -1,0 +1,12 @@
+name=Viewpoint Isometric Plus
+id=VPIsometricLighting
+author=Hesin, GPT6
+modversion=0.2.32
+description=0.2.32: Addresses NVIDIA native-effects shader link failures (C1068) by keeping unshadowed spotlight array indices valid during compiler optimization. Initializes native owner/floor/table receiver values explicitly. Preserves flashlight, vehicle-light and other shadow effects. Authors: Hesin, GPT6.
+poster=poster.png
+versionMin=42.22
+versionMax=42.22
+require=\Viewpoint,\ZombieBuddy
+ZBVersionMin=2.3.0
+javaJarFile=media/java/client/VPIsometricLighting.jar
+javaPkgName=vpiso
