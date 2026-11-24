@@ -1,6 +1,6 @@
 # Code and data provenance / 代码与数据来源
 
-Viewpoint Isometric Plus / Viewpoint 等距增强 is credited to Hesin and GPT6.
+Viewpoint Isometric Plus / Viewpoint 等距增强 is credited to Hesin and GPT6. ChatGPT is acknowledged for AI-assisted writing.
 
 No project-wide license has been selected for this repository. Publication does not add a license grant for the project or its dependencies.
 

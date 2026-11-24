@@ -1,7 +1,8 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
 Version / 版本：0.2.32  
-Authors / 作者：Hesin, GPT6
+Authors / 作者：Hesin, GPT6  
+AI-assisted writing / AI 辅助撰稿：ChatGPT
 
 Steam Workshop：[3842962628](https://steamcommunity.com/sharedfiles/filedetails/?id=3842962628)  
 Mod ID：`VPIsometricLighting`  
