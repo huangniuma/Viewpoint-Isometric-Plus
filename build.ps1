@@ -90,8 +90,8 @@ $managedJar = Join-Path $buildDirectory 'ViewpointIsometricPlusAddon.jar'
 if ($LASTEXITCODE -ne 0) { throw 'Managed addon packaging failed.' }
 
 [ordered]@{
-    checkpoint = '110'
-    version = '0.2.32'
+    checkpoint = '111'
+    version = '0.2.33'
     stagedOnly = $true
     compiledFor = 'Java 17'
     compilerVersion = $compilerVersion

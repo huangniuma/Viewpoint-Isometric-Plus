@@ -13,6 +13,11 @@ import viewpoint.render.SceneData;
 /** Adapts native tree fill to the selected world light; native geometry and alpha stay native. */
 public final class NativeTreeLighting {
     private static final Class<?>[] PROGRAM={GlProgram.class};
+    private static final String STATE="""
+        vec3 vPos;
+        vec4 vpTreeArt, vpTreeEngine;
+        float vpTreeOutdoors;
+        """;
     private static final String VERTEX="""
         #version 330
         layout(location=0) in vec3 aPosition;
@@ -43,9 +48,6 @@ public final class NativeTreeLighting {
         in vec2 vTreeUv;
         in vec4 vColor;
         in vec3 vTreePos;
-        vec3 vPos;
-        vec4 vpTreeArt, vpTreeEngine;
-        float vpTreeOutdoors;
         vec4 vpTreeGrid() {
           vec2 square=-vPos.xz-vpTreeOrigin.xz;
           ivec2 chunk=ivec2(floor(square/8.0));
@@ -193,12 +195,21 @@ public final class NativeTreeLighting {
         String source=(String)GameAccess.field("viewpoint.platform.Shaders$Body","head",body);
         String tail=(String)GameAccess.field("viewpoint.platform.Shaders$Body","tail",body);
         if(tail!=null)source+=tail;
+        return adapt(source);
+    }
+
+    private static String adapt(String source) {
+        var selected=GlProgram.pack();
         // The opaque tile list was built before these alpha trees supplied depth.
         // Select VP's existing bounded full-list implementation at compile time.
         source=source.replace("#define VIEWPOINT_LAMP_LIST","// Native trees use the existing bounded full lamp list.");
         // These cards retain native alpha and are absent from the opaque G-buffer.
         // Supply the same foliage material/grid inputs to the pack's actual light code.
-        source=source.replace("in vec2 vUv;","vec2 vUv;")
+        // Hooks can wrap the original main in a helper before the final entry.
+        // Its rewritten material reads need these globals at the original input,
+        // before every helper, while preserving the pack's extension prologue.
+        if(!source.contains("in vec2 vUv;"))throw new IllegalStateException("Unsupported selected tree light input");
+        source=source.replace("in vec2 vUv;","vec2 vUv;\n"+STATE)
                 .replace("void main()","void vpTreeSelectedLight()")
                 .replace("texture(uDepth, vUv).r","gl_FragCoord.z")
                 .replace("texture(uAlbedo, vUv)","vec4(vpTreeArt.rgb,1.0)")

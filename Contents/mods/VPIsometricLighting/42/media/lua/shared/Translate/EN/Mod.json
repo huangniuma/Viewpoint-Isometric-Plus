@@ -1,4 +1,4 @@
 {
   "name": "Viewpoint Isometric Plus",
-  "description": "0.2.32: Addresses NVIDIA native-effects shader link failures (C1068) by keeping unshadowed spotlight array indices valid during compiler optimization. Initializes native owner/floor/table receiver values explicitly. Preserves flashlight, vehicle-light and other shadow effects. Authors: Hesin, GPT6."
+  "description": "0.2.33: Fixes native tree-light shader variable declaration order for Library and wrapped light-entry hooks. Preserves tree shadows, weather, transparency and the NVIDIA array-index fix. Authors: Hesin, GPT6."
 }

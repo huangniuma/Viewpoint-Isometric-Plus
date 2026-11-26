@@ -1,5 +1,5 @@
 {
-  "version": "0.2.32",
+  "version": "0.2.33",
   "workshopId": "3842962628",
   "modId": "VPIsometricLighting",
   "files": [
@@ -57,11 +57,11 @@
     },
     {
       "path": "src/vpiso/Main.java",
-      "sha256": "0f156030aeac87e3c41b374abc7babd90c126294385ef3bf30b9102452806bc9"
+      "sha256": "e1dac75e438fc1e386b9bea152a7faa828cf9cb0c324ac16c1dbf394c75a3c0e"
     },
     {
       "path": "src/vpiso/ManagedAddon.java",
-      "sha256": "f513d76ea75506c82fcd5029b6659b7e7e9ab57b7ed02bfaf49657f12165850e"
+      "sha256": "6dad57d2e3f5cc23a5e9a0ce2f7d8197e3735299b765cfaf15c4533530f50b11"
     },
     {
       "path": "src/vpiso/ModelSolarGeometry.java",
@@ -201,7 +201,7 @@
     },
     {
       "path": "src/vpiso/NativeTreeLighting.java",
-      "sha256": "71beb294b92dbb8ad1da2179be8280062f2db62f86304597399abcabf4475da6"
+      "sha256": "5b4ac78132b3246121cdbdcf08d2d61f6c4df288bb9d448035c60699dab30304"
     },
     {
       "path": "src/vpiso/NativeTrees.java",
@@ -917,27 +917,27 @@
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
-      "sha256": "d0d51e53d21877096b0acf39b2034a02adf2a1ff536696392f198e805b74ead8"
+      "sha256": "4ccfbd8e70f482f9105dc21a343d2f12fa985dfa66ebce999de6b009b775289d"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
-      "sha256": "a96551ed989706dbe6e6514f00f640d581218e8253fd87db0d52756f88b8a970"
+      "sha256": "affa983a9a2b2783a692b5c0e6012f2fcdb0c852c43dec425602f2a8a845d876"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
-      "sha256": "bb2b879bec061d949727a06ec72d3ee2917514e7bf69df104b6d73675e5bc7dc"
+      "sha256": "7cd7fe35ee7c36a5e25887b2a120ad87369646e1d585c17449ecbcbbf6a53b2b"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
-      "sha256": "e0a250d86fb3ead86919f35858ec71f747153d3d238d2fe6eb569869f317e91c"
+      "sha256": "76789927befa1beaca0dfeef8e8691299ce2bcc244abe42fa00e4962ce8c8b7a"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
-      "sha256": "029bb06156969e358d0b7a4b3565beee8b213db51aabeafc3909f9a050d2530a"
+      "sha256": "79720082127648fe8ecee502644b3097367df86635de2d5a7719695a8c04271b"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/mod.info",
-      "sha256": "8c2048088e2a50f31d2afa0fc333f1e8bd805d0267f4e95488f681dfb69e8ba6"
+      "sha256": "b056e4b2c4eab35047e62daa7033087cf29485552b59a4d244be3fb17d9b9b01"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/poster.png",

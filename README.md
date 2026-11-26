@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.32  
+Version / 版本：0.2.33  
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
 
@@ -53,6 +53,12 @@ For online play, follow Viewpoint and ZombieBuddy's client installation requirem
 附加模组入口控制配套的 ZombieBuddy 渲染组件；Viewpoint 信息页的托管运行开销只涵盖入口本身。保留内部模组 ID `VPIsometricLighting` 和已有 `vpiso.*` 设置键，无需重新配置。封面使用 Hesin 提供的 Viewpoint Isometric Plus 图片。
 
 The native addon entry controls the companion ZombieBuddy renderer. Managed runtime costs in Viewpoint's information page cover the entry itself. The internal mod ID `VPIsometricLighting` and saved `vpiso.*` keys are retained. Cover artwork uses the Viewpoint Isometric Plus image supplied by Hesin.
+
+## 0.2.33
+
+- 修复 Library 光影包及包装主光照入口的模组组合中，原版树木光照着色器因变量声明顺序错误而编译失败、导致增强效果停止的问题。 / Fixes native tree-light shader compilation failures caused by declarations following helper functions in Library and wrapped light-entry configurations.
+- 保留树木接影、原版透明度、雨雪与画风处理，以及 0.2.32 的 NVIDIA 数组索引修正。 / Preserves tree shadow reception, native transparency, weather and selected-pack styling, including the NVIDIA array-index fix from 0.2.32.
+- 已增加严格 GLSL 编译和前置辅助函数对照；各扩展模组的完整组合及报错用户的 NVIDIA 驱动仍需游戏内确认。更新后请完全重启游戏。 / Adds strict GLSL and helper-wrapper regression checks. Full addon combinations and the reporting NVIDIA driver still need in-game confirmation. Fully restart the game after updating.
 
 ## 0.2.32
 
