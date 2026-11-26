@@ -202,7 +202,7 @@ public final class NativeObjectState {
             if (packed != null) for (int i = 0; i < packed.length; i++) {
                 Sample sample = objects.get(packed[i]);
                 if (needed(sample)) {
-                    int slot = ((Number) GameAccess.call("viewpoint.render.ChunkMeshData", "slot", mesh, new Class<?>[] { int.class }, ((Number) GameAccess.field("viewpoint.render.ChunkMeshData", "modelBase", mesh)).intValue() + i)).intValue();
+                    int slot = MeshSlots.slot(mesh, i);
                     addRange(1, slot, slot + 1, sample);
                 }
             }
@@ -257,6 +257,24 @@ public final class NativeObjectState {
             GL15.glBindBuffer(GL31.GL_TEXTURE_BUFFER, previousBuffer);
             GL15.glBindBuffer(GL43.GL_SHADER_STORAGE_BUFFER, previousSSBO);
             GL13.glActiveTexture(active);
+        }
+    }
+
+    /** Bind the same private slot method/base getter once; read current placement per packed owner. */
+    private static final class MeshSlots {
+        private static final java.lang.invoke.MethodHandle BASE, SLOT;
+        static {
+            try {
+                var base=ChunkMeshData.class.getDeclaredField("modelBase");
+                var slot=ChunkMeshData.class.getDeclaredMethod("slot",int.class);
+                base.setAccessible(true);slot.setAccessible(true);
+                var lookup=java.lang.invoke.MethodHandles.lookup();
+                BASE=lookup.unreflectGetter(base);SLOT=lookup.unreflect(slot);
+            } catch(ReflectiveOperationException error) { throw new ExceptionInInitializerError(error); }
+        }
+        static int slot(ChunkMeshData mesh,int offset) {
+            try { return (int)SLOT.invokeExact(mesh,(int)BASE.invokeExact(mesh)+offset); }
+            catch(Throwable error) { throw new IllegalStateException("Native packed source slot failed",error); }
         }
     }
 

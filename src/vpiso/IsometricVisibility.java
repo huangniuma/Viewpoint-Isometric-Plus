@@ -311,11 +311,12 @@ public final class IsometricVisibility {
                     // coarser runs merge neighbours or omit a cap's square owner.
                     for (int span = pageSpans[page]; span < pageSpans[page + 1]; span++) {
                         int cut = spans[span * 3 + 1], cutEnd = cut + spans[span * 3 + 2];
+                        if (cutEnd <= first || cut >= end) continue;
                         int object = spans[span * 3];
                         boolean hidden = object >= 0 && (object >>> 16) < 64
                                 && ((visible.squares & (1L << (object >>> 16))) == 0
                                     || visible.hiddenObjects.contains(object));
-                        if (cutEnd <= first || cut >= end || !hidden) continue;
+                        if (!hidden) continue;
                         addRange(scene, start, page, first, Math.max(first, cut) - first);
                         first = Math.min(end, cutEnd);
                         changed = true;

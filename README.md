@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.33  
+Version / 版本：0.2.34  
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
 
@@ -53,6 +53,12 @@ For online play, follow Viewpoint and ZombieBuddy's client installation requirem
 附加模组入口控制配套的 ZombieBuddy 渲染组件；Viewpoint 信息页的托管运行开销只涵盖入口本身。保留内部模组 ID `VPIsometricLighting` 和已有 `vpiso.*` 设置键，无需重新配置。封面使用 Hesin 提供的 Viewpoint Isometric Plus 图片。
 
 The native addon entry controls the companion ZombieBuddy renderer. Managed runtime costs in Viewpoint's information page cover the entry itself. The internal mod ID `VPIsometricLighting` and saved `vpiso.*` keys are retained. Cover artwork uses the Viewpoint Isometric Plus image supplied by Hesin.
+
+## 0.2.34
+
+- 优化多物件区块的隐藏绘制计划：只对实际重叠的几何区段查询隐藏身份，减少重复查找与临时装箱。 / Checks hidden ownership only for intersecting geometry spans when building native visibility draw plans, reducing repeated lookups and temporary boxing in dense chunks.
+- 优化物件阴影范围计算及 3D 接影／点击来源数据整理，减少重复反射调用与临时参数分配；继续读取当前模型、位置与透明度。 / Reduces reflective dispatch and temporary arguments in native object shadow bounds and 3D receiver/pick source preparation, while preserving current model, placement and alpha reads.
+- 保留现有功能、画质、阴影距离、刷新和相互作用，以及 0.2.33 的树木光照兼容修正。原版与 PZO 结果对照及 GPU 回归通过；局部离线基准不代表实际跑图 FPS 或 1% low 的提升幅度。 / Preserves features, quality, shadow distance, refresh, interactions and the tree shader repair from 0.2.33. Native/PZO parity and GPU regressions pass; isolated benchmarks do not establish live traversal FPS or 1% low gains.
 
 ## 0.2.33
 

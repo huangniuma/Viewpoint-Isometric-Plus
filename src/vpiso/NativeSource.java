@@ -1,5 +1,6 @@
 package vpiso;
 
+import viewpoint.packs.PackBind;
 import zombie.iso.IsoObject;
 import zombie.iso.IsoDirections;
 import zombie.iso.sprite.IsoSprite;
@@ -69,23 +70,21 @@ public final class NativeSource {
         return new float[]{-r,card[2],-r,r,card[3],r};
     }
     private static float[] packed(IsoObject object,IsoSprite sprite) {
-        Object bind=GameAccess.call("viewpoint.packs.ModelPacks","bind",null,new Class<?>[]{IsoObject.class,IsoSprite.class},object,sprite);
+        PackBind bind=(PackBind)GameAccess.call("viewpoint.packs.ModelPacks","bind",null,new Class<?>[]{IsoObject.class,IsoSprite.class},object,sprite);
         if(bind==null)return null;
-        Object model=GameAccess.field("viewpoint.packs.PackBind","model",bind);
-        float[] source=(float[])GameAccess.call("viewpoint.render.PackModel","bounds",model,NONE);
+        float[] source=bind.model.bounds();
         if(source==null || source.length!=6)return null;
         float[] bounds={Float.POSITIVE_INFINITY,Float.POSITIVE_INFINITY,Float.POSITIVE_INFINITY,
                 Float.NEGATIVE_INFINITY,Float.NEGATIVE_INFINITY,Float.NEGATIVE_INFINITY};
-        boolean turns=(Boolean)GameAccess.call("viewpoint.packs.PackBind","turns",null,new Class<?>[]{IsoSprite.class},sprite);
+        boolean turns=PackBind.turns(sprite);
         float[] point=new float[3];
         for(int corner=0;corner<8;corner++) {
-            GameAccess.call("viewpoint.packs.PackBind","place",bind,
-                    new Class<?>[]{float.class,float.class,float.class,boolean.class,float[].class},
+            bind.place(
                     source[(corner&1)==0?0:3],source[(corner&2)==0?1:4],source[(corner&4)==0?2:5],turns,point);
             // Recipe.model stores native dx/dy, then Cook negates the two map axes.
-            point[0]-=number("viewpoint.packs.PackBind","x",bind);
-            point[1]+=number("viewpoint.packs.PackBind","z",bind);
-            point[2]-=number("viewpoint.packs.PackBind","y",bind);
+            point[0]-=bind.x;
+            point[1]+=bind.z;
+            point[2]-=bind.y;
             for(int axis=0;axis<3;axis++) {bounds[axis]=Math.min(bounds[axis],point[axis]);bounds[axis+3]=Math.max(bounds[axis+3],point[axis]);}
         }
         for(int axis=0;axis<3;axis++)if(!Float.isFinite(bounds[axis]) || !Float.isFinite(bounds[axis+3]) || bounds[axis+3]-bounds[axis]<.001f)return null;

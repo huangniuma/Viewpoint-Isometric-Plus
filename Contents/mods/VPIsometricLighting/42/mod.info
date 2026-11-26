@@ -1,8 +1,8 @@
 name=Viewpoint Isometric Plus
 id=VPIsometricLighting
 author=Hesin, GPT6
-modversion=0.2.33
-description=0.2.33: Fixes native tree-light shader variable declaration order for Library and wrapped light-entry hooks. Preserves tree shadows, weather, transparency and the NVIDIA array-index fix. Authors: Hesin, GPT6.
+modversion=0.2.34
+description=0.2.34: Reduces repeated hidden-span queries, packed-source reflection and temporary allocations during world preparation. Preserves current placement, alpha, shadow interactions and visual quality. Authors: Hesin, GPT6.
 poster=poster.png
 versionMin=42.22
 versionMax=42.22
