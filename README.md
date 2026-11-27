@@ -1,6 +1,7 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.35  
+Version / 版本：0.2.36
+
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
 
@@ -47,6 +48,10 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.36
+
+- 修复开启3D模型时，附在墙体上的挂画、画框等模型未随墙透视隐藏的问题。贴墙模型沿用宿主墙的隐藏范围，保留阴影投射、交互和原有渐隐。 / Fixes wall-attached paintings and frames remaining visible when their parent wall is cut away in 3D mode. Packed attachments follow the native parent wall mask while retaining shadows, interaction and existing fades.
 
 ## 0.2.35
 

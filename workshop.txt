@@ -1,6 +1,6 @@
 version=1
 id=3842962628
 title=Viewpoint Isometric Plus
-description=0.2.35: Repairs intermittent zombie mesh spikes in Viewpoint by ordering GPU skeleton writes before shared-buffer updates. Wall-mounted decorations now follow wall cutaway fading. Authors: Hesin, GPT6. / 0.2.35：修复开启3D模型后VP视角中僵尸偶发单帧模型拉伸；补全墙上挂画等附墙装饰的透视渐隐规则。保留动画、模型与阴影功能。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
+description=0.2.36: Fixes wall-attached paintings remaining visible after their parent wall is cut away in 3D model mode. Preserves native wall visibility, interaction and shadow casting. Authors: Hesin, GPT6. / 0.2.36：修复3D模型下附在墙体上的挂画未随墙透视隐藏的问题，保留原版墙体隐藏、交互与阴影投射。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
 tags=Build 42;Textures
 visibility=public

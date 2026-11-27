@@ -11,7 +11,9 @@ public final class NativeObjectShaders {
         uniform int vpIsoObjectStart1, vpIsoObjectCount1;
         uniform int vpIsoObjectStart2, vpIsoObjectCount2;
         flat out vec3 vpIsoObjectInfo;
+        float vpIsoWallCode;
         vec3 vpIsoSource(int kind, int vertex) {
+          vpIsoWallCode = 0.0;
           if (vpIsoObjectsOn == 0) return vec3(1.0, 0.0, 0.0);
           int lo = kind == 0 ? vpIsoObjectStart0 : kind == 1 ? vpIsoObjectStart1 : vpIsoObjectStart2;
           int hi = lo + (kind == 0 ? vpIsoObjectCount0 : kind == 1 ? vpIsoObjectCount1 : vpIsoObjectCount2);
@@ -20,7 +22,10 @@ public final class NativeObjectShaders {
             uvec4 range = texelFetch(vpIsoObjectTable, mid);
             if (vertex < int(range.x)) hi = mid;
             else if (vertex >= int(range.y)) lo = mid + 1;
-            else return vec3(uintBitsToFloat(range.z), float(range.w & 0x3fffffffu), float(range.w >> 30));
+            else {
+              vpIsoWallCode = float((range.w >> 16) & 511u);
+              return vec3(uintBitsToFloat(range.z), float(range.w & 65535u), float(range.w >> 30));
+            }
           }
           return vec3(1.0, 0.0, 0.0);
         }
@@ -59,8 +64,13 @@ public final class NativeObjectShaders {
         if (path.equals("mesh.vert")) {
             source = once(source, "vDistance = gl_Position.w;", "vDistance = gl_Position.w;\n"
                     + "  vpIsoObjectInfo = uModels != 0 ? vpIsoSource(1, aRun.y + gl_InstanceID)"
-                    + " : uPlants != 0 || uCards != 0 ? vec3(1.0, 0.0, 0.0) : vpIsoSource(0, gl_VertexID);", path);
-            return header(source, VERTEX);
+                    + " : uPlants != 0 || uCards != 0 ? vec3(1.0, 0.0, 0.0) : vpIsoSource(0, gl_VertexID);\n"
+                    + "  vpIsoWallParent = vec4(0.0);\n"
+                    + "  if (uModels != 0 && vpIsoWallCode > 0.5) {\n"
+                    + "    int parent = int(vpIsoWallCode) - 1, tile = parent & 63;\n"
+                    + "    vpIsoWallParent = vec4(v.mesh.xyz + vec3(-float(tile & 7), v.mesh.w, -float(tile >> 3)), float(parent >> 6));\n"
+                    + "  }", path);
+            return header(source, VERTEX + "flat out vec4 vpIsoWallParent;\n");
         }
         if (path.equals("model.vert")) {
             source = once(source, "vTexture = aDraw >> MODEL_SLOT_SHIFT;", "vTexture = aDraw >> MODEL_SLOT_SHIFT;\n"

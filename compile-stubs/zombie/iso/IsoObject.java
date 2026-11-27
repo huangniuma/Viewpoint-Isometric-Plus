@@ -4,6 +4,8 @@ public class IsoObject {
     public zombie.inventory.ItemContainer container;
     public boolean noPicking;
     public zombie.iso.sprite.IsoSprite getSprite() { return null; }
+    public java.util.ArrayList<zombie.iso.sprite.IsoSpriteInstance> getAttachedAnimSprite() { return null; }
+    public zombie.iso.sprite.IsoSprite getOverlaySprite() { return null; }
     public IsoGridSquare getSquare() { return null; }
     public zombie.iso.sprite.IsoSpriteGrid getSpriteGrid() { return null; }
     public zombie.iso.fboRenderChunk.ObjectRenderInfo getRenderInfo(int player) { return null; }

@@ -113,11 +113,25 @@ public final class NativeObjectState {
                 && !nativeObject.noPicking
                 && Math.abs(square.x - pickX) < 8f
                 && Math.abs(square.y - pickY) < 8f;
-        Sample sample = new Sample(alpha, candidate ? ids.size() : 0);
+        int id = candidate ? ids.size() : 0;
+        // A packed wall overlay keeps its parent's object key, even when the child
+        // has no attachedN/W flags. Carry that wall's tile and faces in the colour
+        // table; never change the wall's alpha or the shared/cached mesh flags.
+        var sprite = nativeObject.getSprite();
+        if (square != null && sprite != null && (sprite.cutN || sprite.cutW)
+                && !(nativeObject instanceof zombie.iso.objects.IsoDoor)
+                && !(nativeObject instanceof zombie.iso.objects.IsoWindow)
+                && (nativeObject.getAttachedAnimSprite() != null && !nativeObject.getAttachedAnimSprite().isEmpty()
+                    || nativeObject.getOverlaySprite() != null)) {
+            int faces = (sprite.cutN ? 1 : 0) | (sprite.cutW ? 2 : 0);
+            int tile = (square.x & 7) | (square.y & 7) << 3;
+            id |= ((faces << 6 | tile) + 1) << 16;
+        }
+        Sample sample = new Sample(alpha, id);
         sources.put(source, sample);
         if (candidate) {
             ids.add(source);
-            if (interactive(source)) assisted.set(sample.id);
+            if (interactive(source)) assisted.set(sample.id & 65535);
         }
         return sample;
     }
@@ -221,7 +235,7 @@ public final class NativeObjectState {
             while(position<rangeCount && (int)((rangeKeys[position]^Long.MIN_VALUE)>>>62)==kind) {
                 long key=rangeKeys[position];int at=(int)(key&0x3fffffffL)*3;
                 int first=(int)(key>>>30)^Integer.MIN_VALUE,id=rangePayload[at+2];
-                values.put(first).put(rangePayload[at]).put(rangePayload[at+1]).put(id | (assisted.get(id) ? 0x40000000 : 0));
+                values.put(first).put(rangePayload[at]).put(rangePayload[at+1]).put(id | (assisted.get(id & 65535) ? 0x40000000 : 0));
                 counts[kind]++; position++;
             }
         }

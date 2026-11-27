@@ -1,4 +1,4 @@
 {
   "name": "Viewpoint Isometric Plus",
-  "description": "0.2.35: Repairs intermittent zombie mesh spikes in Viewpoint by ordering GPU skeleton writes before shared-buffer updates. Wall-mounted decorations now follow wall cutaway fading. Authors: Hesin, GPT6."
+  "description": "0.2.36: Fixes wall-attached paintings remaining visible after their parent wall is cut away in 3D model mode. Preserves native wall visibility, interaction and shadow casting. Authors: Hesin, GPT6."
 }

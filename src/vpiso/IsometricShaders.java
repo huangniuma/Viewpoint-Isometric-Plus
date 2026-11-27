@@ -183,8 +183,9 @@ public final class IsometricShaders {
             changed = insertBody(changed, MAIN_BODY,
                 "\n  if (vpIsoNativeWater > 0.5 && (vFlags & FLAG_WATER) != 0) discard;\n"
                 + "  vpIsoCutTree(vpIsoTreeRoot, vpIsoPlants, vFlags);\n"
-                + "  if ((vFlags & (8192 | 32768)) == 0) vpIsoCutWall(vPos, vLocal, vNormal, vFlags);\n", path);
+                + "  if ((vFlags & (8192 | 32768)) == 0) vpIsoCutWall(vPos, vLocal, vNormal, vFlags, vpIsoWallParent);\n", path);
             changed = addNativeHeader(changed, "flat in vec3 vpIsoTreeRoot;\nflat in int vpIsoPlants;\n"
+                    + "flat in vec4 vpIsoWallParent;\n"
                     + NativeViewData.GLSL + NativeWallCutaway.GLSL + NativeTreeCutaway.GLSL);
         } else if (path.equals("post.frag")) {
             if (changed.contains("color = grade(")) {

@@ -22,7 +22,7 @@ public final class NativeWallCutaway {
         uniform float vpIsoRotated;
         uniform mat4 vpIsoRotatedPV;
         uniform vec2 vpIsoRotatedScreen;
-        void vpIsoCutWall(vec3 scenePos, vec3 localPos, vec3 normal, int flags) {
+        void vpIsoCutWall(vec3 scenePos, vec3 localPos, vec3 normal, int flags, vec4 parent) {
           if (vpIsoNativeOn < 0.5) return;
           vec3 world = vec3(vpIsoNativeCam.x - scenePos.x,
               vpIsoNativeCam.y - scenePos.z,
@@ -30,12 +30,26 @@ public final class NativeWallCutaway {
           float t;
           bool north = abs(normal.z) > 0.9;
           bool west = abs(normal.x) > 0.9;
-          if (!north && !west) return;
-          if (north ? abs(world.y - floor(world.y + 0.5)) > 0.08
-                    : abs(world.x - floor(world.x + 0.5)) > 0.08) return;
-          if (north) { world.y = floor(world.y + 0.5); t = fract(world.x); }
-          else { world.x = floor(world.x + 0.5); t = fract(world.y); }
-          world.z = floor(world.z + 0.5);
+          if (parent.w > 0.5) {
+            // The attachment's physical surface can protrude from the wall. Use
+            // its exact native parent for the wall mask, including the model edges.
+            vec3 anchor = vec3(vpIsoNativeCam.x - parent.x, vpIsoNativeCam.y - parent.z,
+                vpIsoNativeCam.z + parent.y / 2.4494896);
+            anchor = floor(anchor + 0.5);
+            int faces = int(parent.w);
+            north = (faces & 1) != 0 && ((faces & 2) == 0
+                || (north || west ? abs(normal.z) > abs(normal.x)
+                    : abs(world.y - anchor.y) < abs(world.x - anchor.x)));
+            t = clamp(north ? world.x - anchor.x : world.y - anchor.y, 0.0, 1.0);
+            world = anchor;
+          } else {
+            if (!north && !west) return;
+            if (north ? abs(world.y - floor(world.y + 0.5)) > 0.08
+                      : abs(world.x - floor(world.x + 0.5)) > 0.08) return;
+            if (north) { world.y = floor(world.y + 0.5); t = fract(world.x); }
+            else { world.x = floor(world.x + 0.5); t = fract(world.y); }
+            world.z = floor(world.z + 0.5);
+          }
           vec4 rule = vpIsoNativeRule(world);
           int capabilities = int(round(rule.a * 255.0));
           if (north ? (capabilities & 64) == 0 : (capabilities & 32) == 0) return;
@@ -58,6 +72,9 @@ public final class NativeWallCutaway {
           pixel = clamp(pixel, vec2(0.5), vec2(65.5,225.5));
           float row = (flags & 16384) != 0 ? 904.0 : (flags & 1024) != 0 ? 226.0 : 0.0;
           if (texture(vpIsoWallMask, (vec2(column,row) + pixel) / vpIsoWallMaskSize).r < 0.5) discard;
+        }
+        void vpIsoCutWall(vec3 scenePos, vec3 localPos, vec3 normal, int flags) {
+          vpIsoCutWall(scenePos, localPos, normal, flags, vec4(0.0));
         }
         """;
     private static int texture, width, height;
