@@ -42,10 +42,10 @@
 渲染功能在客户端运行；联机请按照 Viewpoint 和 ZombieBuddy 的安装要求配置。
 
 
-[h2]源码与再发布授权[/h2]
-GitHub：[url=https://github.com/huangniuma/Viewpoint-Isometric-Plus]Viewpoint Isometric Plus[/url]
+[h2]GitHub 与二次修改授权[/h2]
+源码仓库：[url=https://github.com/huangniuma/Viewpoint-Isometric-Plus]https://github.com/huangniuma/Viewpoint-Isometric-Plus[/url]
 
-允许所有人修改、二次创作和再发布本模组，无需另行申请许可。
+[b]允许所有人对本模组进行二次修改、二次创作和再发布，包括重新发布修改后的版本，无需另行申请许可。[/b]
 此授权适用于本模组的原创内容；游戏、Viewpoint、ZombieBuddy 及其他第三方内容仍遵循各自的许可。
 
 Workshop ID: 3842962628

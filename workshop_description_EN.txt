@@ -42,10 +42,10 @@ For better shadows in the original isometric view, install additional compatible
 Rendering runs on the client. For multiplayer, follow the installation requirements provided by Viewpoint and ZombieBuddy.
 
 
-[h2]Source Code and Redistribution Permission[/h2]
-GitHub: [url=https://github.com/huangniuma/Viewpoint-Isometric-Plus]Viewpoint Isometric Plus[/url]
+[h2]GitHub, Modification and Redistribution[/h2]
+Source repository: [url=https://github.com/huangniuma/Viewpoint-Isometric-Plus]https://github.com/huangniuma/Viewpoint-Isometric-Plus[/url]
 
-Everyone is permitted to modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission.
+[b]Anyone may modify this mod, create derivative works, and redistribute it, including republishing modified versions, without requesting further permission.[/b]
 This permission applies to this mod's original contributions. The game, Viewpoint, ZombieBuddy and other third-party content remain subject to their respective licenses.
 
 Workshop ID: 3842962628
