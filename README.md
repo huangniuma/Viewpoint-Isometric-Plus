@@ -54,6 +54,12 @@ For online play, follow Viewpoint and ZombieBuddy's client installation requirem
 
 The native addon entry controls the companion ZombieBuddy renderer. Managed runtime costs in Viewpoint's information page cover the entry itself. The internal mod ID `VPIsometricLighting` and saved `vpiso.*` keys are retained. Cover artwork uses the Viewpoint Isometric Plus image supplied by Hesin.
 
+## 修改与再发布 / Modification and redistribution
+
+允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
+
+Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
 ## 0.2.34
 
 - 优化多物件区块的隐藏绘制计划：只对实际重叠的几何区段查询隐藏身份，减少重复查找与临时装箱。 / Checks hidden ownership only for intersecting geometry spans when building native visibility draw plans, reducing repeated lookups and temporary boxing in dense chunks.
