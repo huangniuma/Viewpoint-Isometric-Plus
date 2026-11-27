@@ -10,6 +10,7 @@ public final class RotationCamera {
     private static volatile Snapshot latest;
     private static volatile boolean requested;
     private static float savedYaw;
+    private static float savedCutawayScale = 1f;
 
     public static void configure(boolean enabled, int direction) {
         configureYaw(enabled, Math.floorMod(direction, 4) * 90f);
@@ -20,7 +21,10 @@ public final class RotationCamera {
         savedYaw = normalizeYaw(degrees);
         float next = enabled && IsometricBridge.rotationAllowed()
                 ? savedYaw : 0f;
-        if (next != yaw) {
+        float scale = IsometricControls.cutawayScale();
+        boolean rangeChanged = scale != savedCutawayScale;
+        savedCutawayScale = scale;
+        if (next != yaw || next != 0f && rangeChanged) {
             yaw = next;
             latest = null;
             RotationInteraction.cameraChanged();
@@ -85,7 +89,7 @@ public final class RotationCamera {
         private final Matrix4f projection, view, combined, inverse;
         private final float camX, camY, camZ, zoom;
         private final int width, height;
-        private final float yawDegrees;
+        private final float yawDegrees, cutawayScale;
 
         public Snapshot(Matrix4f projection, Matrix4f view, float x, float y, float z,
                         int width, int height, float zoom, int quarterTurns) {
@@ -101,6 +105,7 @@ public final class RotationCamera {
             camX = x; camY = y; camZ = z;
             this.width = width; this.height = height; this.zoom = zoom;
             this.yawDegrees = normalizeYaw(degrees);
+            this.cutawayScale = IsometricControls.cutawayScale();
         }
 
         public Matrix4f projection() { return new Matrix4f(projection); }
@@ -114,6 +119,7 @@ public final class RotationCamera {
         public float zoom() { return zoom; }
         public int quarterTurns() { return Math.floorMod(Math.round(yawDegrees / 90f), 4); }
         public float yawDegrees() { return yawDegrees; }
+        public float cutawayScale() { return cutawayScale; }
 
         float clipW(float x, float y, float z) {
             return combined.m03() * (camX - x) + combined.m13() * ((z - camZ) * 2.4494896f)

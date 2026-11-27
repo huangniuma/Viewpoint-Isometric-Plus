@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.37
+Version / 版本：0.2.41
 
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
@@ -48,6 +48,22 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.41
+
+- 修复柜子等家具贴近透视墙时，靠墙侧面被当作墙体裁掉的问题。墙体切除现在先核对模型的原版来源身份，普通家具不再因表面靠近墙所在格线而被误裁。 / Fixes cabinet and other furniture faces being cut away beside hidden walls. Wall cutting now checks native structural source identity instead of treating any face near a wall grid plane as a wall.
+- 保留墙体、附墙挂画、门窗的既有隐藏规则、家具原版渐隐、鼠标交互和物理阴影。旋转视角隐藏范围调节继续可用。 / Preserves wall and decoration cutaways, door/window handling, native furniture fading, mouse interaction and physical shadows. The rotated cutaway range control remains available.
+
+## 0.2.40
+
+- 在“模型与视角”中新增“旋转视角隐藏范围（%）”，可在50%至200%之间调整角色前方建筑的椭圆隐藏范围，默认100%保持原效果。设置自动保存。 / Adds Rotated view cutaway range (%) under Models and camera. Adjusts the oval building cutaway from 50% to 200%, with the existing range retained at the default 100%. Saved automatically.
+- 范围随当前视角快照提交，建筑与附墙装饰共用同一切除规则，可见模型的鼠标命中随之保持一致。非旋转视角沿用现有隐藏机制。 / Each queued camera retains its selected range. Buildings and attached decorations share the same cutaway and visible-fragment picking. The unrotated view keeps its existing hiding rules.
+
+## 0.2.39
+
+- 优化原版外观下地图刷新时的辅助纹理重建：底层颜色纹理更换但尺寸相同时，继续使用已有 GPU 存储。旧来源、遮罩和有效性照常清除，避免旧阴影或旧内容残留。未增加闲置纹理池。 / Reuses existing auxiliary GPU storage when the native color texture changes at the same size. Provenance, masks and validity are reset, preserving current visuals without an idle texture pool.
+- 将已经通过 GPU 安全检查的退役资源分帧释放，避免一次集中回收；内存压力、分配需求和最长等待保留及时清理。当前画面必需资源、模型和阴影不延后加载。 / Spreads fence-completed retirement work across frames, with pressure, allocation and maximum-wait drains. Required world, model and shadow readiness stays unchanged.
+- 本次针对资源创建和回收尖峰，不降低画质、阴影距离或相互作用。离线检查与同输入画面对照不代表实景 FPS/低帧提升幅度。0.2.38 的 VP 等距相机实验已撤回，本版不包含该功能。 / Targets creation and retirement bursts while preserving quality, shadow distance and interactions. Offline parity does not establish live FPS or low-frame gains. The withdrawn 0.2.38 VP isometric-camera experiment is not included.
 
 ## 0.2.37
 

@@ -17,7 +17,7 @@ public final class IsometricControls {
     public static final String ENVIRONMENT = PAGE + "/Environment";
     private static SettingsWindow.Button prepareButton, resetDirectionButton, openSettingsButton;
     private static LiveSettings.Toggle enabledSetting, models, rotation, water, grass, snow, shadows, lightweightShadows, shadowPreload, style, frameGeneration;
-    private static LiveSettings.Number shadowStrength, softness, distance, styleStrength, exposure, saturation, contrast;
+    private static LiveSettings.Number cutawayRange, shadowStrength, softness, distance, styleStrength, exposure, saturation, contrast;
     private static LiveSettings.Choice quality, frameGenerationRate;
     private static volatile IsometricEffects effects = IsometricEffects.DEFAULT;
 
@@ -34,6 +34,10 @@ public final class IsometricControls {
     public static IsometricEffects effects() { return effects; }
     public static boolean frameGeneration() { return frameGeneration != null && frameGeneration.get(); }
     public static boolean shadowPreload() { return shadowPreload != null && shadowPreload.get(); }
+    public static float cutawayScale() {
+        float percent = cutawayRange == null ? 100f : cutawayRange.get();
+        return Float.isFinite(percent) ? Math.max(.5f, Math.min(2f, percent / 100f)) : 1f;
+    }
     public static int frameGenerationRate() {
         if(frameGenerationRate==null)return 30;
         return switch(frameGenerationRate.get()){case 1->30;case 2->40;case 3->50;case 4->60;default->0;};
@@ -53,6 +57,8 @@ public final class IsometricControls {
             models.describe(IsometricText.localize("On: VP world models in isometric view. Off: original world appearance with optional shadows and color style. Saved automatically."));
             rotation = toggle("rotation", "Enable camera rotation", CAMERA, false);
             rotation.describe(IsometricText.localize("Requires 3D models. Hold the middle mouse button and move the mouse to rotate, like OldPoint. Release to keep the angle and restore the cursor. Direction is saved automatically."));
+            cutawayRange = number("cutawayRange", "Rotated view cutaway range (%)", CAMERA, 50f, 200f, 10f, 100f);
+            cutawayRange.describe(IsometricText.localize("Adjusts the oval that hides buildings in front of the character in rotated isometric view. Larger values reveal a wider area. 100% keeps the original range. Saved automatically."));
             RotationDrag.initialize();
             water = toggle("water", "VP water effects", ENVIRONMENT, false);
             water.describe(IsometricText.localize("Off: original water. On: VP waves and water shading. Works independently of 3D models. Saved automatically."));

@@ -54,6 +54,14 @@ public final class SettingsProbe {
         else if(args[1].equals("read-off"))rate.set(0);
         if(snow.get()!=args[1].equals("read-off"))throw new AssertionError("Snow default/persistence changed");
         LiveSettings.Toggle rotation = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "rotation", null);
+        LiveSettings.Number cutawayRange = (LiveSettings.Number) GameAccess.field("vpiso.IsometricControls", "cutawayRange", null);
+        float expectedRange = args[1].equals("read-off") ? 200f : args[1].equals("read-on") ? 50f : 100f;
+        if (cutawayRange.get() != expectedRange || IsometricControls.cutawayScale() != expectedRange / 100f)
+            throw new AssertionError("Cutaway range default or fresh-JVM persistence changed");
+        if (!GameAccess.field("viewpoint.platform.LiveSettings$Setting", "label", cutawayRange)
+                .equals(IsometricText.localize("Rotated view cutaway range (%)"))) throw new AssertionError("Unlocalized cutaway range");
+        if (args[1].equals("write-off")) cutawayRange.set(200f);
+        else if (args[1].equals("read-off")) cutawayRange.set(50f);
         LiveSettings.Number exposure = (LiveSettings.Number) GameAccess.field("vpiso.IsometricControls", "exposure", null);
         if (models.get() != args[1].equals("read-off")) throw new AssertionError("3D model default or persisted setting changed");
         if (water.get() != args[1].equals("read-on")) throw new AssertionError("Independent water default or persisted setting changed");
@@ -103,6 +111,7 @@ public final class SettingsProbe {
                     || !saved.getProperty("vpiso.frameGenerationRate").equals(args[1].equals("write-off")?"60":"game")
                     || !saved.getProperty("vpiso.grass").equals(Boolean.toString(grass.get()))
                     || !saved.getProperty("vpiso.rotation").equals(Boolean.toString(rotation.get()))
+                    || Float.parseFloat(saved.getProperty("vpiso.cutawayRange")) != cutawayRange.get()
                     || Math.abs(Float.parseFloat(saved.getProperty("vpiso.yaw")) - RotationDrag.yawDegrees()) > .001f
                     || !saved.getProperty("fixture.unrelated").equals("preserved")) {
                 throw new AssertionError("VP persistence changed an unrelated key or omitted the addon setting");

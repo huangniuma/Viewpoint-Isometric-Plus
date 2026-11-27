@@ -60,6 +60,7 @@ public final class NativeGround {
         int texture, occlusion, floorMoments, relight, validity, width, height, color;
         int minFilter=GL11.GL_NEAREST, magFilter=GL11.GL_NEAREST;
         boolean relightAttached, relightWriting, relightUsable, floorAttached, floorWriting, captureWriting;
+        boolean occlusionReset, floorReset, relightReset;
         long frame;
         final Set<Integer> walls=new HashSet<>();
         final Set<Integer> sources=new HashSet<>();
@@ -529,12 +530,13 @@ public final class NativeGround {
                 h=GL11.glGetTexLevelParameteri(GL11.GL_TEXTURE_2D,0,GL11.GL_TEXTURE_HEIGHT);
             } else return null;
             Surface surface=SURFACES.computeIfAbsent(fbo,k->new Surface());
-            if(surface.texture==0 || surface.width!=w || surface.height!=h || surface.color!=color) {
+            if(surface.texture==0 || surface.width!=w || surface.height!=h) {
                 if(surface.texture!=0) GL11.glDeleteTextures(surface.texture);
                 if(surface.occlusion!=0) GL11.glDeleteTextures(surface.occlusion);GL11.glDeleteTextures(surface.floorMoments);
                 GL11.glDeleteTextures(surface.relight);GL11.glDeleteTextures(surface.validity);
                 surface.relight=surface.validity=0;surface.relightAttached=false;
                 surface.occlusion=surface.floorMoments=0;surface.floorAttached=false;
+                surface.occlusionReset=surface.floorReset=surface.relightReset=false;
                 surface.texture=GL11.glGenTextures();surface.width=w;surface.height=h;surface.color=color;
                 surface.minFilter=surface.magFilter=GL11.GL_NEAREST;
                 GL11.glBindTexture(GL11.GL_TEXTURE_2D,surface.texture);
@@ -543,6 +545,26 @@ public final class NativeGround {
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MAG_FILTER,GL11.GL_NEAREST);
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_WRAP_S,GL12.GL_CLAMP_TO_EDGE);
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_WRAP_T,GL12.GL_CLAMP_TO_EDGE);
+                clear=true;
+            } else if(surface.color!=color) {
+                // The native colour attachment can be recycled without changing its
+                // shape. Reset provenance and attachment state, retaining compatible
+                // private storage instead of deleting and reallocating the same bytes.
+                detachOwned(FLOOR_SLOT,surface.floorMoments);
+                detachOwned(RELIGHT,surface.relight);
+                detachOwned(VALIDITY,surface.validity);
+                surface.color=color;
+                surface.floorAttached=surface.relightAttached=false;
+                surface.floorWriting=surface.relightWriting=surface.relightUsable=false;
+                surface.occlusionReset=surface.occlusion!=0;
+                surface.floorReset=surface.floorMoments!=0;
+                surface.relightReset=surface.relight!=0;
+                surface.minFilter=surface.magFilter=GL11.GL_NEAREST;
+                resetFilter(surface.texture);
+                resetFilter(surface.occlusion);
+                resetFilter(surface.floorMoments);
+                resetFilter(surface.relight);
+                resetFilter(surface.validity);
                 clear=true;
             }
             if(grassMask && surface.occlusion==0) {
@@ -555,6 +577,7 @@ public final class NativeGround {
                 GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_WRAP_T,GL12.GL_CLAMP_TO_EDGE);
                 clear=true;
             }
+            if(grassMask && surface.occlusionReset)clear=true;
             GL30.glFramebufferTexture2D(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+SLOT,GL11.GL_TEXTURE_2D,surface.texture,0);
             if(grassMask)GL30.glFramebufferTexture2D(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+OCCLUSION,GL11.GL_TEXTURE_2D,surface.occlusion,0);
             if(grassMask && !surface.floorAttached
@@ -566,6 +589,7 @@ public final class NativeGround {
                     GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MAG_FILTER,surface.magFilter);
                     clear=true;
                 }
+                if(surface.floorReset)clear=true;
                 GL30.glFramebufferTexture2D(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+FLOOR_SLOT,GL11.GL_TEXTURE_2D,surface.floorMoments,0);
                 surface.floorAttached=true;
             }
@@ -595,16 +619,31 @@ public final class NativeGround {
                 if(grassMask) {
                     GL30.glColorMaski(OCCLUSION,true,true,true,true);
                     GL30.glClearBufferfv(GL11.GL_COLOR,OCCLUSION,new float[]{0,0,0,0});
+                    surface.occlusionReset=false;
                 }
                 if(surface.floorAttached) {
                     GL30.glColorMaski(FLOOR_SLOT,true,true,true,true);
                     GL30.glClearBufferfv(GL11.GL_COLOR,FLOOR_SLOT,new float[]{0,0,0,0});
+                    surface.floorReset=false;
                 }
                 if(surface.relightAttached)for(int slot=VALIDITY;slot<=RELIGHT;slot++) {
                     GL30.glColorMaski(slot,true,true,true,true);
                     GL30.glClearBufferfv(GL11.GL_COLOR,slot,new float[]{0,0,0,0});
+                    surface.relightReset=false;
                 }
                 if(scissor) GL11.glEnable(GL11.GL_SCISSOR_TEST);
+            }
+            if(surface.relightAttached && surface.relightReset) {
+                // An external attachment can postpone use of retained relight storage.
+                // Reset it when it becomes ours again, without clearing cached provenance.
+                boolean scissor=GL11.glIsEnabled(GL11.GL_SCISSOR_TEST);
+                GL11.glDisable(GL11.GL_SCISSOR_TEST);
+                for(int slot=VALIDITY;slot<=RELIGHT;slot++) {
+                    GL30.glColorMaski(slot,true,true,true,true);
+                    GL30.glClearBufferfv(GL11.GL_COLOR,slot,new float[]{0,0,0,0});
+                }
+                if(scissor)GL11.glEnable(GL11.GL_SCISSOR_TEST);
+                surface.relightReset=false;
             }
             return surface;
         } finally { GL11.glBindTexture(GL11.GL_TEXTURE_2D,bound);GL13.glActiveTexture(active); }
@@ -635,6 +674,20 @@ public final class NativeGround {
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_WRAP_S,GL12.GL_CLAMP_TO_EDGE);
         GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_WRAP_T,GL12.GL_CLAMP_TO_EDGE);
         return texture;
+    }
+    private static void detachOwned(int slot,int texture) {
+        if(texture!=0
+                && GL30.glGetFramebufferAttachmentParameteri(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+slot,
+                    GL30.GL_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE)==GL11.GL_TEXTURE
+                && GL30.glGetFramebufferAttachmentParameteri(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+slot,
+                    GL30.GL_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME)==texture)
+            GL30.glFramebufferTexture2D(GL30.GL_DRAW_FRAMEBUFFER,GL30.GL_COLOR_ATTACHMENT0+slot,GL11.GL_TEXTURE_2D,0,0);
+    }
+    private static void resetFilter(int texture) {
+        if(texture==0)return;
+        GL11.glBindTexture(GL11.GL_TEXTURE_2D,texture);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MIN_FILTER,GL11.GL_NEAREST);
+        GL11.glTexParameteri(GL11.GL_TEXTURE_2D,GL11.GL_TEXTURE_MAG_FILTER,GL11.GL_NEAREST);
     }
     private NativeGround() {}
 }

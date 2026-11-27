@@ -1,31 +1,31 @@
 {
-  "version": "0.2.37",
+  "version": "0.2.41",
   "workshopId": "3842962628",
   "modId": "VPIsometricLighting",
   "files": [
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
-      "sha256": "9700a7896af3e9fb81d589869b643be8dd460d356b95a20ae6501bf8a0676e74"
+      "sha256": "887f03b8f5dee859bc9fb712a0b9cc315dc920cea1f4b8179e952da353676b8c"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
-      "sha256": "ab4388b3d07a0df2d8a2f3ea62b13b71800cf043a916c4a6f78c6cee03102def"
+      "sha256": "38f8c07b84e54b5276e3fb5febe52150f9b74075e431c1d1bab9cacba86585ac"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
-      "sha256": "44be28283dfb2250d3c6f3a2c6641e981f30cc7a5d76a6c51259e9081803a90d"
+      "sha256": "50cba2a5a546d697862bd14c049478ca641ce1896e34e2997b9e7318ce003e2e"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
-      "sha256": "94bb9eee84411604c7679c1993352862892dfac36112e80e7c6d51af233b4815"
+      "sha256": "7ceb561423e1664ddc22d6aa134a3af617463a82c9eb3766107c32b4613cb749"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
-      "sha256": "e41b4ca1b937c38f203c484b677c86738a37d206b0d7ed151ce339fc46d17e25"
+      "sha256": "5a2031e6b46e7998b00c48172a3f0474fef024608bcbd1daa183401808b0dffb"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/mod.info",
-      "sha256": "96f9edced4d3a6c65cb755ad2fff472c7cc98de60c94bef898a56adf1d9f0d27"
+      "sha256": "b8b451ca803c585dca06f8166e4ad512da77743191751b3f73c60c5f72870072"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/poster.png",
@@ -89,7 +89,7 @@
     },
     {
       "path": "src/vpiso/IsometricControls.java",
-      "sha256": "883b02a0e60ee7ffacba7b2a1ee979aa613761c0d83ec7ddd17b7229c11059ae"
+      "sha256": "08b2d67f84f90e110519e6b63fbfb52a809c4791d6a023faf775a5ef5863ab11"
     },
     {
       "path": "src/vpiso/IsometricEffects.java",
@@ -109,7 +109,7 @@
     },
     {
       "path": "src/vpiso/IsometricText.java",
-      "sha256": "9a0fb00629572fe8628b7d980eb6956fdd201b868df7c360243ec408300c7c05"
+      "sha256": "af006b3daf3a87ac70d7d31302c4a2692280c1d4c8563765825349a40b900763"
     },
     {
       "path": "src/vpiso/IsometricVisibility.java",
@@ -121,11 +121,11 @@
     },
     {
       "path": "src/vpiso/Main.java",
-      "sha256": "c3fa57150bb36b6ca98f156dad7f0a4f39cf8fff726c2c3824d638778bc488a6"
+      "sha256": "daf7d63e1230df103577acb2dbd2d2a2387719c9c29887798c20e8cbc2ab99cb"
     },
     {
       "path": "src/vpiso/ManagedAddon.java",
-      "sha256": "b4b21732a9cf7f8d67860c313531245e630ec253c09649c6aa4617f53f730c3c"
+      "sha256": "93939099525fd4e353e79c766a6120ae94431ef4ff5476f6bacab65e8c030aff"
     },
     {
       "path": "src/vpiso/ModelSolarGeometry.java",
@@ -153,7 +153,7 @@
     },
     {
       "path": "src/vpiso/NativeGround.java",
-      "sha256": "8d049bd88508e1e17ce058e500d7c5e4f0dd22ae3ad1139830f5949da8649774"
+      "sha256": "6fc74ccf588d497d2bf46fab9bf76d78494079481e2b47ac3ac403f054a09894"
     },
     {
       "path": "src/vpiso/NativeGroundShaders.java",
@@ -181,11 +181,11 @@
     },
     {
       "path": "src/vpiso/NativeObjectShaders.java",
-      "sha256": "54f268d33b08cacc878d66be03f5d2eb7b00c50b3e34647c6232d55c4281dece"
+      "sha256": "67ef3542d53c805e9049b56c34e492667ad6f5e2ce3d58f231b4f76478b51ac1"
     },
     {
       "path": "src/vpiso/NativeObjectState.java",
-      "sha256": "4cf02434c1d0fb63fd98730b40a8b4c9506fa628e2a862631068f5d2d518386c"
+      "sha256": "cf16b381243b231591ec475f9cf0457947e7b9d248920c4a7bcedc63ecf126bc"
     },
     {
       "path": "src/vpiso/NativeOverlay.java",
@@ -301,7 +301,7 @@
     },
     {
       "path": "src/vpiso/NativeWallCutaway.java",
-      "sha256": "55aa0001645846b87757bb03763d3cb7428cbaa8526f3ca4094505f9794dbd07"
+      "sha256": "02910ff23f7c787d7a0ae15235f387fed74ce654f6fffeca27082d0744c7af5b"
     },
     {
       "path": "src/vpiso/NativeWater.java",
@@ -704,6 +704,42 @@
       "sha256": "9e086405dde2262b151e500de5cf4bac4a18acccb5865c35c3cb61e80e66df8d"
     },
     {
+      "path": "src/vpiso/Patch_RetirementBudgetCollect.java",
+      "sha256": "0616776ee5043da994dde8fd30ab8791110d924067d4a9d45cbebe4191710bf4"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetContext.java",
+      "sha256": "256597aee61664d9f3a0e8d3d4492833843ce6a4200f3e0f8c0c21542ecca30e"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetIsoScope.java",
+      "sha256": "e310f7609dc202874522724219fa138c1c5ff087988d9ca6bcdf80573376fec4"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetKeepScope.java",
+      "sha256": "8c8ffa54d6032ccfa1df250afcb94dcb526ad906baef73b0102c6718eaf53416"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetMesh.java",
+      "sha256": "870e6330714d062f3a23e1615bd3e34715e22d3101dcfe5781c6ad41b93b54e4"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetModels.java",
+      "sha256": "06151350c764fd650238f17a79fd5a1cf4ee1b8a2a43900b4e802918056e4e24"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetNativeScope.java",
+      "sha256": "e02fb0a510500c9a4a0651be49c2d31d145a6163733ed0c74c5a52d0fea466cb"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetReset.java",
+      "sha256": "102505c25f70054fda1bac65708bb0f27c871a985adec7683b084eb606b50861"
+    },
+    {
+      "path": "src/vpiso/Patch_RetirementBudgetSlot.java",
+      "sha256": "7ee714ae32354cd4f51054ca5315cad5a4e9c776bdb6132f15beea71b922d613"
+    },
+    {
       "path": "src/vpiso/Patch_RotationAimScope.java",
       "sha256": "afe369f2747bd5b26319465b1068f8e1a75347eeaf741f4ad59c1101335a8688"
     },
@@ -912,12 +948,16 @@
       "sha256": "51ceb8cd415bb7fd9a2abf820b55bc1a87e63ef0124da3c4f69844f15634bc25"
     },
     {
+      "path": "src/vpiso/RetirementBudget.java",
+      "sha256": "8e8e716d040ef4564583e283644b0b0d6b62b3782f5254ada5a7158a8136144a"
+    },
+    {
       "path": "src/vpiso/RotationBounds.java",
       "sha256": "b70f934b955c4dc1422d71ea6b9f533094997a3fd18022e24fe25a0d460b86d1"
     },
     {
       "path": "src/vpiso/RotationCamera.java",
-      "sha256": "553d361611d7beb1afc820f06a10586288f6a32f59dc6111d070426a6162110d"
+      "sha256": "1d4f604aa43e4f7f9e12b922da5069389cb7bb36cc8dfbd56cd42a03cdd05bdc"
     },
     {
       "path": "src/vpiso/RotationDeviceText.java",

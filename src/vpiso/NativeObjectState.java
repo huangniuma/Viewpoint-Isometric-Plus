@@ -118,6 +118,11 @@ public final class NativeObjectState {
         // has no attachedN/W flags. Carry that wall's tile and faces in the colour
         // table; never change the wall's alpha or the shared/cached mesh flags.
         var sprite = nativeObject.getSprite();
+        // A nearby cabinet face can share a wall's plane. Cutaway eligibility
+        // belongs to the native source, independently of the square's wall caps.
+        if (square != null && (sprite != null && (sprite.cutN || sprite.cutW)
+                || nativeObject instanceof zombie.iso.objects.IsoDoor
+                || nativeObject instanceof zombie.iso.objects.IsoWindow)) id |= 0x02000000;
         if (square != null && sprite != null && (sprite.cutN || sprite.cutW)
                 && !(nativeObject instanceof zombie.iso.objects.IsoDoor)
                 && !(nativeObject instanceof zombie.iso.objects.IsoWindow)

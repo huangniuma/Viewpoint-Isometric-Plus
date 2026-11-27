@@ -1,6 +1,6 @@
 # Build and CPU smoke verification
 
-Use Windows PowerShell 5.1 or PowerShell 7 and a JDK with `java` and `jar` on `PATH` (tested with JDK 21). Install Project Zomboid 42.22, Viewpoint 0.1.7 and ZombieBuddy separately. The game runtime in `jre64/bin/java.exe` runs the smoke probes against the game's real dependency classes.
+Use Windows PowerShell 5.1 or PowerShell 7 and a JDK with `java` and `jar` on `PATH` (tested with JDK 21). Install Project Zomboid 42.22.2, Viewpoint 0.1.7 and ZombieBuddy separately. The game runtime in `jre64/bin/java.exe` runs the smoke probes against the game's real dependency classes.
 
 Set the three required dependency paths for your installation:
 
@@ -27,5 +27,7 @@ Outputs are staged as `build/VPIsometricLighting.jar`, `build/ViewpointIsometric
 The renderer JAR packages only `vpiso/`; the managed addon JAR packages only `vip/`. `compile-stubs/` contains compilation ABI declarations and is excluded from production JARs and the smoke runtime classpath.
 
 `Smoke.ps1` rebuilds the addon and compiles its two probes from source. `CameraProbe` checks camera projection, singular inputs and culling using the game's JOML. `LinkageProbe` runs JVM verification and reflects every renderer class, then checks the supported Viewpoint fingerprint and initial rendering scopes. Viewpoint 0.1.7 is pinned to SHA-256 `8d0d5a73227d3ba0724cab076f621435ebaed8ed2c73bfaf7d32a90b0a249e1f`; another build fails the compatibility check. These checks do not launch or attach to the game, create a GPU context, or measure game performance.
+
+The CPU smoke check does not initialize the private Viewpoint retirement adapter or exercise its fence, allocation-pressure or GL behavior. Those paths were checked with separate local weaving and GPU regressions; they remain outside this portable smoke suite.
 
 The other files in `tests/` preserve historical investigations and regressions. Many expect local `research/` captures, previous checkpoint JARs, prebuilt/woven fixtures, optional integrations, native libraries or a GPU. Those local dependencies are omitted from this export and the historical scripts still record their original paths. They are source references, not a portable complete test suite. The original development directory retains the full tools and evidence. Full rendering, driver and game-session verification remains a separate check.

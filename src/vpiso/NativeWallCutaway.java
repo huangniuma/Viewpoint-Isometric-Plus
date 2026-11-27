@@ -20,10 +20,12 @@ public final class NativeWallCutaway {
         uniform sampler2D vpIsoWallMask;
         uniform vec2 vpIsoWallMaskSize;
         uniform float vpIsoRotated;
+        uniform float vpIsoCutawayScale;
         uniform mat4 vpIsoRotatedPV;
         uniform vec2 vpIsoRotatedScreen;
         void vpIsoCutWall(vec3 scenePos, vec3 localPos, vec3 normal, int flags, vec4 parent) {
-          if (vpIsoNativeOn < 0.5) return;
+          // Baked walls have a structural flag even without a native object span.
+          if (vpIsoNativeOn < 0.5 || (parent.w == 0.0 && (flags & 2097153) != 2097153)) return;
           vec3 world = vec3(vpIsoNativeCam.x - scenePos.x,
               vpIsoNativeCam.y - scenePos.z,
               vpIsoNativeCam.z + (scenePos.y - localPos.y) / 2.4494896);
@@ -59,7 +61,7 @@ public final class NativeWallCutaway {
             vec4 wallClip = vpIsoRotatedPV * vec4(scenePos, 1.0);
             vec4 bodyClip = vpIsoRotatedPV * vec4(0.0, 1.1, 0.0, 1.0);
             vec2 separation = (wallClip.xy / wallClip.w - bodyClip.xy / bodyClip.w)
-                * vpIsoRotatedScreen * 0.5 / vec2(110.0, 155.0);
+                * vpIsoRotatedScreen * 0.5 / vec2(110.0, 155.0) / vpIsoCutawayScale;
             if (wallClip.z / wallClip.w < bodyClip.z / bodyClip.w - 0.00001
                 && dot(separation, separation) < 1.0) discard;
             return;
@@ -74,7 +76,7 @@ public final class NativeWallCutaway {
           if (texture(vpIsoWallMask, (vec2(column,row) + pixel) / vpIsoWallMaskSize).r < 0.5) discard;
         }
         void vpIsoCutWall(vec3 scenePos, vec3 localPos, vec3 normal, int flags) {
-          vpIsoCutWall(scenePos, localPos, normal, flags, vec4(0.0));
+          vpIsoCutWall(scenePos, localPos, normal, flags, vec4(0.0, 0.0, 0.0, -1.0));
         }
         """;
     private static int texture, width, height;
@@ -148,6 +150,7 @@ public final class NativeWallCutaway {
         RotationCamera.Snapshot rotation = RotationLayers.current();
         program.set("vpIsoRotated", rotation == null ? 0f : 1f);
         if (rotation != null) {
+            program.set("vpIsoCutawayScale", rotation.cutawayScale());
             program.set("vpIsoRotatedPV", rotation.projection().mul(rotation.view()));
             program.set("vpIsoRotatedScreen", rotation.width() * rotation.zoom(), rotation.height() * rotation.zoom());
         }

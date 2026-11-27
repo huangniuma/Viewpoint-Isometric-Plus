@@ -83,7 +83,7 @@ public final class OverlayProbe {
             rebuildFonts(io, 1.5f);
             optionsFrame(io, -100f, -100f, false);
             System.out.println("Settings UI PASS (" + language
-                    + "): native Options page, six category tabs, 20 settings including shadow preload, independent frame generation and base rate, lightweight shadows and grass, native checkbox/profile clicks, CJK glyphs, font resize; no popup or game launch.");
+                    + "): native Options page, six category tabs, 21 settings including rotated cutaway range and shadow preload, independent frame generation and base rate, lightweight shadows and grass, native checkbox/profile clicks, CJK glyphs, font resize; no popup or game launch.");
         } finally {
             if (backend != null) GameAccess.call("imgui.gl3.ImGuiImplGl3", "dispose", backend, new Class<?>[0]);
             ImGui.destroyContext(context);
@@ -124,7 +124,12 @@ public final class OverlayProbe {
         clickSettings(io, place, places, 40f, 45f);
         IsometricControls.tick();
         if (!toggle.get()) throw new AssertionError("Real VP checkbox did not turn the addon on");
-        if (((java.util.List<?>) places.get(place)).size() != 20) throw new AssertionError("Missing independent model/effect/rotation/grass/frame generation/preload controls");
+        if (((java.util.List<?>) places.get(place)).size() != 21) throw new AssertionError("Missing independent model/effect/rotation/grass/frame generation/preload controls");
+        LiveSettings.Number cutawayRange = (LiveSettings.Number) GameAccess.field("vpiso.IsometricControls", "cutawayRange", null);
+        if (!GameAccess.field("viewpoint.platform.LiveSettings$Setting", "label", cutawayRange)
+                .equals(IsometricText.localize("Rotated view cutaway range (%)"))
+                || !GameAccess.field("viewpoint.platform.LiveSettings$Setting", "section", cutawayRange).equals(IsometricControls.CAMERA))
+            throw new AssertionError("Cutaway range is not localized in the camera category");
         LiveSettings.Toggle preload = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "shadowPreload", null);
         if (!GameAccess.field("viewpoint.platform.LiveSettings$Setting", "label", preload).equals(IsometricText.localize("Shadow preload optimization")))
             throw new AssertionError("Unlocalized shadow preload checkbox");

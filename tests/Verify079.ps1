@@ -1,4 +1,5 @@
-param([string]$GameDirectory='D:\ProgramFiles\Steam\steamapps\common\ProjectZomboid')
+param([string]$GameDirectory='D:\ProgramFiles\Steam\steamapps\common\ProjectZomboid',
+      [string[]]$Packs=@('default','library','vivid','somber','trueweathers'))
 $ErrorActionPreference='Stop'
 $projectDirectory=Split-Path $PSScriptRoot -Parent
 $vp='D:\ProgramFiles\Steam\steamapps\workshop\content\108600\3809306528\mods\Viewpoint\42\media\java\client\Viewpoint.jar'
@@ -22,7 +23,7 @@ foreach($probe in @('NativeChunkSampling079Probe','NativeOutputProbe','NativeCap
 }
 & $java --enable-native-access=ALL-UNNAMED -Xverify:all -cp "$stage;$runtime" NativeOwner079Probe
 if($LASTEXITCODE -ne 0){throw 'Continuous-alpha owner decoder failed'}
-foreach($pack in @('default','library','vivid','somber','trueweathers')) {
+foreach($pack in $Packs) {
     foreach($probe in @('NativeSource079Probe','NativeSource073Probe','NativeSource074Probe','NativeReceivers071Probe')) {
         & $java --enable-native-access=ALL-UNNAMED -Xverify:all -cp "$stage;$runtime" $probe $pack
         if($LASTEXITCODE -ne 0){throw "Shadow receiver regression failed: $probe $pack"}

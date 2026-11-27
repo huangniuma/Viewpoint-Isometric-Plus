@@ -1,4 +1,4 @@
 {
   "name": "Viewpoint Isometric Plus",
-  "description": "0.2.37: Adds optional shadow preload optimization for both isometric model modes. Prioritizes existing preload around screen edges and spreads distant map arrivals across frames while preserving nearby and overdue multiplayer chunk priority. Authors: Hesin, GPT6."
+  "description": "0.2.41: Fixes furniture faces disappearing beside cutaway walls. Wall cutting uses structural source identity; furniture fades, wall decorations, picking and shadows are retained. Authors: Hesin, GPT6."
 }

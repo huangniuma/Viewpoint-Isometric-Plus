@@ -25,11 +25,12 @@ public final class WallAttachment114Probe {
             NativeObjectState state=new NativeObjectState();Object result=sample.invoke(state,wall(x,y,face,true),.65f);
             int id=(Integer)GameAccess.field("vpiso.NativeObjectState$Sample","id",result);
             require((id&65535)==0,"No-pick wall acquired a mouse target");
-            if(!baseline)require((id>>>16)==((face<<6|((y&7)*8+(x&7)))+1),"Wrong parent tile or face");
+            if(!baseline)require(((id>>>16)&511)==((face<<6|((y&7)*8+(x&7)))+1),"Wrong parent tile or face");
             require((Float)GameAccess.field("vpiso.NativeObjectState$Sample","alpha",result)==.65f,"Parent alpha changed");checks++;
         }
         Object ordinary=sample.invoke(new NativeObjectState(),wall(4,7,2,false),1f);
-        require((Integer)GameAccess.field("vpiso.NativeObjectState$Sample","id",ordinary)==0,"Unattached wall tagged");
+        int ordinaryId=(Integer)GameAccess.field("vpiso.NativeObjectState$Sample","id",ordinary);
+        require(ordinaryId==(baseline?0:0x02000000),"Ordinary wall eligibility changed its parent or picking metadata");
         if(!GLFW.glfwInit())throw new AssertionError("GLFW");GLFW.glfwWindowHint(GLFW.GLFW_VISIBLE,0);
         GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MAJOR,4);GLFW.glfwWindowHint(GLFW.GLFW_CONTEXT_VERSION_MINOR,5);
         long window=GLFW.glfwCreateWindow(SIDE,SIDE,"114 attached wall",0,0);
