@@ -1,8 +1,72 @@
 {
-  "version": "0.2.34",
+  "version": "0.2.35",
   "workshopId": "3842962628",
   "modId": "VPIsometricLighting",
   "files": [
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
+      "sha256": "d662e11919f35beb709f4f9c04fe604b934a7f1e8239909bbd9ecb5692603b8b"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
+      "sha256": "9c86ea740c6db4a8650de6a59baed91213f574c512b540469410abb9f1564470"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
+      "sha256": "89879402ac632504ec98d76acc57f456d8960bd908974b9e453586793f4c6901"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
+      "sha256": "dcdc120c7118c2d9c886e9b84afd9be9765ced52928c0a3c54b0fbf32e474213"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
+      "sha256": "9fe2489a8a4c597758336a87cb489aa556882e23b6902aa7fa4b97ff5dd79bca"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/mod.info",
+      "sha256": "df6ebcb2b4e0c2dcd8e127d49c2d1887797ce7798ff72d3c3f092132ae31bdc9"
+    },
+    {
+      "path": "Contents/mods/VPIsometricLighting/42/poster.png",
+      "sha256": "d4033620459e93387019aa46641f4676c8b45a7b8e2cd8023fd608942df1a9c2"
+    },
+    {
+      "path": "addon-src/vip/IsometricAddon.java",
+      "sha256": "ac3a5c54b1231f45824c78c50359c94b2686bbdca2801c1c8e9c7b9c74f13d85"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix3f.java",
+      "sha256": "6eed813d2a7caf0e2dc712e7f6b07a5126b3f0ed1e523e452ccf3ba1c454bbdb"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4d.java",
+      "sha256": "e75d6c18566dcb461ba94a6364579051e23044ed980678c9e2822b84da26cb66"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4f.java",
+      "sha256": "fe6f9500943d9d62d996de400e0317cc9bd07928c64ac92ec32a09637818d18a"
+    },
+    {
+      "path": "compile-stubs/org/joml/Matrix4fc.java",
+      "sha256": "1e5070e7cd0372c83b463778fd16ad8c54aae38eb08f1c647e6f588285009ca3"
+    },
+    {
+      "path": "compile-stubs/org/joml/Vector4f.java",
+      "sha256": "2767b6f1bf1c8e9f9864cdca994df5e3f06f1cdd1afb2cb9f38efe470f3c4890"
+    },
+    {
+      "path": "compile-stubs/zombie/core/textures/TextureDraw.java",
+      "sha256": "7ea886629941644268fb65a4cc1e134baa9800f9e8ed826106be38c32188b620"
+    },
+    {
+      "path": "compile-stubs/zombie/iso/IsoObject.java",
+      "sha256": "1cafea2a82e8e1bebfa204132dc144310db3cc5ff3a8650966547f288d3552af"
+    },
+    {
+      "path": "compile-stubs/zombie/iso/Vector2.java",
+      "sha256": "fc371f4eb5edab3683285da5cbcddcc743e6eaf07e5adcea05ff370d60a8e920"
+    },
     {
       "path": "src/vpiso/ClientSession.java",
       "sha256": "5b509124ba71694cb063cee5d109fa8c2a4fc84a6337499d826e6a6c94a53350"
@@ -49,7 +113,7 @@
     },
     {
       "path": "src/vpiso/IsometricVisibility.java",
-      "sha256": "35af716575f2027892532377f43168dd8d5f26ddcae1d17b250e81a201538686"
+      "sha256": "70827b00305d9a6d481b471284d8789a561ae4c71b350df30280bce37bb32ef3"
     },
     {
       "path": "src/vpiso/LightweightShadows.java",
@@ -57,11 +121,11 @@
     },
     {
       "path": "src/vpiso/Main.java",
-      "sha256": "89fffe1899aee1e18585fca9bf463da49e49ee16a3d3f3a0367248e609700255"
+      "sha256": "3ba492a387d8497d73e45ccd3262e42e3fb962452362cc027420761e419e3e56"
     },
     {
       "path": "src/vpiso/ManagedAddon.java",
-      "sha256": "34e3f4110cc03335abf012997205839a842ca2d879c2c39a454810258854e5f7"
+      "sha256": "8efeb79e311d27b8768eeee1fcfed0006e6d97a6b401056838f1a936a49386d8"
     },
     {
       "path": "src/vpiso/ModelSolarGeometry.java",
@@ -204,16 +268,20 @@
       "sha256": "5b4ac78132b3246121cdbdcf08d2d61f6c4df288bb9d448035c60699dab30304"
     },
     {
-      "path": "src/vpiso/NativeTrees.java",
-      "sha256": "bdfe40e59b2cabd3bc81272b11978aaf38af7f588efdac5906c40ce9092cb3c1"
-    },
-    {
       "path": "src/vpiso/NativeTreeSort.java",
       "sha256": "318f6ff55c481942dc4079b9e6319843c3df3f321ce8be9735074da7df1ee5f3"
     },
     {
       "path": "src/vpiso/NativeTreeSources.java",
       "sha256": "413f6993ad9aa515b67dc5e71f3b02f5255421c8b37e96e24517fa07aba3a568"
+    },
+    {
+      "path": "src/vpiso/NativeTrees.java",
+      "sha256": "bdfe40e59b2cabd3bc81272b11978aaf38af7f588efdac5906c40ce9092cb3c1"
+    },
+    {
+      "path": "src/vpiso/NativeVPWaterOverlay.java",
+      "sha256": "c533428f51ccd2375e6a93afb48b94cf6b975fd4920cd6b8f1d35b65e0acca19"
     },
     {
       "path": "src/vpiso/NativeVehicleHints.java",
@@ -226,10 +294,6 @@
     {
       "path": "src/vpiso/NativeVision.java",
       "sha256": "47fd336f97b90bf460d20a61386ea9f96185c18d0e8dacc6ca7a1fcab0c0bf3e"
-    },
-    {
-      "path": "src/vpiso/NativeVPWaterOverlay.java",
-      "sha256": "c533428f51ccd2375e6a93afb48b94cf6b975fd4920cd6b8f1d35b65e0acca19"
     },
     {
       "path": "src/vpiso/NativeWallCaps.java",
@@ -268,12 +332,12 @@
       "sha256": "c8019ea8cd0b8a9d825bcf2017f7b09f492d0d1b6dd4b68710caacbcda686f15"
     },
     {
-      "path": "src/vpiso/Patch_CharactersBehind.java",
-      "sha256": "b96396225d9800c749f1f2483c35362242b2d30c2632b22d6fb3f87ae43883ae"
-    },
-    {
       "path": "src/vpiso/Patch_CharacterVisibility.java",
       "sha256": "660c7630acdced1b7738b5a087ba194d2d2cc7b2fa57deb0679302e7803c07ab"
+    },
+    {
+      "path": "src/vpiso/Patch_CharactersBehind.java",
+      "sha256": "b96396225d9800c749f1f2483c35362242b2d30c2632b22d6fb3f87ae43883ae"
     },
     {
       "path": "src/vpiso/Patch_ChineseFonts.java",
@@ -314,6 +378,10 @@
     {
       "path": "src/vpiso/Patch_FrameGenerationUncapped.java",
       "sha256": "0ca2b63c14ca95b2c602e89c81f1bb9b1529a163affe645d86f24d8e677ae06a"
+    },
+    {
+      "path": "src/vpiso/Patch_FrameStreamUpdates.java",
+      "sha256": "b230bb361228d7ab5aa8eea6351602ade5a8acb620f22bec3674e306d9851325"
     },
     {
       "path": "src/vpiso/Patch_GraphicsPackList.java",
@@ -476,10 +544,6 @@
       "sha256": "8699516f8ffec0abeb084efed568bb6fa088db502a6ddb22682e753b18550c36"
     },
     {
-      "path": "src/vpiso/Patch_NativeGroundProgram.java",
-      "sha256": "0e0f58ab17127c77475ceeec94cd2a71b3132951f23bfd227d4caeb354a28880"
-    },
-    {
       "path": "src/vpiso/Patch_NativeGroundPZO.java",
       "sha256": "1c3e5f9705c80ebb4395b02bdf844b31a07a7bc5d18412ef08ac1eb10d513922"
     },
@@ -490,6 +554,10 @@
     {
       "path": "src/vpiso/Patch_NativeGroundPZOTrees.java",
       "sha256": "d2e7593fb843c7528838a67ece5b1ed91d8314c7d4da423934d94ec2d06292f6"
+    },
+    {
+      "path": "src/vpiso/Patch_NativeGroundProgram.java",
+      "sha256": "0e0f58ab17127c77475ceeec94cd2a71b3132951f23bfd227d4caeb354a28880"
     },
     {
       "path": "src/vpiso/Patch_NativeGroundSnow.java",
@@ -580,12 +648,12 @@
       "sha256": "5d3b5a769877368186ba22ec789a533ff35868702efdcf4d1e4b592fae747cf8"
     },
     {
-      "path": "src/vpiso/Patch_PackedCutaways.java",
-      "sha256": "37c6a242108ca6da3a4965d576cb21efb47543aaa2c9d3572d01a205270fe21a"
-    },
-    {
       "path": "src/vpiso/Patch_PackedCutawayScope.java",
       "sha256": "529e7d00860034d74e1408a6e78761c0a8f02194405b88a582c51615e1e4e108"
+    },
+    {
+      "path": "src/vpiso/Patch_PackedCutaways.java",
+      "sha256": "37c6a242108ca6da3a4965d576cb21efb47543aaa2c9d3572d01a205270fe21a"
     },
     {
       "path": "src/vpiso/Patch_PlantModelBounds.java",
@@ -878,70 +946,6 @@
     {
       "path": "src/vpiso/TrueWeatherCompat.java",
       "sha256": "5fd09fe69fa2ab2d681582102a237ea5a93843f2cef94c387dab61e861bcd5d0"
-    },
-    {
-      "path": "addon-src/vip/IsometricAddon.java",
-      "sha256": "ac3a5c54b1231f45824c78c50359c94b2686bbdca2801c1c8e9c7b9c74f13d85"
-    },
-    {
-      "path": "compile-stubs/org/joml/Matrix3f.java",
-      "sha256": "6eed813d2a7caf0e2dc712e7f6b07a5126b3f0ed1e523e452ccf3ba1c454bbdb"
-    },
-    {
-      "path": "compile-stubs/org/joml/Matrix4d.java",
-      "sha256": "e75d6c18566dcb461ba94a6364579051e23044ed980678c9e2822b84da26cb66"
-    },
-    {
-      "path": "compile-stubs/org/joml/Matrix4f.java",
-      "sha256": "fe6f9500943d9d62d996de400e0317cc9bd07928c64ac92ec32a09637818d18a"
-    },
-    {
-      "path": "compile-stubs/org/joml/Matrix4fc.java",
-      "sha256": "1e5070e7cd0372c83b463778fd16ad8c54aae38eb08f1c647e6f588285009ca3"
-    },
-    {
-      "path": "compile-stubs/org/joml/Vector4f.java",
-      "sha256": "2767b6f1bf1c8e9f9864cdca994df5e3f06f1cdd1afb2cb9f38efe470f3c4890"
-    },
-    {
-      "path": "compile-stubs/zombie/core/textures/TextureDraw.java",
-      "sha256": "7ea886629941644268fb65a4cc1e134baa9800f9e8ed826106be38c32188b620"
-    },
-    {
-      "path": "compile-stubs/zombie/iso/IsoObject.java",
-      "sha256": "aa4ed5c7f5bdae5c6c5099612f5be646640caaef6e194697bbb58ad7dc1a4208"
-    },
-    {
-      "path": "compile-stubs/zombie/iso/Vector2.java",
-      "sha256": "fc371f4eb5edab3683285da5cbcddcc743e6eaf07e5adcea05ff370d60a8e920"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
-      "sha256": "b60cff2d48d79f6a2d300feb51bfa64d81a5f6ec1cfcd442a33c803a3fda6278"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
-      "sha256": "efb27afb0f95dd843627e76406e08b354dfb59781d6bd49a30a8e7252939f4cf"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
-      "sha256": "8b49683e7fab3262aff59b1f16fa72fc48e4815245c88fd5511097124d76b54f"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
-      "sha256": "77c84cf86b68673c9d338fae430249f62d6ab6e6e51fefe3f5df3def7bf02ae6"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
-      "sha256": "79e0821f2bea4ffdab395e2104989046a0a3f780cc57f3e238c03c3c5594b38b"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/mod.info",
-      "sha256": "3e2247417c59b4e56a1eaee05feaff002da5447f3e399d139f64f8f7066a681c"
-    },
-    {
-      "path": "Contents/mods/VPIsometricLighting/42/poster.png",
-      "sha256": "d4033620459e93387019aa46641f4676c8b45a7b8e2cd8023fd608942df1a9c2"
     }
   ]
 }

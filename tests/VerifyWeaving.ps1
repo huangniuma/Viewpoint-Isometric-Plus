@@ -28,6 +28,8 @@ foreach ($file in $optionalReflections) {
 }
 $trueWeathers = 'D:\ProgramFiles\Steam\steamapps\workshop\content\108600\3813908957\mods\ViewpointTrueWeathers\42\media\java\client\ViewpointTrueWeathers.jar'
 $optionalAbsent = if (Test-Path -LiteralPath $trueWeathers) { $optionalReflections += $trueWeathers; '' } else { 'vptw.AmbientDraw' }
+# These integrations are optional too. Resolved targets are still woven and verified.
+$optionalAbsent += ',pzopt.Darkness,pzopt.Sway,pzopt.EntityShadow,pzopt.Shaders,pzopt.BakeRecord,pzopt.TileRecord'
 $runtimePath = "$probeDirectory;$classDirectory;$ViewpointJar;$ZombieBuddyJar;$GameDirectory;$gameJar;" + ($optionalReflections -join ';')
 & $javaRuntime '-Xverify:all' '-Dnet.bytebuddy.experimental=true' "-Dvpiso.optionalAbsent=$optionalAbsent" "-Dvpiso.testOverrides=$GameDirectory\pzopt\overrides" -cp $runtimePath PatchWeavingProbe $classDirectory $verificationDirectory 2>&1 |
     Tee-Object -FilePath (Join-Path $verificationDirectory 'result.txt')

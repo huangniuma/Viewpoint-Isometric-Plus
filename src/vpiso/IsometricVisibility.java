@@ -161,7 +161,7 @@ public final class IsometricVisibility {
                     forcedSquare(api, cutaways, player, square))) return 0f;
         if (object == null) return 1f;
         ObjectRenderInfo info = ((IsoObject) object).getRenderInfo(player);
-        float alpha = info.targetAlpha;
+        float alpha = objectTargetAlpha((IsoObject) object, player, info.targetAlpha);
         alpha = Float.isFinite(alpha) ? Math.max(0f, Math.min(1f, alpha)) : 0f;
         return NativeObjectState.alpha(object, player, alpha);
     }
@@ -235,13 +235,35 @@ public final class IsometricVisibility {
         ObjectRenderInfo info = nativeObject.getRenderInfo(player);
         ObjectRenderLayer layer = info.layer;
         if (layer == ObjectRenderLayer.None) return false;
-        float target = info.targetAlpha;
+        float target = objectTargetAlpha(nativeObject, player, info.targetAlpha);
         if (NativeObjectState.alpha(object, player, target) <= 0f) return false;
         // Only the native opaque MinusFloor consumer has this force-square gate.
         // Translucent windows and the south/east consumer have their own rules.
         if (!forced || layer != ObjectRenderLayer.MinusFloor) return true;
         var grid = nativeObject.getSpriteGrid();
         return grid != null && grid.getLevels() != 1;
+    }
+
+    /** Native wall attachment visibility is a draw-consumer rule, after FBO classification. */
+    private static float objectTargetAlpha(IsoObject object, int player, float target) {
+        var sprite = object.getSprite();
+        if (sprite == null || sprite.getTileType() != zombie.iso.SpriteDetails.IsoObjectType.MAX
+                || sprite.cutN || sprite.cutW
+                || object instanceof zombie.iso.objects.IsoDoor || object instanceof zombie.iso.objects.IsoWindow
+                || object.container != null) return target;
+        var properties = sprite.getProperties();
+        if (properties.has(zombie.iso.SpriteDetails.IsoFlagType.waterPiped)) return target;
+        boolean north = properties.has(zombie.iso.SpriteDetails.IsoFlagType.attachedN);
+        boolean west = properties.has(zombie.iso.SpriteDetails.IsoFlagType.attachedW);
+        if (!north && !west) return target;
+        var square = object.getSquare();
+        if (square == null) return target;
+        int caps = NativeWallCaps.caps(square);
+        long now = ((Number) GameAccess.field("zombie.iso.fboRenderChunk.FBORenderCell", "currentTimeMillis",
+                zombie.iso.fboRenderChunk.FBORenderCell.instance)).longValue();
+        int cutaway = square.getPlayerCutawayFlag(player, now);
+        return north && (caps & 4) != 0 && (cutaway & 1) != 0
+                || west && (caps & 8) != 0 && (cutaway & 2) != 0 ? 0f : target;
     }
 
     private static boolean shouldRender(Bindings api, Object cutaways, int player, Object square) {

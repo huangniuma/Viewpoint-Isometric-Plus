@@ -1,8 +1,8 @@
 name=Viewpoint Isometric Plus
 id=VPIsometricLighting
 author=Hesin, GPT6
-modversion=0.2.34
-description=0.2.34: Reduces repeated hidden-span queries, packed-source reflection and temporary allocations during world preparation. Preserves current placement, alpha, shadow interactions and visual quality. Authors: Hesin, GPT6.
+modversion=0.2.35
+description=0.2.35: Repairs intermittent zombie mesh spikes in Viewpoint by ordering GPU skeleton writes before shared-buffer updates. Wall-mounted decorations now follow wall cutaway fading. Authors: Hesin, GPT6.
 poster=poster.png
 versionMin=42.22
 versionMax=42.22

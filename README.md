@@ -1,20 +1,8 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.34  
+Version / 版本：0.2.35  
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
-
-Steam Workshop：[3842962628](https://steamcommunity.com/sharedfiles/filedetails/?id=3842962628)  
-Mod ID：`VPIsometricLighting`  
-下载 / Downloads：[GitHub Releases](https://github.com/huangniuma/Viewpoint-Isometric-Plus/releases)
-
-## 源码与构建 / Source and building
-
-本仓库包含当前版本源码、可安装的 `Contents/` 和保留的历史测试源码。构建与 CPU 检查步骤见 [BUILDING.md](BUILDING.md)；游戏、Viewpoint 和 ZombieBuddy 需自行安装。开发用的本地抓取数据、依赖、历史构建及备份未上传，原始开发目录中的这些文件均已保留，详见 [dev-tools/README.md](dev-tools/README.md)。
-
-This repository contains the current source, installable `Contents/` and retained historical test sources. See [BUILDING.md](BUILDING.md) for building and CPU smoke checks. Install the game, Viewpoint and ZombieBuddy separately. Local captures, dependencies, historical builds and backups remain preserved in the original development directory; see [dev-tools/README.md](dev-tools/README.md).
-
-代码与数据来源说明 / Code and data provenance: [NOTICE.md](NOTICE.md).
 
 在《僵尸毁灭工程》原版等距视角中使用 Viewpoint 的阴影、色彩、水面、草地以及积雪与足迹，并可选择开启 3D 模型与视角旋转。各项效果可独立设置，保留已有配置。
 
@@ -59,6 +47,12 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.35
+
+- 修复开启 3D 模型后进入 VP 视角时，僵尸偶发一帧拉伸、刺出巨大面片的问题。补全 GPU 骨骼计算与后续缓冲区更新的同步，保留现有动画及模型加速。 / Fixes intermittent single-frame zombie mesh spikes after using 3D isometric models and entering Viewpoint. Orders GPU skeleton writes before later shared-buffer updates while retaining animation and model acceleration.
+- 墙上挂画等普通附墙装饰现在跟随对应墙面的透视渐隐与恢复，保留门窗、灯开关、容器的既有规则。 / Ordinary wall-mounted decorations now fade out and back in with the corresponding wall cutaway, preserving existing door, window, switch and container rules.
+- 修复工具与失败对照继续保留在源码旁，不随玩家安装包加载。更新后请完全重启游戏。 / Investigation tools and failed comparisons remain alongside the source and are excluded from the player package. Restart the game completely after updating.
 
 ## 0.2.34
 
