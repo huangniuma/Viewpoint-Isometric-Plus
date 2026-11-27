@@ -7,7 +7,7 @@ import viewpoint.addons.State;
 /** The native manager owns activation; existing feature preferences remain independent. */
 public final class ManagedAddon {
     public static final String ID = "viewpoint-isometric-plus";
-    public static final String VERSION = "0.2.36";
+    public static final String VERSION = "0.2.37";
     public static final String DESCRIPTION = "Controls the companion ZombieBuddy renderer. Isometric shadows, color, water, grass and 3D models; settings in Options.";
     private static boolean available;
     private static State state;

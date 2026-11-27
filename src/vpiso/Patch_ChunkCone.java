@@ -7,5 +7,6 @@ public final class Patch_ChunkCone {
     public static void exit(@Patch.Argument(0) float x, @Patch.Argument(1) float y,
                             @Patch.Argument(2) float z, @Patch.Return(readOnly=false) boolean result) {
         if (IsometricBridge.capturing()) result = IsometricBridge.inView(-x, z + 1.5f, -y);
+        else result = ShadowPreload.visible(x, y, z, result);
     }
 }

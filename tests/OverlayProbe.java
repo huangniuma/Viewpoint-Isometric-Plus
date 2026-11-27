@@ -83,7 +83,7 @@ public final class OverlayProbe {
             rebuildFonts(io, 1.5f);
             optionsFrame(io, -100f, -100f, false);
             System.out.println("Settings UI PASS (" + language
-                    + "): native Options page, six category tabs, 19 settings including independent frame generation and base rate, lightweight shadows and grass, native checkbox/profile clicks, CJK glyphs, font resize; no popup or game launch.");
+                    + "): native Options page, six category tabs, 20 settings including shadow preload, independent frame generation and base rate, lightweight shadows and grass, native checkbox/profile clicks, CJK glyphs, font resize; no popup or game launch.");
         } finally {
             if (backend != null) GameAccess.call("imgui.gl3.ImGuiImplGl3", "dispose", backend, new Class<?>[0]);
             ImGui.destroyContext(context);
@@ -124,7 +124,16 @@ public final class OverlayProbe {
         clickSettings(io, place, places, 40f, 45f);
         IsometricControls.tick();
         if (!toggle.get()) throw new AssertionError("Real VP checkbox did not turn the addon on");
-        if (((java.util.List<?>) places.get(place)).size() != 19) throw new AssertionError("Missing independent model/effect/rotation/grass/frame generation controls");
+        if (((java.util.List<?>) places.get(place)).size() != 20) throw new AssertionError("Missing independent model/effect/rotation/grass/frame generation/preload controls");
+        LiveSettings.Toggle preload = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "shadowPreload", null);
+        if (!GameAccess.field("viewpoint.platform.LiveSettings$Setting", "label", preload).equals(IsometricText.localize("Shadow preload optimization")))
+            throw new AssertionError("Unlocalized shadow preload checkbox");
+        var preloadOnly = Map.of(place, java.util.List.of(preload));
+        preload.set(true); settingsFrame(io, place, preloadOnly, -100f, -100f, false);
+        clickSettings(io, place, preloadOnly, 40f, 45f);
+        if (IsometricControls.shadowPreload()) throw new AssertionError("Shadow preload checkbox did not turn off");
+        clickSettings(io, place, preloadOnly, 40f, 45f);
+        if (!IsometricControls.shadowPreload()) throw new AssertionError("Shadow preload checkbox did not turn on");
         LiveSettings.Toggle lightweight = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "lightweightShadows", null);
         if (!GameAccess.field("viewpoint.platform.LiveSettings$Setting", "label", lightweight).equals(IsometricText.localize("Lightweight dynamic shadows")))
             throw new AssertionError("Unlocalized lightweight shadows checkbox");

@@ -1,8 +1,8 @@
 name=Viewpoint Isometric Plus
 id=VPIsometricLighting
 author=Hesin, GPT6
-modversion=0.2.36
-description=0.2.36: Fixes wall-attached paintings remaining visible after their parent wall is cut away in 3D model mode. Preserves native wall visibility, interaction and shadow casting. Authors: Hesin, GPT6.
+modversion=0.2.37
+description=0.2.37: Adds optional shadow preload optimization for both isometric model modes. Prioritizes existing preload around screen edges and spreads distant map arrivals across frames while preserving nearby and overdue multiplayer chunk priority. Authors: Hesin, GPT6.
 poster=poster.png
 versionMin=42.22
 versionMax=42.22

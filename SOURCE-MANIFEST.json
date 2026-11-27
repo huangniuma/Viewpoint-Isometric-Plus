@@ -1,31 +1,31 @@
 {
-  "version": "0.2.36",
+  "version": "0.2.37",
   "workshopId": "3842962628",
   "modId": "VPIsometricLighting",
   "files": [
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/java/client/VPIsometricLighting.jar",
-      "sha256": "53610ed937fcadd04a1205540528ba2f126ced4509c090d32dfbadcbeb07cf88"
+      "sha256": "9700a7896af3e9fb81d589869b643be8dd460d356b95a20ae6501bf8a0676e74"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/CN/Mod.json",
-      "sha256": "a4593d1ef2249ec65b8ee9f0ceb61674c88013e01ba6cc592d892be064f747ca"
+      "sha256": "ab4388b3d07a0df2d8a2f3ea62b13b71800cf043a916c4a6f78c6cee03102def"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/lua/shared/Translate/EN/Mod.json",
-      "sha256": "092be02ef0cab9886490efed9b1d930cedd3833a8b2aef65fb403f2da288d468"
+      "sha256": "44be28283dfb2250d3c6f3a2c6641e981f30cc7a5d76a6c51259e9081803a90d"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/ViewpointIsometricPlusAddon.jar",
-      "sha256": "48fa01cf7e8d44c1b7f2a7d6aa337a64cd5b75f27c7ba11da6129dba43cdb2a2"
+      "sha256": "94bb9eee84411604c7679c1993352862892dfac36112e80e7c6d51af233b4815"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/media/viewpoint/addons/viewpoint-isometric-plus/addon.properties",
-      "sha256": "9c6698f3aad983fc6fa2819dc76c40bb2cb48a0e459f9c52fef824d04f3e996f"
+      "sha256": "e41b4ca1b937c38f203c484b677c86738a37d206b0d7ed151ce339fc46d17e25"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/mod.info",
-      "sha256": "16436a4065de61953974039051de84df9a8b732c1d188dc1f0941e88daf31230"
+      "sha256": "96f9edced4d3a6c65cb755ad2fff472c7cc98de60c94bef898a56adf1d9f0d27"
     },
     {
       "path": "Contents/mods/VPIsometricLighting/42/poster.png",
@@ -85,11 +85,11 @@
     },
     {
       "path": "src/vpiso/IsometricBridge.java",
-      "sha256": "ecc852b8f3d63e675ac343b4ba75f6e93fd3ccc2f58242c3bb5a13a4f5849db8"
+      "sha256": "1b357dcb9b0f9c9e7243fba8b0b2ae8cc36857ba46e34f59bbe3369dbf3b2b8e"
     },
     {
       "path": "src/vpiso/IsometricControls.java",
-      "sha256": "9f6c3978cb9c8f236b72584a635483269f2eea0c04ea65e45ae68166f9252bbe"
+      "sha256": "883b02a0e60ee7ffacba7b2a1ee979aa613761c0d83ec7ddd17b7229c11059ae"
     },
     {
       "path": "src/vpiso/IsometricEffects.java",
@@ -109,7 +109,7 @@
     },
     {
       "path": "src/vpiso/IsometricText.java",
-      "sha256": "19218e52df37b8f0624830d786da37042c6b1cda97adc65a795f701aee3f747b"
+      "sha256": "9a0fb00629572fe8628b7d980eb6956fdd201b868df7c360243ec408300c7c05"
     },
     {
       "path": "src/vpiso/IsometricVisibility.java",
@@ -121,11 +121,11 @@
     },
     {
       "path": "src/vpiso/Main.java",
-      "sha256": "a118495384915bd77a63dae8d9127086ee5b2c7d9268b5824099335cb68cba3d"
+      "sha256": "c3fa57150bb36b6ca98f156dad7f0a4f39cf8fff726c2c3824d638778bc488a6"
     },
     {
       "path": "src/vpiso/ManagedAddon.java",
-      "sha256": "c667672e02320ddc5d84b1b5054ddb38c0d4e12dbc23109452eb62fde9fd039c"
+      "sha256": "b4b21732a9cf7f8d67860c313531245e630ec253c09649c6aa4617f53f730c3c"
     },
     {
       "path": "src/vpiso/ModelSolarGeometry.java",
@@ -345,7 +345,7 @@
     },
     {
       "path": "src/vpiso/Patch_ChunkCone.java",
-      "sha256": "93a8923c440cd4e49b077d8bcdcc524bffcb33859f39006ed95f98f6e7ce5512"
+      "sha256": "6a8e6ce964d9ce75d065e35102ca01c344bb5bd3439158a40a9f7ff416550dd1"
     },
     {
       "path": "src/vpiso/Patch_ClientSessionLoaded.java",
@@ -844,6 +844,14 @@
       "sha256": "02dcdbdbc93ff1aefc38eccb3b36308541c226835cb5ae1a767311d033911554"
     },
     {
+      "path": "src/vpiso/Patch_ShadowPreloadLoads.java",
+      "sha256": "fe6f0ce4c68c78fbec9ed6966840b80fb81924301f1c672440a9b904dd7b9520"
+    },
+    {
+      "path": "src/vpiso/Patch_ShadowPreloadScope.java",
+      "sha256": "916d61e8c9268bb7c6f2e3447035c9d534a0e452abaffb796c1a6de619b921e4"
+    },
+    {
       "path": "src/vpiso/Patch_SkeletonAnimated.java",
       "sha256": "6e182b54b4c8e1d0774be740dfd99f66bac4f102a9b94961b94b713f1e45962d"
     },
@@ -938,6 +946,10 @@
     {
       "path": "src/vpiso/ShaderPreparation.java",
       "sha256": "d505590438d62468b63cd0004eb7cf44208ee431e22bf1936c8627b4f1814589"
+    },
+    {
+      "path": "src/vpiso/ShadowPreload.java",
+      "sha256": "1ca00b5109d67e26faa3f97a30abd0403d12382966cda42cd4ca0585b7b7e8a7"
     },
     {
       "path": "src/vpiso/TreeModelScope.java",

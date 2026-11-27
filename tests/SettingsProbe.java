@@ -35,6 +35,9 @@ public final class SettingsProbe {
         LiveSettings.Toggle lightweight = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "lightweightShadows", null);
         if (lightweight.get() != args[1].equals("read-off")) throw new AssertionError("Lightweight default or fresh-JVM restore failed");
         lightweight.set(args[1].equals("write-off"));
+        LiveSettings.Toggle preload = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "shadowPreload", null);
+        if (preload.get() != !args[1].equals("read-off")) throw new AssertionError("Preload default or fresh-JVM restore failed");
+        preload.set(!args[1].equals("write-off"));
         LiveSettings.Toggle grass = (LiveSettings.Toggle) GameAccess.field("vpiso.IsometricControls", "grass", null);
         if(grass.get()!=args[1].equals("read-off"))throw new AssertionError("Grass default/persistence changed");
         if(!GameAccess.field("viewpoint.platform.LiveSettings$Setting","label",grass).equals(IsometricText.localize("VP grass in isometric view")))throw new AssertionError("Grass label not localized");
@@ -94,6 +97,7 @@ public final class SettingsProbe {
                     || !saved.getProperty("vpiso.models").equals(Boolean.toString(models.get()))
                     || !saved.getProperty("vpiso.water").equals(Boolean.toString(water.get()))
                     || !saved.getProperty("vpiso.lightweightShadows").equals(Boolean.toString(lightweight.get()))
+                    || !saved.getProperty("vpiso.shadowPreload").equals(Boolean.toString(preload.get()))
                     || !saved.getProperty("vpiso.snow").equals(Boolean.toString(snow.get()))
                     || !saved.getProperty("vpiso.frameGeneration").equals(Boolean.toString(frameGeneration.get()))
                     || !saved.getProperty("vpiso.frameGenerationRate").equals(args[1].equals("write-off")?"60":"game")

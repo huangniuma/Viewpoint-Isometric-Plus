@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.36
+Version / 版本：0.2.37
 
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
@@ -48,6 +48,11 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.37
+
+- 新增“阴影预载优化”，位于阴影分类，默认开启，支持原版外观与3D模型。复用VP已有的后台预载，优先为当前等距画面及外扩一圈准备数据；使用VP现有地图接入预算将远处区块分散到多帧，邻近与移动路线上的区块、联机等候超时的区块继续优先。可关闭对照。 / Adds Shadow preload optimization under Shadows, on by default in both model modes. Reuses VP’s existing preload with priority around the current isometric viewport and a one-chunk margin. VP’s map-adoption budget spreads distant arrivals across frames while preserving nearby, predicted-path and overdue multiplayer priority. Can be disabled for comparison.
+- 保留阴影质量、距离、投射与接收、光源实时更新；不强制加载尚未读入的地图。离线测试验证调度规则和功能边界，实际跑图卡顿改善仍需现场对比。 / Retains shadow quality, distance, casting/receiving and live light updates; does not force unread maps to load. Offline checks verify scheduling and feature boundaries; actual traversal smoothness needs an in-game comparison.
 
 ## 0.2.36
 

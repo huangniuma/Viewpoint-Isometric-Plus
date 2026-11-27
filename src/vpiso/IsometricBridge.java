@@ -53,6 +53,14 @@ public final class IsometricBridge {
     private static boolean groundPrepared;
     private static boolean groundGrass;
     private static volatile boolean groundRequested;
+    public static boolean shadowPreloadAllowed() {
+        return Main.compatible && enabled && !failed && !View.enabled && IsometricControls.shadowPreload()
+                && IsometricControls.effects().needsShadows() && BuildPin.supported()
+                && ShaderPacks.active() != null && requestedBlockReason() == null
+                && (modelsEnabled || zombie.core.PerformanceSettings.fboRenderChunk)
+                && SplitScreen.count((Object[]) GameAccess.field("zombie.characters.IsoPlayer", "players", null)) <= 1;
+    }
+    public static float shadowPreloadYaw() { return modelsEnabled ? RotationCamera.yawDegrees() : 0f; }
     public static boolean frameGenerationAllowed() { return Main.compatible && enabled && !failed && !View.enabled
             && BuildPin.supported() && requestedBlockReason()==null
             && SplitScreen.count((Object[])GameAccess.field("zombie.characters.IsoPlayer","players",null))<=1; }

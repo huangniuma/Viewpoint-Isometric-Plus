@@ -1,6 +1,6 @@
 version=1
 id=3842962628
 title=Viewpoint Isometric Plus
-description=0.2.36: Fixes wall-attached paintings remaining visible after their parent wall is cut away in 3D model mode. Preserves native wall visibility, interaction and shadow casting. Authors: Hesin, GPT6. / 0.2.36：修复3D模型下附在墙体上的挂画未随墙透视隐藏的问题，保留原版墙体隐藏、交互与阴影投射。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
+description=0.2.37: Adds optional shadow preload optimization for both isometric model modes. Prioritizes existing preload around screen edges and spreads distant map arrivals across frames while preserving nearby and overdue multiplayer chunk priority. Authors: Hesin, GPT6. / 0.2.37：新增“阴影预载优化”开关，支持原版外观和3D模型。优先准备画面边缘数据，将远处地图接入分散到多帧，保留邻近区域与联机超时区域的加载优先级。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
 tags=Build 42;Textures
 visibility=public

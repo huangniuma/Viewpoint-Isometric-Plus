@@ -16,7 +16,7 @@ public final class IsometricControls {
     public static final String COLOR = PAGE + "/Color";
     public static final String ENVIRONMENT = PAGE + "/Environment";
     private static SettingsWindow.Button prepareButton, resetDirectionButton, openSettingsButton;
-    private static LiveSettings.Toggle enabledSetting, models, rotation, water, grass, snow, shadows, lightweightShadows, style, frameGeneration;
+    private static LiveSettings.Toggle enabledSetting, models, rotation, water, grass, snow, shadows, lightweightShadows, shadowPreload, style, frameGeneration;
     private static LiveSettings.Number shadowStrength, softness, distance, styleStrength, exposure, saturation, contrast;
     private static LiveSettings.Choice quality, frameGenerationRate;
     private static volatile IsometricEffects effects = IsometricEffects.DEFAULT;
@@ -33,6 +33,7 @@ public final class IsometricControls {
 
     public static IsometricEffects effects() { return effects; }
     public static boolean frameGeneration() { return frameGeneration != null && frameGeneration.get(); }
+    public static boolean shadowPreload() { return shadowPreload != null && shadowPreload.get(); }
     public static int frameGenerationRate() {
         if(frameGenerationRate==null)return 30;
         return switch(frameGenerationRate.get()){case 1->30;case 2->40;case 3->50;case 4->60;default->0;};
@@ -63,6 +64,8 @@ public final class IsometricControls {
             shadows.describe(IsometricText.localize("Controls VP sun, moon, lamp, flashlight and headlight shadows in both model modes, including lightweight mode. Light quality follows the selected VP shader pack."));
             lightweightShadows = toggle("lightweightShadows", "Lightweight dynamic shadows", SHADOWS, false);
             lightweightShadows.describe(IsometricText.localize("Only characters, zombies, animals, vehicles, trees, buildings and placed inventory items cast dynamic shadows. Other surfaces still receive shadows. Works in both model modes; requires dynamic shadows. Saved automatically."));
+            shadowPreload = toggle("shadowPreload", "Shadow preload optimization", SHADOWS, true);
+            shadowPreload.describe(IsometricText.localize("Prioritizes Viewpoint's existing preload around the isometric screen edges and spreads distant map arrivals across frames. Nearby chunks and overdue multiplayer chunks keep priority. Works in both model modes; requires dynamic shadows. Saved automatically."));
             shadowStrength = number("shadowStrength", "Shadow strength", SHADOWS, 0f, 1f, .05f, .55f);
             softness = number("softness", "Shadow softness", SHADOWS, 0f, 3f, .25f, 1f);
             distance = number("distance", "Shadow distance (tiles)", SHADOWS, 16f, 128f, 8f, 64f);
