@@ -37,8 +37,8 @@ public final class ObjectState084GpuProbe {
             require(GL30.glCheckFramebufferStatus(GL30.GL_FRAMEBUFFER)==GL30.GL_FRAMEBUFFER_COMPLETE,"FBO");
             Field vertex=NativeObjectShaders.class.getDeclaredField("VERTEX"),fragment=NativeObjectShaders.class.getDeclaredField("FRAGMENT");
             vertex.setAccessible(true);fragment.setAccessible(true);
-            String vs="#version 430\n"+vertex.get(null)+"\nlayout(location=0) in vec2 p;uniform int kind,key;uniform float z,scale;void main(){vpIsoObjectInfo=vpIsoSource(kind,kind==0?gl_VertexID:key);gl_Position=vec4(p*scale,z,1);}";
-            String fs="#version 430\n"+fragment.get(null)+"\nuniform int key;out vec4 color;void main(){vpIsoObjectFade();color=vec4(key==0?vec3(1,0,0):vec3(0,1,0),1);vpIsoRecordPick();}";
+            String vs="#version 430\n"+vertex.get(null)+"\nflat out vec2 vFade;layout(location=0) in vec2 p;uniform int kind,key;uniform float z,scale;void main(){vFade=vec2(0,1);vpIsoObjectInfo=vpIsoSource(kind,kind==0?gl_VertexID:key);gl_Position=vec4(p*scale,z,1);}";
+            String fs="#version 430\n"+fragment.get(null)+"\nuniform int key;out vec4 color;void main(){vpIsoObjectFade();float a=vpIsoObjectOpacity();color=vec4((key==0?vec3(1,0,0):vec3(0,1,0))*a,a);vpIsoRecordPick();}";
             GlProgram program=GlProgram.fromSources("source084",new GlProgram.Sources(vs,null,null,null,fs),Map.of(),Map.of(),List.of("production source helpers084"));
             sampleType=Class.forName("vpiso.NativeObjectState$Sample");sampleConstructor=sampleType.getDeclaredConstructor(float.class,int.class);sampleConstructor.setAccessible(true);
             GameAccess.set("vpiso.IsometricBridge","modelsEnabled",null,true);GameAccess.set("vpiso.IsometricBridge","submitted",null,true);
@@ -58,8 +58,8 @@ public final class ObjectState084GpuProbe {
                     program.use();NativeObjectState.onUse(program);program.setInt("kind",kind);program.setInt("key",0);program.set("z",0f);program.set("scale",1f);
                     GL11.glDrawArrays(GL11.GL_TRIANGLES,0,6);
                     FloatBuffer pixels=BufferUtils.createFloatBuffer(W*W*4);GL11.glReadPixels(0,0,W,W,GL11.GL_RGBA,GL11.GL_FLOAT,pixels);
-                    int covered=0;for(int i=0;i<W*W;i++)if(pixels.get(i*4)>.5f)covered++;
-                    require(Math.abs((float)covered/(W*W)-alpha)<.025f,"Object fade not applied kind="+kind+" alpha="+alpha+" pixels="+covered);
+                    for(int i=0;i<W*W;i++)require(Math.abs(pixels.get(i*4)-alpha)<.0001f && Math.abs(pixels.get(i*4+3)-alpha)<.0001f,
+                            "Source opacity not spatially uniform kind="+kind+" alpha="+alpha+" pixel="+i);
                     // Same-pixel far container and small front switch. Source ownership,
                     // rather than a tile's last item, must win in either submission order.
                     for(boolean reverse:new boolean[]{false,true}) {
@@ -78,10 +78,10 @@ public final class ObjectState084GpuProbe {
                     Object latest=GameAccess.field("vpiso.NativeObjectState","latest",null);
                     Object picked=GameAccess.field(latest.getClass().getName(),"object",latest);
                     List<Object> ids=(List<Object>)GameAccess.field("vpiso.NativeObjectState","ids",state);
-                    // The central pixel's stable fade mask determines whether the front
-                    // fragment exists; a fully hidden object must expose its background.
+                    // Every nonzero fade retains the front source's exact footprint.
+                    // A fully hidden object must expose its background source.
                     FloatBuffer centre=BufferUtils.createFloatBuffer(4);GL11.glReadPixels(W/2,W-1-W/2,1,1,GL11.GL_RGBA,GL11.GL_FLOAT,centre);
-                    int expected=centre.get(0)>.5f?1:2;
+                    int expected=alpha>0f?1:2;
                     require(picked==ids.get(expected),"Source selection diverged from actual frontmost fragment kind="+kind);
                     MousePick.ask=(MousePick.Ask)GameAccess.field("vpiso.NativeObjectState","ask",state);
                     Object fallback=new IsoObject();require(NativeObjectState.picked(fallback)==picked,"MouseTargets ownership adapter ignored selected source");
@@ -106,7 +106,7 @@ public final class ObjectState084GpuProbe {
                 require(GL11.glGetError()==0,"OpenGL error kind="+kind);
             }
             if(Boolean.getBoolean("buffers087"))System.out.println("Buffer reuse087 GPU PASS: 72 repeated uploads/readbacks reuse direct table, clear and read buffers; published pixel arrays remain separate.");
-            System.out.println("ObjectState084 GPU PASS: cases="+cases+"; mesh, packed and independent source ranges; 0/25/66/100 percent fades; front switch/background container ownership; woven context picker; stale mouse and queued reset rejection; asynchronous readback and GL binding/range restoration.");
+            System.out.println("ObjectState084 GPU PASS: cases="+cases+"; mesh, packed and independent source ranges; spatially uniform 0/25/66/100 percent opacity; front switch/background container ownership; woven context picker; stale mouse and queued reset rejection; asynchronous readback and GL binding/range restoration. Actual WBOIT routing is checked by Fade122GpuProbe.");
         } finally {GLFW.glfwDestroyWindow(window);GLFW.glfwTerminate();}
     }
     static void currentWorld(zombie.iso.IsoGridSquare square, Object... objects)throws Exception {

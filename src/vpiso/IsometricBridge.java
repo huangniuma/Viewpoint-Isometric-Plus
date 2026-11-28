@@ -125,7 +125,7 @@ public final class IsometricBridge {
     }
     public static void modelWorldRendering(Frame frame, IsometricEffects effects, boolean nativeWater) {
         modelRendering(frame, effects.withWater(false));
-        NATIVE_WATER.set(nativeWater);
+        NATIVE_WATER.set(PoolPitCompatibility.nativeWater(nativeWater));
     }
     public static boolean usesNativeWater() { return Boolean.TRUE.equals(NATIVE_WATER.get()); }
     public static boolean modelRendering() { return MODEL_EFFECTS.get() != null; }
@@ -270,13 +270,13 @@ public final class IsometricBridge {
             int index = ((Number) GameAccess.call("zombie.core.SpriteRenderer", "getMainStateIndex", sprites, new Class<?>[0])).intValue();
             if (index < 0 || index >= FRAMES.length) throw new IllegalStateException("Unexpected sprite buffer " + index);
             IsoDrawer drawer = MODEL_DRAWERS[index];
-            drawer.effects = IsometricControls.effects();
+            drawer.effects = PoolPitCompatibility.effects(IsometricControls.effects());
             RotationCamera.refresh();
             RotationInteraction.prepareFrame();
             Object nativeRenderer;
             try {
                 nativeRenderer = capture(FRAMES[index], drawer, cell, character, player);
-                drawer.nativeWater = NativeWater.available();
+                drawer.nativeWater = PoolPitCompatibility.nativeWater(NativeWater.available());
                 if (drawer.effects.water()) {
                     NativeOverlayDrawer waterDrawer = DRAWERS[index];
                     waterDrawer.effects = drawer.effects.waterOnly();
@@ -337,6 +337,7 @@ public final class IsometricBridge {
             IsometricEffects effects = blocked == null ? selected : new IsometricEffects(false, selected.shadowStrength(),
                     selected.softness(), selected.distance(), selected.resolution(), selected.style(), selected.styleStrength(),
                     selected.exposure(), selected.saturation(), selected.contrast(), selected.water(), false);
+            effects=PoolPitCompatibility.effects(effects);
             publishedStatus = blocked != null ? "Viewpoint Isometric Plus is waiting: " + blocked
                     : "Native world effects are active.";
             if (!effects.any() && !generation) return;
@@ -410,47 +411,49 @@ public final class IsometricBridge {
         frame.scene.panini = 0f;
         frame.number = ((Number) GameAccess.field("viewpoint.FP", "frameNumber", null)).longValue();
         buildCamera(frame, drawer, player);
-        Object nativeRenderer = NativeIsoState.refresh(cell, character, player);
-        frame.viewYaw += (float) Math.toRadians(captureYaw);
-        NativeHandView.capture(drawer.handView, character);
-        boolean roomsBefore = Settings.rooms;
-        CAPTURING.set(true);
-        SELF.set(character);
-        drawer.containerHighlight.begin();
-        drawer.objects.beginCapture(frame);
-        try {
-            Settings.rooms = false; // Portal visibility is meant for a camera inside the room.
-            GameAccess.call("viewpoint.environment.Weather", "snapshot", null,
-                    new Class<?>[] { Frame.class, GameAccess.type("zombie.iso.IsoCell") }, frame, cell);
-            Atmosphere.apply(frame.scene);
-            Daylight.prepare(frame.scene);
-            GameAccess.call("viewpoint.light.Flashlight", "snapshot", null,
-                    new Class<?>[] { Frame.class, GameAccess.type("zombie.characters.IsoGameCharacter") }, frame, character);
-            GameAccess.call("viewpoint.FrameFill", "captureWorld", null,
-                    new Class<?>[] { Frame.class, GameAccess.type("zombie.iso.IsoCell"),
-                            GameAccess.type("zombie.characters.IsoGameCharacter"), int.class }, frame, cell, character, player);
-            frame.scene.shadowReach = Math.max(64f, drawer.effects.distance());
-            frame.scene.farCount = 0;
-            frame.scene.shellCount = 0;
-            IsometricVisibility.apply(frame, cell, player);
-            drawer.reflections.capture(frame, cell, player);
-            drawer.nativeTrees.reset();
-            drawer.nativeView.capture(frame, cell, player, nativeRenderer,drawer.nativeTrees);
-            drawer.nativeTrees.rotation = drawer.rotation;
-            drawer.nativeTrees.capture(nativeRenderer,player);
-            drawer.nativeVision.capture(frame);
-            drawer.nativeVision.rotation = drawer.rotation;
-            NativeCursorPreview.capture(frame, cell, player);
-            NativeIsoState.complete(nativeRenderer, player);
-            drawer.containerHighlight.resolve(frame);
-        } finally {
-            NativeObjectState.endCapture();
-            NativeContainerHighlight.end();
-            Settings.rooms = roomsBefore;
-            CAPTURING.remove();
-            SELF.remove();
+        try (PoolPitNativeView nativeView=PoolPitNativeView.begin(cell,character)) {
+            Object nativeRenderer = NativeIsoState.refresh(cell, character, player);
+            frame.viewYaw += (float) Math.toRadians(captureYaw);
+            NativeHandView.capture(drawer.handView, character);
+            boolean roomsBefore = Settings.rooms;
+            CAPTURING.set(true);
+            SELF.set(character);
+            drawer.containerHighlight.begin();
+            drawer.objects.beginCapture(frame);
+            try {
+                Settings.rooms = false; // Portal visibility is meant for a camera inside the room.
+                GameAccess.call("viewpoint.environment.Weather", "snapshot", null,
+                        new Class<?>[] { Frame.class, GameAccess.type("zombie.iso.IsoCell") }, frame, cell);
+                Atmosphere.apply(frame.scene);
+                Daylight.prepare(frame.scene);
+                GameAccess.call("viewpoint.light.Flashlight", "snapshot", null,
+                        new Class<?>[] { Frame.class, GameAccess.type("zombie.characters.IsoGameCharacter") }, frame, character);
+                GameAccess.call("viewpoint.FrameFill", "captureWorld", null,
+                        new Class<?>[] { Frame.class, GameAccess.type("zombie.iso.IsoCell"),
+                                GameAccess.type("zombie.characters.IsoGameCharacter"), int.class }, frame, cell, character, player);
+                frame.scene.shadowReach = Math.max(64f, drawer.effects.distance());
+                frame.scene.farCount = 0;
+                frame.scene.shellCount = 0;
+                IsometricVisibility.apply(frame, cell, player);
+                drawer.reflections.capture(frame, cell, player);
+                drawer.nativeTrees.reset();
+                drawer.nativeView.capture(frame, cell, player, nativeRenderer,drawer.nativeTrees);
+                drawer.nativeTrees.rotation = drawer.rotation;
+                drawer.nativeTrees.capture(nativeRenderer,player);
+                drawer.nativeVision.capture(frame);
+                drawer.nativeVision.rotation = drawer.rotation;
+                NativeCursorPreview.capture(frame, cell, player);
+                NativeIsoState.complete(nativeRenderer, player);
+                drawer.containerHighlight.resolve(frame);
+            } finally {
+                NativeObjectState.endCapture();
+                NativeContainerHighlight.end();
+                Settings.rooms = roomsBefore;
+                CAPTURING.remove();
+                SELF.remove();
+            }
+            return nativeRenderer;
         }
-        return nativeRenderer;
     }
 
     private static void buildCamera(Frame frame, IsoDrawer drawer, int player) {

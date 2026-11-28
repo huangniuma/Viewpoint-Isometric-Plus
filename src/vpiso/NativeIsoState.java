@@ -31,9 +31,10 @@ public final class NativeIsoState {
         GameAccess.call(CELL, "callBeforeWorldRender", renderer, INT, playerIndex);
         Object[] data = (Object[]) GameAccess.field(CELL, "perPlayerData", renderer);
         Object state = data[playerIndex];
-        int level = (int) Math.floor(GameAccess.coordinate(player, "getZ"));
+        int level = (int) Math.floor(PoolPitNativeView.height(GameAccess.coordinate(player, "getZ")));
         int previous = ((Number) GameAccess.field(state.getClass().getName(), "lastZ", state)).intValue();
         if (previous != level) {
+            if ((previous < 0) != (level < 0)) GameAccess.call(CELL, "invalidateAll", renderer, INT, playerIndex);
             GameAccess.set("zombie.characters.IsoPlayer", "dirtyRecalcGridStack", player, true);
             GameAccess.set(state.getClass().getName(), "lastZ", state, level);
             GameAccess.call(CELL, "checkSeenRooms", renderer,
@@ -143,8 +144,9 @@ public final class NativeIsoState {
                 || minY != ((Number) GameAccess.field("zombie.iso.IsoCell", "lastMinY", cell)).intValue()) {
             GameAccess.set("zombie.iso.IsoCell", "lightUpdateCount", cell, 10);
         }
-        int level = (int) Math.floor(GameAccess.coordinate(player, "getZ"));
-        int maxZ = level < 0 ? (int) Math.ceil(GameAccess.coordinate(player, "getZ")) + 1
+        float viewZ = PoolPitNativeView.height(GameAccess.coordinate(player, "getZ"));
+        int level = (int) Math.floor(viewZ);
+        int maxZ = level < 0 ? (int) Math.ceil(viewZ) + 1
                 : ((Number) GameAccess.field("zombie.iso.IsoCell", "maxHeight", null)).intValue();
         GameAccess.set("zombie.iso.IsoCell", "maxZ", cell, maxZ);
     }

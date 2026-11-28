@@ -9,6 +9,7 @@ import viewpoint.platform.GlProgram;
 import viewpoint.render.ChunkMeshData;
 import viewpoint.render.FrameContext;
 import viewpoint.render.MousePick;
+import viewpoint.render.ModelDraws;
 import viewpoint.render.SceneData;
 
 /** Frame-owned source alpha and exact mouse ownership for the model camera's colour passes. */
@@ -404,6 +405,75 @@ public final class NativeObjectState {
     }
 
     public static void resetPick() { pickGeneration++; latest = null; NativeObjectClick.reset(); }
+
+    /** Include fading solid models in VP's existing transparent pass, using its normal visibility test. */
+    public static boolean fadingModel(Object pass,ModelDraws draws,int index) {
+        NativeObjectState state=RENDER.get();
+        if(state==null || !state.ready || !IsometricBridge.modelRendering() || index<0 || index>=draws.count())return false;
+        int[] material=(int[])GameAccess.field("viewpoint.render.ModelDraws","material",draws);
+        if(material[index]>=0)return false;
+        Sample source=state.models.get(index);
+        float alpha=source==null?1f:source.alpha;
+        float[] values=(float[])GameAccess.field("viewpoint.render.ModelDraws","values",draws);
+        float lo=Math.max(0f,Math.min(1f,values[index*68+56]));
+        float hi=Math.max(0f,Math.min(1f,values[index*68+57]));
+        float coverage=alpha*Math.max(0f,hi-lo);
+        return coverage>0f && coverage<1f && (Boolean)GameAccess.call("viewpoint.render.ModelPass","shown",pass,
+                new Class<?>[]{ModelDraws.class,int.class},draws,index);
+    }
+
+    /** The stock glass selector is synthetic; scope its CPU flags instead of patching a lambda. */
+    public static Object beginModelFade(Object pass) {
+        NativeObjectState state=RENDER.get();
+        if(state==null || !state.ready || !IsometricBridge.modelRendering())return null;
+        ModelDraws draws=(ModelDraws)GameAccess.field("viewpoint.render.ModelPass","draws",pass);
+        int[] flags=(int[])GameAccess.field("viewpoint.render.ModelDraws","flags",draws);
+        int[] changed=null;int count=0;
+        for(int i=0;i<draws.count();i++)if((flags[i]&ModelDraws.GLASS)==0 && fadingModel(pass,draws,i)) {
+            if(changed==null)changed=new int[draws.count()];
+            changed[count++]=i;flags[i]|=ModelDraws.GLASS;
+        }
+        return changed==null?null:new Object[]{flags,changed,count};
+    }
+
+    public static void endModelFade(Object scope) {
+        if(scope==null)return;
+        Object[] saved=(Object[])scope;int[] flags=(int[])saved[0],changed=(int[])saved[1];
+        for(int i=0;i<(Integer)saved[2];i++)flags[changed[i]]&=~ModelDraws.GLASS;
+    }
+
+    /** Submit only fading distant meshes to the existing forward draw. */
+    public static Object beginMeshFade(SceneData scene,byte flags) {
+        NativeObjectState state=RENDER.get();
+        if(flags!=SceneData.NEAR || state==null || !state.ready || state.frame.scene!=scene
+                || !IsometricBridge.modelRendering())return null;
+        int[] changed=null;int count=0;
+        for(int i=0;i<scene.meshCount;i++) {
+            if((scene.meshFlags[i]&(SceneData.VISIBLE|SceneData.NEAR))!=SceneData.VISIBLE)continue;
+            float lo=Math.max(0f,Math.min(1f,scene.meshFade[i*2]));
+            float hi=Math.max(0f,Math.min(1f,scene.meshFade[i*2+1]));
+            boolean partial=hi>lo && hi-lo<1f;
+            Map<Integer,Sample> sources=state.meshes.get(i);
+            if(!partial && sources!=null)for(Sample sample:sources.values())
+                if(sample!=null && sample.alpha>0f && sample.alpha<1f){partial=true;break;}
+            if(!partial)continue;
+            if(changed==null)changed=new int[scene.meshCount];
+            changed[count++]=i;scene.meshFlags[i]|=SceneData.NEAR;
+        }
+        return changed==null?null:new Object[]{scene.meshFlags,changed,count};
+    }
+
+    public static void endMeshFade(Object scope) {
+        if(scope==null)return;
+        Object[] saved=(Object[])scope;byte[] flags=(byte[])saved[0];int[] changed=(int[])saved[1];
+        for(int i=0;i<(Integer)saved[2];i++)flags[changed[i]]&=~SceneData.NEAR;
+    }
+
+    /** ModelPass.begin already binds the prepared look records for every colour pass. */
+    public static void smoothModelSamplers(Object pass) {
+        GlProgram glass=(GlProgram)GameAccess.field("viewpoint.render.ModelPass","glass",pass);
+        GameAccess.call("viewpoint.render.LayeredLooks","samplers",null,new Class<?>[]{GlProgram.class},glass);
+    }
 
     public static void onUse(GlProgram program) {
         if (!program.has("vpIsoObjectsOn")) return;

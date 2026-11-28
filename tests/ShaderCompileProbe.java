@@ -82,9 +82,9 @@ public final class ShaderCompileProbe {
                 compiled.put(path,shader);
                 count++;
             }
-            for (String fragment : new String[] {"gbuffer.frag","forward.frag","shadow.frag"}) {
+            for (String fragment : new String[] {"gbuffer.frag","forward.frag","shadow.frag","model_gbuffer.frag","model_glass.frag"}) {
                 int program = GL20.glCreateProgram();
-                int vertex = compiled.get(fragment.equals("shadow.frag") ? "shadow.vert" : "mesh.vert");
+                int vertex = compiled.get(fragment.equals("shadow.frag") ? "shadow.vert" : fragment.startsWith("model_")?"model.vert":"mesh.vert");
                 GL20.glAttachShader(program,vertex);
                 GL20.glAttachShader(program,compiled.get(fragment));
                 GL20.glLinkProgram(program);
@@ -121,7 +121,7 @@ public final class ShaderCompileProbe {
             }
             compiled.values().forEach(GL20::glDeleteShader);
             System.out.println("Built-in shader GPU PASS: " + pack + "; stages=" + count + "; loader=" + (args.length > 2 ? "actual woven VP" : "manual shared-resource regression"));
-            System.out.println("Actual VP mesh/gbuffer, mesh/forward and shadow program links passed.");
+            System.out.println("Actual VP mesh/gbuffer, mesh/forward, model/gbuffer, model/glass and shadow program links passed.");
         } finally {
             GLFW.glfwDestroyWindow(window);
             GLFW.glfwTerminate();

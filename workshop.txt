@@ -1,6 +1,6 @@
 version=1
 id=3842962628
 title=Viewpoint Isometric Plus
-description=0.2.41: Fixes furniture faces disappearing beside cutaway walls. Wall cutting uses structural source identity; furniture fades, wall decorations, picking and shadows are retained. Authors: Hesin, GPT6. / 0.2.41：修复家具贴墙侧面被墙体隐藏误裁的问题，按墙体来源执行切除，保留家具渐隐、附墙装饰隐藏、交互与阴影作用。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
+description=0.2.44: Replaces grainy model visibility fades with smooth transparency while retaining native hiding, wall cutaways and mouse selection. Authors: Hesin, GPT6. / 0.2.44：3D模型的墙体和家具隐藏改用平滑透明渐变，去除网点颗粒过渡，保留原版隐藏、切墙和点击规则。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
 tags=Build 42;Textures
 visibility=public

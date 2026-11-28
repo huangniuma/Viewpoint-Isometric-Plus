@@ -28,3 +28,24 @@ fades, wall decorations, click behavior and four installed shader packs. The
 user confirmed the furniture fix in0.2.41. The withdrawn0.2.38 camera experiment
 is not part of the current implementation. Offline checks do not measure live
 traversal FPS or establish compatibility with untested drivers/shader packs.
+
+
+## 0.2.42–0.2.44 developer checks
+
+PoolPit compatibility120/121 covers optional integration, shader-hook order,
+swimming-height visibility and chunk restoration. The final policy enables
+PoolPit integration only in isometric 3D; original appearance uses native water.
+The experimental native PoolPit water composite is not part of the current source.
+
+Smooth object fading122 reuses Viewpoint's existing weighted transparency while
+preserving native fade timing, picking and cutaways. Local checks passed all four
+installed shader packs, 57 focused GPU cases/72,729 checks, and 470 routing CPU
+cases/5,907 checks with 14 negative controls. Baked floor LOD retains its original
+dither path. These are independent CPU/hidden-GL results; live visual acceptance
+of 0.2.44 remains pending and no FPS gain is claimed.
+
+The probe sources are retained under tests. Full numbered runners, including
+Verify122.ps1, also require local research fixtures, old checkpoint JARs, woven
+classes and optional integrations not distributed here. The portable check is
+still tests/Smoke.ps1. The complete original research and failed experiments stay
+beside the original source and are not loaded by the player package.

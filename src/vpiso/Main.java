@@ -17,7 +17,7 @@ public final class Main {
             String hash = java.util.HexFormat.of().formatHex(digest.digest());
             compatible = hash.equals("8d0d5a73227d3ba0724cab076f621435ebaed8ed2c73bfaf7d32a90b0a249e1f");
             System.out.println(compatible
-                ? "[VPISO] Viewpoint Isometric Plus 0.2.41 ready for Viewpoint 0.1.7; activation: Advanced > Addons; settings: Options > Viewpoint Isometric Plus."
+                ? "[VPISO] Viewpoint Isometric Plus 0.2.44 ready for Viewpoint 0.1.7; activation: Advanced > Addons; settings: Options > Viewpoint Isometric Plus."
                 : "[VPISO] inactive: unsupported Viewpoint.jar SHA-256 " + hash);
         } catch (Exception error) {
             System.out.println("[VPISO] inactive: " + error);

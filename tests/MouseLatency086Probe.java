@@ -21,7 +21,7 @@ public final class MouseLatency086Probe {
    GL30.glBindVertexArray(GL30.glGenVertexArrays());int vbo=GL15.glGenBuffers();GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER,vbo);
    FloatBuffer vb=BufferUtils.createFloatBuffer(12);vb.put(new float[]{-1,-1,1,-1,1,1,-1,-1,1,1,-1,1}).flip();GL15.glBufferData(GL15.GL_ARRAY_BUFFER,vb,GL15.GL_STATIC_DRAW);GL20.glEnableVertexAttribArray(0);GL20.glVertexAttribPointer(0,2,GL11.GL_FLOAT,false,8,0L);
    Field v=NativeObjectShaders.class.getDeclaredField("VERTEX");v.setAccessible(true);
-   String vs="#version 430\n"+v.get(null)+"\nlayout(location=0)in vec2 p;uniform int key;uniform vec2 centre,size,jitterClip;uniform float z;void main(){vpIsoObjectInfo=vpIsoSource(2,key);gl_Position=vec4((p*size+centre)/64.0-1.0-jitterClip,z,1);}";
+   String vs="#version 430\n"+v.get(null)+"\nflat out vec2 vFade;layout(location=0)in vec2 p;uniform int key;uniform vec2 centre,size,jitterClip;uniform float z;void main(){vFade=vec2(0,1);vpIsoObjectInfo=vpIsoSource(2,key);gl_Position=vec4((p*size+centre)/64.0-1.0-jitterClip,z,1);}";
    String fs=NativeObjectShaders.rewrite("model_gbuffer.frag","#version 330\nout vec4 color;void fadeDither(){}void main(){fadeDither();color=vec4(1);}");
    GlProgram program=GlProgram.fromSources("latency086",new GlProgram.Sources(vs,null,null,null,fs),Map.of(),Map.of(),List.of("production packed query086"));
    ObjectState084GpuProbe.sampleType=Class.forName("vpiso.NativeObjectState$Sample");ObjectState084GpuProbe.sampleConstructor=ObjectState084GpuProbe.sampleType.getDeclaredConstructor(float.class,int.class);ObjectState084GpuProbe.sampleConstructor.setAccessible(true);

@@ -62,7 +62,7 @@ public final class IsometricVisibility {
         ModelDraws models = frame.scene.models;
         if (first >= models.count()) return;
         Bindings api = BindingsHolder.API;
-        if (readLevel(api, square) < (int) Math.floor(frame.camZ + .0001f)) {
+        if (readLevel(api, square) < (int) Math.floor(PoolPitNativeView.height(frame.camZ) + .0001f)) {
             NativeObjectState.model(frame, object, first, 1f);
             return;
         }
@@ -87,7 +87,7 @@ public final class IsometricVisibility {
         Bindings api = BindingsHolder.API;
         Object cutaways = zombie.iso.fboRenderChunk.FBORenderCutaways.getInstance();
         SceneData scene = frame.scene;
-        int playerLevel = (int) Math.floor(frame.camZ + 0.0001f);
+        int playerLevel = (int) Math.floor(PoolPitNativeView.height(frame.camZ) + 0.0001f);
         Map<ChunkLevel, Masks> masks = new HashMap<>();
         Map<Integer, Set<Integer>> packedHidden = new HashMap<>();
         PACKED_HIDDEN.put(scene, packedHidden);

@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.41
+Version / 版本：0.2.44
 
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
@@ -48,6 +48,21 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.44
+
+- 3D模型下，墙体、家具和门的可见性渐变改用平滑透明混合，去除逐点挖空的颗粒过渡，保留原版渐隐时机。 / Uses smooth transparency for visibility fades of walls, furniture and doors in isometric 3D, replacing stippled fade coverage while retaining native fade timing.
+- 保留原版切墙、挂画随墙隐藏、门与容器点击及物理阴影；复用Viewpoint已有透明通道，只将正在渐隐的物件加入该通道。原版外观和普通VP视角保持原有规则。 / Retains native wall cutaways, attached-art hiding, door/container picking and physical shadows. Reuses Viewpoint transparency for fading subjects; original appearance and ordinary VP retain existing behavior.
+
+## 0.2.43
+
+- 修复PoolPit水中角色高度被误用于地表可见性，导致周围地形消失；离水时按原版规则刷新跨地下层的区块缓存，避免残留缺块。保持实际人物、相机和游泳高度。 / Fixes surroundings disappearing while swimming and cached missing chunks after leaving PoolPit water, while retaining actual player/camera/swim height.
+- PoolPit水体兼容仅作用于3D模型模式。关闭3D模型时使用原版水面，撤回新增的原版外观水面合成，避免叠层和大片白色覆盖。 / PoolPit water compatibility applies only to isometric 3D. Original appearance uses native water; the added water composite is withdrawn to avoid stacked surfaces and white coverage.
+
+## 0.2.42
+
+- 增加PoolPit（Yeah it's water bitch 2.2.6）水体显示兼容。3D模型模式保留PoolPit自己的水面，避免被原版水体接管过滤。 / Adds water display compatibility with PoolPit (Yeah it's water bitch 2.2.6). Isometric 3D mode retains PoolPit's own water surfaces instead of filtering them out for native water replacement.
+- 原版外观模式增加PoolPit专用水面合成，读取其实际水位、水体类型、池底和结冰数据，并保留原版前景遮挡。沿用PoolPit提供的波纹、颜色与冰面参数，不修改地图、存档或上游模组文件。 / Original appearance adds a PoolPit water composite using its actual levels, body types, bed and ice data, with native foreground occlusion. Uses installed PoolPit wave, color and ice parameters without modifying maps, saves or upstream files.
 
 ## 0.2.41
 
