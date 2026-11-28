@@ -26,7 +26,7 @@ public final class NativeTreeCutaway extends TextureDraw.GenericDrawer {
     public static final String GLSL = """
         void vpIsoCutTree(vec3 rootScene, int plants, int flags) {
           if (vpIsoNativeOn < 0.5) return;
-          if (plants == 2) { if ((flags & 268435456) != 0) discard; return; }
+          if (plants == 2) { if ((flags & 67108864) != 0 && (flags & 536870912) == 0) discard; return; }
           if (plants == 0 || (flags & (4096 | 512)) != 0
               || ((flags >> 19) & 7) != 3) return;
           vec3 world = vec3(vpIsoNativeCam.x-rootScene.x, vpIsoNativeCam.y-rootScene.z,

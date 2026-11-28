@@ -170,6 +170,7 @@ public final class IsometricBridge {
     public static void characterFade(Frame frame, Object moving, int first) {
         float alpha = characterAlpha(moving);
         if (alpha >= 1f) return;
+        if (!NATIVE_SHADOW_CAPTURE.get()) NativeObjectState.characterFade(frame,moving,first,alpha);
         float[] values = (float[]) GameAccess.field("viewpoint.render.ModelDraws", "values", frame.scene.models);
         for (int i = first; i < frame.scene.models.count(); i++) {
             int at = i * 68 + 56;
@@ -437,6 +438,7 @@ public final class IsometricBridge {
                 IsometricVisibility.apply(frame, cell, player);
                 drawer.reflections.capture(frame, cell, player);
                 drawer.nativeTrees.reset();
+                drawer.nativeTrees.prepare(frame);
                 drawer.nativeView.capture(frame, cell, player, nativeRenderer,drawer.nativeTrees);
                 drawer.nativeTrees.rotation = drawer.rotation;
                 drawer.nativeTrees.capture(nativeRenderer,player);

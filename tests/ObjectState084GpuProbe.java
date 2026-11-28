@@ -38,7 +38,8 @@ public final class ObjectState084GpuProbe {
             Field vertex=NativeObjectShaders.class.getDeclaredField("VERTEX"),fragment=NativeObjectShaders.class.getDeclaredField("FRAGMENT");
             vertex.setAccessible(true);fragment.setAccessible(true);
             String vs="#version 430\n"+vertex.get(null)+"\nflat out vec2 vFade;layout(location=0) in vec2 p;uniform int kind,key;uniform float z,scale;void main(){vFade=vec2(0,1);vpIsoObjectInfo=vpIsoSource(kind,kind==0?gl_VertexID:key);gl_Position=vec4(p*scale,z,1);}";
-            String fs="#version 430\n"+fragment.get(null)+"\nuniform int key;out vec4 color;void main(){vpIsoObjectFade();float a=vpIsoObjectOpacity();color=vec4((key==0?vec3(1,0,0):vec3(0,1,0))*a,a);vpIsoRecordPick();}";
+            // This source-table fixture does not execute geometry replacement; full shader tests cover that path.
+            String fs="#version 430\nvoid fadeDither(){}\n"+fragment.get(null)+"\nuniform int key;out vec4 color;void main(){vpIsoObjectFade();float a=vpIsoObjectOpacity();color=vec4((key==0?vec3(1,0,0):vec3(0,1,0))*a,a);vpIsoRecordPick();}";
             GlProgram program=GlProgram.fromSources("source084",new GlProgram.Sources(vs,null,null,null,fs),Map.of(),Map.of(),List.of("production source helpers084"));
             sampleType=Class.forName("vpiso.NativeObjectState$Sample");sampleConstructor=sampleType.getDeclaredConstructor(float.class,int.class);sampleConstructor.setAccessible(true);
             GameAccess.set("vpiso.IsometricBridge","modelsEnabled",null,true);GameAccess.set("vpiso.IsometricBridge","submitted",null,true);

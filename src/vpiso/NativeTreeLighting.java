@@ -64,7 +64,8 @@ public final class NativeTreeLighting {
     private static final String COMPOSE="""
         void main() {
           vpTreeArt=texture(vpTreeTexture,vTreeUv);
-          if(vpTreeArt.a<0.01)discard;
+          // The last UNORM8 opacity step must not leave a complete depth silhouette.
+          if(vpTreeArt.a<0.01 || vpTreeArt.a*vColor.a<=1.0/255.0)discard;
           vPos=vTreePos;
           gl_FragDepth=gl_FragCoord.z;
           float floorY=float(vpTreeLevel)*2.4494896-vpTreeOrigin.y;

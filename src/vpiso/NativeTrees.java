@@ -21,11 +21,16 @@ public final class NativeTrees extends TextureDraw.GenericDrawer {
     private final List<Object> trees=new ArrayList<>();
     private final NativeTreeSort sort=new NativeTreeSort();
     private final java.util.Set<Object> highlighted=java.util.Collections.newSetFromMap(new IdentityHashMap<>());
+    private final java.util.Set<NearVegetationCompat.Owner> modeled=new java.util.HashSet<>();
+    private final java.util.Set<Object> modelRecords=java.util.Collections.newSetFromMap(new IdentityHashMap<>());
+    private Frame frame;
     private Object batch;
     private int hidden,records;
     public RotationCamera.Snapshot rotation;
 
-    public void reset() { release(); seen.clear(); trees.clear(); hidden=records=0; }
+    public void reset() { release(); seen.clear(); trees.clear(); modeled.clear(); frame=null; hidden=records=0; }
+
+    public void prepare(Frame value) { frame=value;NearVegetationCompat.owners(value,modeled); }
 
     public void add(Object square) {
         List<?> objects=(List<?>)GameAccess.call("zombie.iso.IsoGridSquare","getObjects",square,NONE);
@@ -85,6 +90,16 @@ public final class NativeTrees extends TextureDraw.GenericDrawer {
                             new Class<?>[]{float.class,float.class,float.class,GameAccess.type("zombie.core.textures.ColorInfo"),
                                     boolean.class,boolean.class,GameAccess.type("zombie.core.opengl.Shader")},
                             squareCoordinate(square,"x"),squareCoordinate(square,"y"),squareCoordinate(square,"z"),color,true,false,null);
+                    if(!modeled.isEmpty() && modeled.contains(NearVegetationCompat.owner(tree,square))) {
+                        float crown=1f;
+                        for(int i=first;i<captured.size();i++) {
+                            Object record=captured.get(i);
+                            if((Boolean)GameAccess.field(BATCH+"$Tree","transparent",record))
+                                crown=Math.min(crown,((Number)GameAccess.field(BATCH+"$Tree","cutawayAlpha",record)).floatValue());
+                            modelRecords.add(record);
+                        }
+                        NativeObjectState.treeCrown(frame,tree,crown);
+                    }
                     if((highlight & (1<<player))!=0)for(int i=first;i<captured.size();i++)highlighted.add(captured.get(i));
                 } finally { GameAccess.set("zombie.iso.IsoObject","ppfHighlighted",tree,highlight); }
             }
@@ -124,7 +139,7 @@ public final class NativeTrees extends TextureDraw.GenericDrawer {
 
     /** Keep the native producer/cutaways, but let the selected VP pack finish the trees. */
     public void renderWorld(Frame frame) {
-        if (batch == null) return;
+        if (batch == null || records == modelRecords.size()) return;
         FrameContext context = (FrameContext) GameAccess.field("viewpoint.render.WorldRenderer", "frame", null);
         int output = ((Number) GameAccess.field("viewpoint.render.FrameContext", "outputDrawFbo", context)).intValue();
         int[] viewport = (int[]) GameAccess.field("viewpoint.render.FrameContext", "viewport", context);
@@ -167,12 +182,19 @@ public final class NativeTrees extends TextureDraw.GenericDrawer {
         try {
             @SuppressWarnings("unchecked")
             List<Object> records = (List<Object>) GameAccess.field(BATCH,"trees",batch);
+            List<Object> all=null;
+            if(!modelRecords.isEmpty()) {all=new ArrayList<>(records);records.removeAll(modelRecords);}
+            try {
             order = RotationTrees.order(records);
             GL11.glColorMask(true,true,true,true);
             GL11.glDisable(GL11.GL_CULL_FACE);
             GL11.glEnable(GL11.GL_ALPHA_TEST); GL11.glAlphaFunc(GL11.GL_GREATER,0f);
             GL11.glEnable(GL11.GL_BLEND); GL11.glBlendFunc(GL11.GL_SRC_ALPHA,GL11.GL_ONE_MINUS_SRC_ALPHA);
             GameAccess.call(BATCH,"render",batch,NONE);
+            } finally {
+                if(order!=null){RotationTrees.endOrder(order);order=null;}
+                if(all!=null){records.clear();records.addAll(all);}
+            }
         } catch (Throwable error) { IsometricBridge.fail("native trees",error); }
         finally { if (order != null) RotationTrees.endOrder(order); RotationTrees.end(previousRotation); GL11.glPopAttrib(); GameAccess.staticCall("zombie.core.opengl.GLStateRenderThread","startFrame"); }
     }
@@ -182,6 +204,7 @@ public final class NativeTrees extends TextureDraw.GenericDrawer {
     public void release() {
         if (batch!=null) { GameAccess.call(BATCH,"postRender",batch,NONE); batch=null; }
         highlighted.clear();
+        modelRecords.clear();
     }
 
     public String statistics() { return "trees="+trees.size()+", stencil="+hidden+", native records="+records; }

@@ -1,6 +1,6 @@
 # Viewpoint Isometric Plus / Viewpoint 等距增强
 
-Version / 版本：0.2.44
+Version / 版本：0.2.47
 
 Authors / 作者：Hesin, GPT6  
 AI-assisted writing / AI 辅助撰稿：ChatGPT
@@ -48,6 +48,21 @@ The native addon entry controls the companion ZombieBuddy renderer. Managed runt
 允许所有人修改、二次创作和再发布本模组，无需另行申请许可。授权适用于本模组的原创内容；第三方内容仍遵循各自的许可。详见 [LICENSE](LICENSE) 与 [NOTICE.md](NOTICE.md)。
 
 Everyone may modify, create derivative works from, and redistribute this mod, including publishing modified versions, without requesting further permission. This covers the mod's original contributions; third-party content retains its own terms. See [LICENSE](LICENSE) and [NOTICE.md](NOTICE.md).
+
+## 0.2.47
+
+- 修正3D等距模式下PVNV扩展树与原版树木重复显示的问题，保留树冠渐隐、树根及原版隐藏规则。 / Fixes duplicate PVNV and native trees in isometric 3D while retaining crown fades, roots and native visibility.
+
+## 0.2.46
+
+- 修正3D等距视角下雨幕按远距离相机累积导致的过重灰层，让下雨时的场景更清楚。保留正常雾天和远处雨幕。 / Fixes excessive grey rain haze caused by accumulating distance from the remote isometric camera; retains normal fog and distant rain.
+- 修正雨雪粒子的朝向及缩放尺寸，改善大缩放下雨线过细、只有光源附近明显的问题。保留灯光照雨、雪花和室内／屋檐遮雨。 / Corrects rain/snow facing and projected size and improves unlit rain visibility at broad zoom, preserving lamp lighting, snow and indoor/eaves shelter.
+- 本轮调整仅用于开启3D模型的等距画面。 / These changes apply to isometric 3D model mode.
+
+## 0.2.45
+
+- 修正3D模型刷新时旧、新模型透明度叠加造成的覆盖变淡和闪烁。模型更新沿用VP原有的互补交接，物件隐藏继续使用独立的平滑透明渐隐。 / Fixes opacity pulses during 3D model refresh by retaining complementary geometry replacement separately from smooth object visibility.
+- 角色、僵尸和动物的原版可见性透明度单独提交，避免与模型替换区间混用；保留原版透明度更新、阴影模式、点击及切墙规则。 / Submits native actor visibility independently of replacement intervals, retaining alpha timing, shadow-only behavior, picking and cutaways.
 
 ## 0.2.44
 

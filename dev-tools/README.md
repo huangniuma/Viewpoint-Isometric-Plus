@@ -49,3 +49,27 @@ Verify122.ps1, also require local research fixtures, old checkpoint JARs, woven
 classes and optional integrations not distributed here. The portable check is
 still tests/Smoke.ps1. The complete original research and failed experiments stay
 beside the original source and are not loaded by the player package.
+
+
+## 0.2.45–0.2.47 developer checks
+
+These updates preserve complementary old/new geometry coverage separately from
+native visibility, reduce isometric rain haze, improve precipitation visibility,
+and retain smooth garage-room model handoffs and native crown fading/roots.
+PVNV0.3.17 integration preserves provider flags, wind/snow shader hooks and
+resident-model ownership, with native fallback when no replacement is ready.
+
+Source128Probe.java covers the actual woven Recipe.model -> Cooker.models ->
+ChunkMeshData source pipeline and native record exclusion. It reproduces127's
+missing source identity: PVNV calls Recipe.model directly and bypasses the normal
+PackGather.place assignment. The repair copies only valid native source identity
+for recognized PVNV models. Earlier127 consumer tests injected modelObjects;
+they did not establish correct provider production or visual success.
+
+NativeFade127Probe.java and the PVNV/crown probes are retained as regression
+references. They require optional PVNV classes or local woven/research fixtures;
+they are not part of the portable smoke entry point. Full source, dependencies,
+failed fixtures, negative controls and outputs remain in the original local
+development archive. No live observer or third-party JAR is included here.
+Four installed shader packs passed combined provider links; offline results do
+not establish live visual acceptance, other-driver compatibility or FPS gains.

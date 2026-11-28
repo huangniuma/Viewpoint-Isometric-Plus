@@ -25,9 +25,13 @@ public final class NativeObjectShaders {
             if (vertex < int(range.x)) hi = mid;
             else if (vertex >= int(range.y)) lo = mid + 1;
             else {
-              vpIsoWallCode = float((range.w >> 16) & 511u);
+              bool crown = (range.w & 67108864u) != 0u;
+              vpIsoWallCode = crown ? 0.0 : float((range.w >> 16) & 511u);
               vpIsoWallEligible = float((range.w >> 25) & 1u);
-              return vec3(uintBitsToFloat(range.z), float(range.w & 65535u), float(range.w >> 30));
+              // Bit29 marks actor alpha; fractional payload leaves the existing assist threshold intact.
+              return vec3(uintBitsToFloat(range.z), float(range.w & 65535u),
+                  float(range.w >> 30) + float((range.w >> 29) & 1u) * 0.25
+                  + (crown ? 0.0625 + float((range.w >> 16) & 255u) / 4096.0 : 0.0));
             }
           }
           return vec3(1.0, 0.0, 0.0);
@@ -37,18 +41,24 @@ public final class NativeObjectShaders {
         uniform int vpIsoObjectsOn, vpIsoPickOn, vpIsoPickBits;
         uniform vec2 vpIsoPickPixel, vpIsoPickScale;
         flat in vec3 vpIsoObjectInfo;
-        #ifndef FADE_GIVEN
-        flat in vec2 vFade;
-        #define FADE_GIVEN
-        #endif
         layout(std430, binding = 6) buffer VpIsoPickDepths { uint vpIsoPickDepths[]; };
+        bool vpIsoOutgoingGeometry();
+        float vpIsoGeometryOpacity();
+        float vpIsoCrownOpacity();
         float vpIsoObjectOpacity() {
-          return vpIsoObjectsOn == 0 ? 1.0
-              : clamp(vpIsoObjectInfo.x,0.0,1.0)
-                  * max(0.0,clamp(vFade.y,0.0,1.0)-clamp(vFade.x,0.0,1.0));
+          return vpIsoObjectsOn == 0 ? 1.0 : clamp(vpIsoObjectInfo.x,0.0,1.0) * vpIsoCrownOpacity();
         }
         bool vpIsoObjectPartial() {
-          return vpIsoObjectsOn != 0 && vpIsoObjectOpacity() < 1.0;
+          return vpIsoObjectsOn != 0 && (vpIsoObjectOpacity() < 1.0 || vpIsoOutgoingGeometry());
+        }
+        void vpIsoGeometryFade() {
+          // Actors keep native alpha in vFade for physical shadows, but colour uses it once via the source table.
+          if (vpIsoObjectsOn == 0) { fadeDither(); return; }
+          if (fract(vpIsoObjectInfo.z) >= 0.125) return;
+          if (vpIsoGeometryOpacity() <= 0.0) discard;
+          // Partial native surfaces keep one current representation so coverage
+          // never pulses as old/new meshes overlap. Their native fade stays smooth.
+          if (vpIsoObjectOpacity() < 1.0 && vpIsoOutgoingGeometry()) discard;
         }
         void vpIsoObjectFade() {
           if (vpIsoObjectOpacity() <= 0.0) discard;
@@ -101,14 +111,15 @@ public final class NativeObjectShaders {
         if (Set.of("gbuffer.frag", "forward.frag", "model_gbuffer.frag", "model_glass.frag").contains(path)) {
             source = source.replace("#version 330", "#version 430");
             boolean opaque=path.equals("gbuffer.frag") || path.equals("model_gbuffer.frag");
+            // vFade belongs to VP's complementary old/new geometry coverage.
+            // Only the native object's separate alpha is a transparent surface.
             source = once(source, "fadeDither();", "bool vpIsoDeferredFade = vpIsoPickStable();\n"
-                    + "  if (vpIsoObjectsOn == 0"+(path.equals("gbuffer.frag")?" || (vFlags & FLAG_BAKED_FLOOR) != 0":"")+") fadeDither();\n"
-                    + "  else if (!vpIsoDeferredFade) vpIsoObjectFade();", path);
+                    + "  if (!vpIsoDeferredFade) { vpIsoGeometryFade(); vpIsoObjectFade(); }", path);
             if(path.equals("forward.frag")) {
                 source=once(source,"translucent(uDebugView == 1 ? s.albedo : s.light.rgb, c.a, fromEye);",
-                        "translucent(uDebugView == 1 ? s.albedo : s.light.rgb, c.a * vpIsoObjectOpacity(), fromEye);",path);
+                        "translucent(uDebugView == 1 ? s.albedo : s.light.rgb, c.a * vpIsoObjectOpacity() * vpIsoGeometryOpacity(), fromEye);",path);
                 source=once(source,"translucent(color, alpha, fromEye);",
-                        "translucent(color, alpha * vpIsoObjectOpacity(), fromEye);",path);
+                        "translucent(color, alpha * vpIsoObjectOpacity() * vpIsoGeometryOpacity(), fromEye);",path);
             } else if(path.equals("model_glass.frag")) {
                 source=once(source,"#include \"lib/hsv.glsl\"","#include \"lib/hsv.glsl\"\n#include \"lib/look.glsl\"\nflat in int vLook;\nuniform int uModelFilter;",path);
                 source=once(source,"vGlass == 1, 0);","vGlass == 1, vpIsoObjectPartial() ? uModelFilter : 0);",path);
@@ -118,13 +129,31 @@ public final class NativeObjectShaders {
                         + "    if (c.a < 0.01) discard;\n"
                         + "  } else if (vGlass == 0 || c.a < uAlphaRange.x || c.a >= uAlphaRange.y) discard;",path);
                 source=once(source,"translucent(colour, c.a, length(vPos - uEye));",
-                        "translucent(colour, c.a * vpIsoObjectOpacity(), length(vPos - uEye));",path);
+                        "translucent(colour, c.a * vpIsoObjectOpacity() * vpIsoGeometryOpacity(), length(vPos - uEye));",path);
             }
             int end = source.lastIndexOf('}');
             source = source.substring(0, end) + "  vpIsoRecordPick();\n"
-                    + "  if (vpIsoDeferredFade) vpIsoObjectFade();\n"
+                    + "  if (vpIsoDeferredFade) { vpIsoGeometryFade(); vpIsoObjectFade(); }\n"
+                    + (path.equals("gbuffer.frag")?"  if ((vFlags & FLAG_BAKED_FLOOR) != 0 && vpIsoOutgoingGeometry()) discard;\n":"")
                     + (opaque?"  if (vpIsoObjectPartial()"+(path.equals("gbuffer.frag")?" && (vFlags & FLAG_BAKED_FLOOR) == 0":"")+") discard;\n":"")+source.substring(end);
-            return header(source, (path.equals("forward.frag")?"#define VPISO_SMOOTH_FORWARD\n":"")+FRAGMENT);
+            source += """
+                float vpIsoCrownOpacity() {
+                  float code=fract(vpIsoObjectInfo.z);
+                  if(code<0.0625 || code>=0.125 || dot(vNormal,vNormal)>=0.6) return 1.0;
+                  float opacity=clamp((code-0.0625)*4096.0/255.0,0.0,1.0);
+                  return opacity<=1.0/255.0?0.0:opacity;
+                }
+                bool vpIsoOutgoingGeometry() {
+                  return vpIsoObjectsOn != 0 && fract(vpIsoObjectInfo.z) < 0.125
+                      && vFade.x > 0.0 && vFade.y > 1.0;
+                }
+                float vpIsoGeometryOpacity() {
+                  if (vpIsoObjectsOn == 0 || fract(vpIsoObjectInfo.z) >= 0.125) return 1.0;
+                  if (vpIsoOutgoingGeometry()) return 1.0 - clamp(vFade.x, 0.0, 1.0);
+                  return vFade.y > vFade.x ? 1.0 : 0.0;
+                }
+                """;
+            return header(source, (path.equals("forward.frag")?"#define VPISO_SMOOTH_FORWARD\n":"")+"void fadeDither();\n"+FRAGMENT);
         }
         return source;
     }

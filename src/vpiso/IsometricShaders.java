@@ -126,6 +126,29 @@ public final class IsometricShaders {
             changed = replaceEyeReads(changed)
                 .replace("normalize(vpIsoOrigin(uEye) - p)", "normalize(uEye - p)")
                 .replace("normalize(vpIsoOrigin(uEye) - pos)", "normalize(uEye - pos)");
+            // Particle placement/fade follows the player, but its screen footprint
+            // and facing must use the physical camera that projects it.
+            changed = replaceExactlyOnce(changed, "vec3 toEye = -rel / max(dist, 0.001);",
+                    "vec3 toEye = vpIsoModels > 0.5 ? normalize(uEye - pos) : -rel / max(dist, 0.001);", path);
+            for (String pixels : new String[]{"FLAKE_PIXELS", "MIN_PIXELS"})
+                changed = replaceExactlyOnce(changed, "dist * uPixel * " + pixels,
+                        "(vpIsoModels > 0.5 ? abs((uViewProjection * vec4(pos, 1.0)).w) : dist) * uPixel * " + pixels, path);
+            // VP's near-eye rain visibility otherwise suppresses almost every drop
+            // in the broad isometric view unless a nearby lamp lights it.
+            changed = replaceExactlyOnce(changed, "vSeen = snow ? 1.0 : precipSeen(dist, lamps);",
+                    "vSeen = snow ? 1.0 : precipSeen(vpIsoModels > 0.5 ? min(dist, SEEN_NEAR) : dist, lamps);", path);
+        } else if (path.equals("distant_rain_table.frag")) {
+            // The distant-rain integral starts at the observer, not the remote
+            // isometric eye thousands of units behind the scene.
+            changed = changed.replaceAll("\\buEye\\b", "(vpIsoModels > 0.5 ? vpIsoEye : uEye)")
+                    .replace("uniform vec3 (vpIsoModels > 0.5 ? vpIsoEye : uEye);", "uniform vec3 uEye;");
+        } else if (path.equals("distant_rain.frag")) {
+            changed = replaceExactlyOnce(changed, "along = distance(scenePos(vUv, depth), uEye);",
+                    "vec3 vpIsoRainPos = scenePos(vUv, depth);\n"
+                    + "    if (vpIsoModels > 0.5) {\n"
+                    + "      vec3 delta = vpIsoRainPos - vpIsoEye;\n"
+                    + "      along = length(delta); r = delta / max(along, 1.0e-4);\n"
+                    + "    } else along = distance(vpIsoRainPos, uEye);", path);
         } else if (path.equals("rain_over.frag")) {
             changed = replaceExactlyOnce(changed,"fragColor = texture(uRain, paniniFrame(vUv));",
                     "fragColor = texture(uRain, paniniFrame(vUv));\n"

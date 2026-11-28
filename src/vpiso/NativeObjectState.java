@@ -28,6 +28,7 @@ public final class NativeObjectState {
     private final IsometricVisibility.CaptureQueries visibility = new IsometricVisibility.CaptureQueries();
     private final Map<Integer, Map<Integer, Sample>> meshes = new HashMap<>();
     private final Map<Integer, Sample> models = new HashMap<>();
+    private final IdentityHashMap<Sample,Integer> crowns=new IdentityHashMap<>();
     private final List<Object> ids = new ArrayList<>();
     private long[] rangeKeys=new long[16];
     private int[] rangePayload=new int[48];
@@ -55,7 +56,7 @@ public final class NativeObjectState {
 
     public void beginCapture(Frame frame) {
         this.frame = frame;
-        sources.clear(); meshes.clear(); models.clear(); ids.clear(); ids.add(null); assisted.clear();
+        sources.clear(); meshes.clear(); models.clear(); crowns.clear(); ids.clear(); ids.add(null); assisted.clear();
         ask = MousePick.ask; yaw = RotationCamera.yawDegrees();
         generation = pickGeneration; capturedAt = System.nanoTime();
         if (ask != null) {
@@ -70,6 +71,14 @@ public final class NativeObjectState {
     }
 
     public static void endCapture() { IsometricVisibility.endCapture(); CAPTURE.remove(); }
+
+    /** Frame-owned native crown alpha; wall-code bits are unused by these tree sources. */
+    public static void treeCrown(Frame frame,Object tree,float alpha) {
+        NativeObjectState state=CAPTURE.get();
+        if(state==null || state.frame!=frame)return;
+        Sample sample=state.sources.get(tree);
+        if(sample!=null)state.crowns.put(sample,0x04000000 | Math.round(Math.max(0f,Math.min(1f,alpha))*255f)<<16);
+    }
 
     /** Reuse the game's actual alpha step, once per source and captured frame. */
     public static float alpha(Object object, int player, float target) {
@@ -147,6 +156,17 @@ public final class NativeObjectState {
         if (state == null || state.frame != frame || source == null) return;
         Sample sample = state.sample(source, alpha);
         for (int i = first; i < frame.scene.models.count(); i++) state.models.put(i, sample);
+    }
+
+    /** Native character visibility is independent of VP's geometry replacement intervals. */
+    public static boolean characterFade(Frame frame,Object source,int first,float alpha) {
+        NativeObjectState state=CAPTURE.get();
+        if(state==null || state.frame!=frame)return false;
+        // Actors retain their existing ID0 blocker and native mouse interaction.
+        Sample sample=state.sources.get(source);
+        if(sample==null) {sample=new Sample(alpha,0x20000000);state.sources.put(source,sample);}
+        for(int i=first;i<frame.scene.models.count();i++)state.models.put(i,sample);
+        return true;
     }
 
     public static void mesh(Frame frame, Object cell, int index, int x, int y, int player) {
@@ -414,11 +434,13 @@ public final class NativeObjectState {
         if(material[index]>=0)return false;
         Sample source=state.models.get(index);
         float alpha=source==null?1f:source.alpha;
-        float[] values=(float[])GameAccess.field("viewpoint.render.ModelDraws","values",draws);
-        float lo=Math.max(0f,Math.min(1f,values[index*68+56]));
-        float hi=Math.max(0f,Math.min(1f,values[index*68+57]));
-        float coverage=alpha*Math.max(0f,hi-lo);
-        return coverage>0f && coverage<1f && (Boolean)GameAccess.call("viewpoint.render.ModelPass","shown",pass,
+        boolean outgoing=false;
+        if(alpha==1f && (source==null || (source.id&0x20000000)==0)) {
+            float[] values=(float[])GameAccess.field("viewpoint.render.ModelDraws","values",draws);
+            int at=index*68+56;
+            outgoing=values[at]>0f && values[at]<1f && values[at+1]>1f;
+        }
+        return (alpha>0f && alpha<1f || outgoing) && (Boolean)GameAccess.call("viewpoint.render.ModelPass","shown",pass,
                 new Class<?>[]{ModelDraws.class,int.class},draws,index);
     }
 
@@ -450,12 +472,12 @@ public final class NativeObjectState {
         int[] changed=null;int count=0;
         for(int i=0;i<scene.meshCount;i++) {
             if((scene.meshFlags[i]&(SceneData.VISIBLE|SceneData.NEAR))!=SceneData.VISIBLE)continue;
-            float lo=Math.max(0f,Math.min(1f,scene.meshFade[i*2]));
-            float hi=Math.max(0f,Math.min(1f,scene.meshFade[i*2+1]));
-            boolean partial=hi>lo && hi-lo<1f;
+            boolean partial=scene.meshFade[i*2]>0f && scene.meshFade[i*2]<1f && scene.meshFade[i*2+1]>1f;
             Map<Integer,Sample> sources=state.meshes.get(i);
             if(!partial && sources!=null)for(Sample sample:sources.values())
-                if(sample!=null && sample.alpha>0f && sample.alpha<1f){partial=true;break;}
+                if(sample!=null && (sample.alpha>0f && sample.alpha<1f
+                        || state.crowns.containsKey(sample) && (state.crowns.get(sample)>>>16&255)>0
+                            && (state.crowns.get(sample)>>>16&255)<255)){partial=true;break;}
             if(!partial)continue;
             if(changed==null)changed=new int[scene.meshCount];
             changed[count++]=i;scene.meshFlags[i]|=SceneData.NEAR;
@@ -521,7 +543,7 @@ public final class NativeObjectState {
     }
 
     private record Sample(float alpha, int id) {}
-    private static boolean needed(Sample sample) { return sample != null && (sample.alpha != 1f || sample.id != 0); }
+    private boolean needed(Sample sample) { return sample != null && (sample.alpha != 1f || sample.id != 0 || crowns.containsKey(sample)); }
     /** Primitive scratch: kind2bits, signed first32bits, original index30bits.
      * The final index is an exact tie-breaker for the original stable sort.
      * Java payload arrays limit capacity before that index can overflow. */
@@ -533,7 +555,8 @@ public final class NativeObjectState {
             rangePayload=Arrays.copyOf(rangePayload,Math.multiplyExact(capacity,3));
         }
         rangeKeys[index]=(((long)kind<<62)|((Integer.toUnsignedLong(first^Integer.MIN_VALUE))<<30)|index)^Long.MIN_VALUE;
-        int at=index*3;rangePayload[at]=end;rangePayload[at+1]=Float.floatToIntBits(sample.alpha);rangePayload[at+2]=sample.id;
+        int at=index*3;rangePayload[at]=end;rangePayload[at+1]=Float.floatToIntBits(sample.alpha);
+        rangePayload[at+2]=sample.id | crowns.getOrDefault(sample,0);
     }
     private record Pick(MousePick.Ask ask, Object object, float yaw, long time, long generation,
                         int[] pixels, List<Object> ids, BitSet assisted, int bits) {}

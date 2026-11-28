@@ -1,6 +1,6 @@
 version=1
 id=3842962628
 title=Viewpoint Isometric Plus
-description=0.2.44: Replaces grainy model visibility fades with smooth transparency while retaining native hiding, wall cutaways and mouse selection. Authors: Hesin, GPT6. / 0.2.44：3D模型的墙体和家具隐藏改用平滑透明渐变，去除网点颗粒过渡，保留原版隐藏、切墙和点击规则。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
+description=0.2.47: Fixes duplicate native and PVNV trees in isometric 3D, preserving crown fades, roots and native visibility. Authors: Hesin, GPT6. / 0.2.47：修正3D等距模式下原版树木与PVNV扩展树重复显示，保留树冠渐隐、树根和原版隐藏规则。作者：Hesin、GPT6。 GitHub: https://github.com/huangniuma/Viewpoint-Isometric-Plus | Everyone may modify and republish this mod without further permission (original contributions only). / 允许所有人二次修改和再发布本模组的原创内容，无需另行申请许可。
 tags=Build 42;Textures
 visibility=public

@@ -20,9 +20,9 @@ public final class PickAssist085GpuProbe {
    FloatBuffer vertices=BufferUtils.createFloatBuffer(24);float[] quad={-1,-1,1,-1,1,1,-1,-1,1,1,-1,1};vertices.put(quad).put(quad).flip();
    GL15.glBufferData(GL15.GL_ARRAY_BUFFER,vertices,GL15.GL_STATIC_DRAW);GL20.glEnableVertexAttribArray(0);GL20.glVertexAttribPointer(0,2,GL11.GL_FLOAT,false,8,0L);
    Field v=NativeObjectShaders.class.getDeclaredField("VERTEX");v.setAccessible(true);
-   String vs="#version 430\n"+v.get(null)+"\nflat out vec2 vFade;layout(location=0)in vec2 p;uniform int kind,key;uniform float z;uniform vec2 offset,size;void main(){vFade=vec2(0,1);vpIsoObjectInfo=vpIsoSource(kind,kind==0?gl_VertexID:key);gl_Position=vec4((p*size+offset)/32.0,z,1);}";
+   String vs="#version 430\n"+v.get(null)+"\nflat out vec2 vFade;out vec3 vNormal;layout(location=0)in vec2 p;uniform int kind,key;uniform float z;uniform vec2 offset,size;void main(){vFade=vec2(0,1);vNormal=vec3(0,1,0);vpIsoObjectInfo=vpIsoSource(kind,kind==0?gl_VertexID:key);gl_Position=vec4((p*size+offset)/32.0,z,1);}";
    // Run the real rewrite, including its placement relative to view fading and material discard.
-   String fs=NativeObjectShaders.rewrite("gbuffer.frag","#version 330\nuniform int hole;const int vFlags=0,FLAG_BAKED_FLOOR=64;out vec4 color;void fadeDither(){}void main(){fadeDither();if(hole!=0)discard;color=vec4(.3,.6,.8,1);}");
+   String fs=NativeObjectShaders.rewrite("gbuffer.frag","#version 330\nflat in vec2 vFade;in vec3 vNormal;uniform int hole;const int vFlags=0,FLAG_BAKED_FLOOR=64;out vec4 color;void fadeDither(){}void main(){fadeDither();if(hole!=0)discard;color=vec4(.3,.6,.8,1);}");
    GlProgram program=GlProgram.fromSources("assist085",new GlProgram.Sources(vs,null,null,null,fs),Map.of(),Map.of(),List.of("production 085 rewrite"));
    GameAccess.set("vpiso.IsometricBridge","modelsEnabled",null,true);GameAccess.set("vpiso.IsometricBridge","submitted",null,true);
    GameAccess.call("viewpoint.interact.MouseTargets","contextPick",null,new Class<?>[]{int.class,int.class},0,0);
